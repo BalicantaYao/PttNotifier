@@ -1,0 +1,29 @@
+{# stores/templates/home.html #}
+
+<!DOCTYLE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>PttNotifier</title>
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+  </head>
+
+  <body>
+    <nav class="navbar navbar-default navbar-static-top" role="navigation">
+      <div class="container">
+        <div class="navbar-header">
+          <a class="navbar-brand" href="{% url 'home' %}">PttNotifier</a>
+
+        </div>
+        <ul class="nav navbar-nav navbar-right">
+          {% if user and not user.is_anonymous %}
+            <a class="navbar-brand">Hello {{ user.get_full_name|default:user.username }}!</a>
+            <a class="navbar-brand" href="{% url 'auth:logout' %}?next={{ request.path }}">Logout</a>
+          {% else %}
+            <a class="navbar-brand" href="{% url 'social:begin' 'facebook' %}?next={{ request.path }}">Login with Facebook</a>
+          {% endif %}
+        </ul>
+      </div>
+    </nav>
+  </body>
+</html>
