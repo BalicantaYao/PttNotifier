@@ -1,3 +1,8 @@
 from django.contrib import admin
+from .models import Subscrption
 
-# Register your models here.
+
+class SubscriptionAdmin(admin.ModelAdmin):
+    list_display = ('user', 'keywords')
+
+admin.site.register(Subscrption, SubscriptionAdmin)

@@ -1,0 +1,11 @@
+{# subscriptions/templates/subscription_list.html #}
+{% extends "base.html" %}
+
+{% block content %}
+  {% for item in subscriptions %}
+    <div class="scriptions">
+      <h2>{{ item.user }}</h2>
+      <p>{{ item.keywords }}</p>
+    </div>
+  {% endfor %}
+{% endblock %}
