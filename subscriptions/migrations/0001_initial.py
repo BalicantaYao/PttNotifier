@@ -2,41 +2,25 @@
 from __future__ import unicode_literals
 
 from django.db import models, migrations
+from django.conf import settings
 
 
 class Migration(migrations.Migration):
 
     dependencies = [
+        migrations.swappable_dependency(settings.AUTH_USER_MODEL),
     ]
 
     operations = [
         migrations.CreateModel(
             name='Subscrption',
             fields=[
-                ('id', models.AutoField(auto_created=True, serialize=False, verbose_name='ID', primary_key=True)),
+                ('id', models.AutoField(serialize=False, auto_created=True, primary_key=True, verbose_name='ID')),
                 ('keywords', models.CharField(max_length=255)),
+                ('user', models.ForeignKey(to=settings.AUTH_USER_MODEL)),
             ],
-            options={
-            },
-            bases=(models.Model,),
-        ),
-        migrations.CreateModel(
-            name='User',
-            fields=[
-                ('id', models.AutoField(auto_created=True, serialize=False, verbose_name='ID', primary_key=True)),
-                ('email', models.CharField(max_length=255)),
-                ('ptt_id', models.CharField(max_length=255)),
-                ('fb_name', models.CharField(max_length=255)),
-                ('fb_id', models.CharField(max_length=255)),
-            ],
-            options={
-            },
-            bases=(models.Model,),
-        ),
-        migrations.AddField(
-            model_name='subscrption',
-            name='user',
-            field=models.ForeignKey(to='subscriptions.User'),
-            preserve_default=True,
+            options=None,
+            bases=None,
+            managers=None,
         ),
     ]

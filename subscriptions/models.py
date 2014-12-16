@@ -1,23 +1,14 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 # Create your models here.
 
 
 class Subscrption(models.Model):
     """model of subscription"""
-    user = models.ForeignKey('User')
+    user = models.ForeignKey(User)
     keywords = models.CharField(max_length=255)
 
     def __str__(self):
-        return self.email
+        return self.user.username
 
-
-class User(models.Model):
-    """model of user"""
-    email = models.CharField(max_length=255)
-    ptt_id = models.CharField(max_length=255)
-    fb_name = models.CharField(max_length=255)
-    fb_id = models.CharField(max_length=255)
-
-    def __str__(self):
-        return self.email
