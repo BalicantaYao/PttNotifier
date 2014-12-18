@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.shortcuts import render_to_response
 from django.template.context import RequestContext
 from .models import Subscrption
+from django.forms.models import modelform_factory
 
 # Create your views here.
 
@@ -19,3 +20,11 @@ def subscription_list(request):
     subscriptions = Subscrption.objects.all()
     return render(
         request, 'subscription_list.html', {'subscriptions': subscriptions})
+
+
+def subscription_create(request):
+    SubscriptionFrom = modelform_factory(
+        Subscrption, fields=('user', 'keywords'))
+    form = SubscriptionFrom()
+    return render(
+        request, 'subscription_create.html', {'form': form})
