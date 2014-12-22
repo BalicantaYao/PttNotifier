@@ -15,7 +15,7 @@
 
           </div>
           <ul class="nav navbar-nav navbar-right">
-            {% if user and not user.is_anonymous %}
+            {% if user.is_authenticated %}
               <a class="navbar-brand">Hello {{ user.get_full_name|default:user.username }}!</a>
               <a class="navbar-brand" href="{% url 'auth:logout' %}?next={{ request.path }}">Logout</a>
             {% else %}

@@ -1,8 +1,9 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.shortcuts import render_to_response
 from django.template.context import RequestContext
 from .models import Subscrption
 from django.forms.models import modelform_factory
+from django.http import Http404
 
 # Create your views here.
 
@@ -17,14 +18,33 @@ def home(request):
 
 
 def subscription_list(request):
-    subscriptions = Subscrption.objects.all()
+    # User.object
+    # subscriptions = Subscrption.objects.all()
+    subscriptions = Subscrption.objects.filter(user_id=request.user.id)
     return render(
         request, 'subscription_list.html', {'subscriptions': subscriptions})
+
+
+def subscription_detail(request, pk):
+    try:
+        subscription = Subscrption.objects.get(pk=pk)
+    except Subscrption.DoesNotExist:
+        raise Http404
+    return render(
+        request, 'subscription_detail.html', {'subscription': subscription})
 
 
 def subscription_create(request):
     SubscriptionFrom = modelform_factory(
         Subscrption, fields=('user', 'keywords'))
-    form = SubscriptionFrom()
+
+    if request.method == 'POST':
+        form = SubscriptionFrom(request.POST)
+        if form.is_valid():
+            subscription = form.save()
+            return redirect(subscription.get_absolute_url())
+    else:
+        form = SubscriptionFrom()
+
     return render(
         request, 'subscription_create.html', {'form': form})
