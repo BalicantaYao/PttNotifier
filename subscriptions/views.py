@@ -1,7 +1,7 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.shortcuts import render_to_response
 from django.template.context import RequestContext
-from .models import Subscrption
+from .models import Subscrption, User
 from django.forms.models import modelform_factory
 from django.http import Http404
 
@@ -35,16 +35,31 @@ def subscription_detail(request, pk):
 
 
 def subscription_create(request):
-    SubscriptionFrom = modelform_factory(
-        Subscrption, fields=('user', 'keywords'))
+    # SubscriptionFrom = modelform_factory(
+    #     Subscrption, fields=('user', 'keywords'))
 
-    if request.method == 'POST':
-        form = SubscriptionFrom(request.POST)
-        if form.is_valid():
-            subscription = form.save()
-            return redirect(subscription.get_absolute_url())
-    else:
-        form = SubscriptionFrom()
+    # if request.method == 'POST':
+    #     form = SubscriptionFrom(request.POST)
+
+    #     if form.is_valid():
+    #         subscription = form.save()
+    #         return redirect(subscription.get_absolute_url())
+    # else:
+    #     form = SubscriptionFrom()
 
     return render(
-        request, 'subscription_create.html', {'form': form})
+        request, 'subscription_create.html', {})
+    # return redirect(subscription_create)
+
+def subscription_insert(request):
+    s = get_object_or_404(User, pk=request.user.id)
+
+    SubscriptionFrom = modelform_factory(
+        Subscrption, fields=('user', 'keywords'))
+    form = SubscriptionFrom(request.user.id, request.POST["subscribe_keywords"])
+    # form.user_id = request.user.id
+
+    # raise Exception(form)
+
+    subscription = form.save()
+    return redirect(subscription.get_absolute_url())
