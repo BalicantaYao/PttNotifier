@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <form action="." method="post" role="form" class="form-inline">
+  {% csrf_token %}
+
+  <input type="hidden" id="user" value="{{ user.id }}" name="user" />
+  <input class="form-control" type="text" id="keywords" name="keywords" placeholder="Keywords"/>
+
+  <button type="submit" class="btn btn-primary">修改</button>
+
+</form>
+{% endblock %}

@@ -2,10 +2,15 @@
 {% extends "base.html" %}
 
 {% block content %}
+  <h2>{{ user.username }}</h2>
+  <table class="table">
   {% for item in subscriptions %}
-    <div class="scriptions">
-      <h2>{{ item.user }}</a></h2>
-      <p></a>{{ item.keywords }}</p>
-    </div>
+    <tr class="subscription_item">
+      <td class="item_keywords">{{ item.keywords }}</td>
+      <td class="item_edit"><a href="{% url 'subscription_update' item.id %}">update</a></td>
+      <td class="item_delete">
+      <a href="{% url 'subscription_delete' item.id%}">delete</a></td>
+    </tr>
   {% endfor %}
+  </table>
 {% endblock %}

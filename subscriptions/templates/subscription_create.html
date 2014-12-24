@@ -7,7 +7,7 @@
 <form action="." method="post" role="form" class="form-inline">
   {% csrf_token %}
 
-  <input type="text" id="user" value="{{ user.id }}" name="user" />
+  <input type="hidden" id="user" value="{{ user.id }}" name="user" />
   <input class="form-control" type="text" id="keywords" name="keywords" placeholder="Keywords"/>
 
   <button type="submit" class="btn btn-primary">新增</button>

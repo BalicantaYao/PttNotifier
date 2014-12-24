@@ -1,10 +1,11 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.shortcuts import render_to_response
 from django.template.context import RequestContext
-from .models import Subscrption, User
+from .models import Subscrption
 from django import forms
-from django.forms.models import modelform_factory
 from django.http import Http404
+from django.http import HttpResponseForbidden
+from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 
@@ -42,17 +43,6 @@ class SubscriptionForm(forms.ModelForm):
 
 
 def subscription_create(request):
-    # SubscriptionFrom = modelform_factory(
-    #     Subscrption, fields=('user', 'keywords'))
-
-    # if request.method == 'POST':
-    #     form = SubscriptionFrom(request.POST)
-
-    #     if form.is_valid():
-    #         subscription = form.save()
-    #         return redirect(subscription.get_absolute_url())
-    # else:
-    #     form = SubscriptionFrom()
     if request.method == 'POST':
         form = SubscriptionForm(request.POST)
         if form.is_valid():
@@ -60,5 +50,24 @@ def subscription_create(request):
             return redirect(new_subscription.get_absolute_url())
     form = SubscriptionForm()
     return render(request, 'subscription_create.html', {'form': form})
-    # return redirect(subscription_create)
+
+
+def subscription_update(request, pk):
+    subscription = get_object_or_404(Subscrption, pk=pk)
+    if request.method == 'POST':
+        form = SubscriptionForm(request.POST, instance=subscription)
+        if form.is_valid():
+            new_subscription = form.save()
+            return redirect(new_subscription.get_absolute_url())
+    return render(request, 'subscription_update.html', {'subscription': subscription})
+
+
+@login_required
+def subscription_delete(request, pk):
+    subscription = get_object_or_404(Subscrption, pk=pk)
+    if (subscription.user_id == request.user.id):
+        subscription.delete()
+        return redirect('subscription_list')
+    return HttpResponseForbidden()
+
 
