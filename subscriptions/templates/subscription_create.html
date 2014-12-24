@@ -4,11 +4,11 @@
 {% block title%}新增訂閱 | {{ block.super }}{% endblock title%}
 {% block content %}
 
-<form action="{% url 'subscription_insert' %}" method="post" role="form" class="form-inline">
+<form action="." method="post" role="form" class="form-inline">
   {% csrf_token %}
 
-  <!-- <input type="text" id="user_name" value="{{ user.username }}" disabled="true" /> -->
-  <input class="form-control" type="text" id="subscribe_keywords" name="subscribe_keywords" placeholder="Keywords"/>
+  <input type="text" id="user" value="{{ user.id }}" name="user" />
+  <input class="form-control" type="text" id="keywords" name="keywords" placeholder="Keywords"/>
 
   <button type="submit" class="btn btn-primary">新增</button>
 
