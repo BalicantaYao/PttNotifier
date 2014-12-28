@@ -19,7 +19,7 @@
               <a class="navbar-brand" href="{% url 'subscription_list' %}">List</a>
               <a class="navbar-brand" href="{% url 'subscription_create' %}">New</a>
               <a class="navbar-brand">{{ user.get_full_name|default:user.username }}!</a>
-              <a class="navbar-brand" href="{% url 'auth:logout' %}?next={{ request.path }}">Logout</a>
+              <a class="navbar-brand" href="{% url 'auth:logout' %}?next={% url 'home' %}">Logout</a>
             {% else %}
               <a class="navbar-brand" href="{% url 'social:begin' 'facebook' %}?next={{ request.path }}">Login with Facebook</a>
             {% endif %}

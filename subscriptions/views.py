@@ -19,14 +19,13 @@ def home(request):
                               context_instance=context)
 
 
+@login_required
 def subscription_list(request):
-    # User.object
-    # subscriptions = Subscrption.objects.all()
     subscriptions = Subscrption.objects.filter(user_id=request.user.id)
     return render(
         request, 'subscription_list.html', {'subscriptions': subscriptions})
 
-
+@login_required
 def subscription_detail(request, pk):
     try:
         subscription = Subscrption.objects.get(pk=pk)
@@ -41,7 +40,7 @@ class SubscriptionForm(forms.ModelForm):
             model = Subscrption
             fields = ['user', 'keywords', ]
 
-
+@login_required
 def subscription_create(request):
     if request.method == 'POST':
         form = SubscriptionForm(request.POST)
@@ -51,7 +50,7 @@ def subscription_create(request):
     form = SubscriptionForm()
     return render(request, 'subscription_create.html', {'form': form})
 
-
+@login_required
 def subscription_update(request, pk):
     subscription = get_object_or_404(Subscrption, pk=pk)
     if request.method == 'POST':
