@@ -74,3 +74,15 @@ def subscription_delete(request, pk):
     return HttpResponseForbidden()
 
 
+@login_required
+def subscription_delete_confirm(request, pk):
+    subscription = get_object_or_404(Subscrption, pk=pk)
+    if (subscription.user_id == request.user.id):
+        if request.method == 'POST':
+            return subscription_delete(request, subscription.id)
+        return render(
+            request, 'delete_confirm.html',
+            {'subscription': subscription})
+    return HttpResponseForbidden()
+
+

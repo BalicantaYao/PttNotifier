@@ -2,7 +2,7 @@
 <html lang="en">
     <head>
         <meta charset="utf-8">
-        <title>{% block title %}{% endblock %}</title>
+        <title>{% block title %}PttNotifier{% endblock %}</title>
         <!-- <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css"> -->
         {% load staticfiles %}
         <link rel="stylesheet" href={% static "css/app.css" %} >
@@ -94,5 +94,7 @@
 
     <!-- Custom Theme JavaScript -->
     <script src={% static  "js/grayscale.js" %}></script>
+
+    {% block script %}{% endblock %}
 
 </html>
