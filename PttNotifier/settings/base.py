@@ -10,7 +10,15 @@ https://docs.djangoproject.com/en/1.7/ref/settings/
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
+import logging
+logging.basicConfig(
+    filename=os.path.join(os.getcwd(), "log.txt"),
+    level=logging.DEBUG,
+    format="%(asctime)s - %(levelname)s: %(message)s")
+
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(__file__)))
+
+logging.debug("BASE_DIR: {0}".format(BASE_DIR))
 
 ALLOWED_HOSTS = []
 
@@ -60,9 +68,10 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.7/howto/static-files/
 STATIC_URL = '/static/'
-# STATICFILES_DIRS = (
-#     os.path.join(BASE_DIR, "static"),
-# )
+STATICFILES_DIRS = (
+    os.path.join(BASE_DIR, "PttNotifier/static/"),
+)
+# logging.debug("STATICFILES_DIRS: {0}".format(STATICFILES_DIRS))
 
 
 
