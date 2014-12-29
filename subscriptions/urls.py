@@ -3,13 +3,14 @@
 # @Author: bustta
 # @Date:   2014-12-28 14:46:24
 # @Last Modified by:   bustta
-# @Last Modified time: 2014-12-28 14:54:47
+# @Last Modified time: 2014-12-29 16:37:38
 from django.conf.urls import patterns, url
-from subscriptions.views import home, subscription_list, subscription_create, subscription_detail, subscription_update, subscription_delete
+from subscriptions.views import home, contact, subscription_list, subscription_create, subscription_detail, subscription_update, subscription_delete
 
 
 urlpatterns = patterns('',
     url(r'^$', home, name='home'),
+    url(r'^contact/$', contact, name='contact'),
     url(r'^subscription/$', subscription_list, name='subscription_list'),
     url(r'^subscription/(?P<pk>\d+)/$', subscription_detail, name='subscription_detail'),
     url(r'^new/$', subscription_create, name='subscription_create'),

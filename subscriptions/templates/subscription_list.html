@@ -1,16 +1,21 @@
 {# subscriptions/templates/subscription_list.html #}
-{% extends "PttNotifier.templates.base.html" %}
+{% extends "base.html" %}
 
 {% block content %}
-  <h2>{{ user.username }}</h2>
-  <table class="table">
-  {% for item in subscriptions %}
-    <tr class="subscription_item">
-      <td class="item_keywords">{{ item.keywords }}</td>
-      <td class="item_edit"><a href="{% url 'subscription_update' item.id %}">update</a></td>
-      <td class="item_delete">
-      <a href="{% url 'subscription_delete' item.id%}">delete</a></td>
-    </tr>
-  {% endfor %}
-  </table>
+<div class="content-section">
+  <div class="row">
+    <div class="table-responsive">
+      <table class="table">
+      {% for item in subscriptions %}
+        <tr class="subscription_item">
+          <td class="item_keywords">{{ item.keywords }}</td>
+          <td class="item_edit"><a href="{% url 'subscription_update' item.id %}">update</a></td>
+          <td class="item_delete">
+          <a href="{% url 'subscription_delete' item.id%}">delete</a></td>
+        </tr>
+      {% endfor %}
+      </table>
+    </div>
+  </div>
+</div>
 {% endblock %}

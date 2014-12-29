@@ -6,7 +6,6 @@ from django import forms
 from django.http import Http404
 from django.http import HttpResponseForbidden
 from django.contrib.auth.decorators import login_required
-
 # Create your views here.
 
 
@@ -19,11 +18,15 @@ def home(request):
                               context_instance=context)
 
 
+def contact(request):
+    return render(request, 'contact.html', {})
+
 @login_required
 def subscription_list(request):
     subscriptions = Subscrption.objects.filter(user_id=request.user.id)
     return render(
         request, 'subscription_list.html', {'subscriptions': subscriptions})
+
 
 @login_required
 def subscription_detail(request, pk):
@@ -46,7 +49,8 @@ def subscription_create(request):
         form = SubscriptionForm(request.POST)
         if form.is_valid():
             new_subscription = form.save()
-            return redirect(new_subscription.get_absolute_url())
+            # return redirect(new_subscription.get_absolute_url())
+            return redirect('subscription_list')
     form = SubscriptionForm()
     return render(request, 'subscription_create.html', {'form': form})
 
