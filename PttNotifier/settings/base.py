@@ -98,3 +98,13 @@ SOCIAL_AUTH_FACEBOOK_SECRET = os.environ['SOCIAL_AUTH_FACEBOOK_SECRET']
 SOCIAL_AUTH_FACEBOOK_SCOPE = ['email']
 # SOCIAL_AUTH_URL_NAMESPACE = 'social'
 LOGIN_REDIRECT_URL = '/'
+
+from django.core.exceptions import ImproperlyConfigured
+
+def get_env_var(key):
+    try:
+        return os.environ[key]
+    except KeyError:
+        raise ImproperlyConfigured(
+            'Environment variable {key} required.'.format(key=key)
+)
