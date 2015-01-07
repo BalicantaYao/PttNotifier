@@ -3,13 +3,12 @@
 # @Author: bustta
 # @Date:   2014-12-09 23:18:11
 # @Last Modified by:   bustta
-# @Last Modified time: 2014-12-15 23:19:13
+# @Last Modified time: 2015-01-08 00:17:29
 
 from .base import *
 import os
 
-
-SECRET_KEY = os.environ['PRODUCTION_SECRET']
+SECRET_KEY = get_env_var('LOCAL_SECRET')
 
 DEBUG = True
 TEMPLATE_DEBUG = True

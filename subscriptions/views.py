@@ -61,7 +61,8 @@ def subscription_update(request, pk):
         form = SubscriptionForm(request.POST, instance=subscription)
         if form.is_valid():
             new_subscription = form.save()
-            return redirect(new_subscription.get_absolute_url())
+            # return redirect(new_subscription.get_absolute_url())
+            return redirect('subscription_list')
     return render(request, 'subscription_update.html', {'subscription': subscription})
 
 
