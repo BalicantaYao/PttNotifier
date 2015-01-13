@@ -39,3 +39,4 @@ for item in all_user_mails:
 
 print("Operation Done.")
 conn.close()
+
