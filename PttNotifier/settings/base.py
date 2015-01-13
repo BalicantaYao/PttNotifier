@@ -27,14 +27,13 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = (
     'subscriptions',
-    'social.apps.django_app.default',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-
+    'social.apps.django_app.default',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -42,7 +41,7 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
-    'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
+#    'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 )
@@ -68,18 +67,18 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.7/howto/static-files/
 STATIC_URL = '/static/'
-STATICFILES_DIRS = (
-    os.path.join(BASE_DIR, "PttNotifier/static/"),
-)
+#STATICFILES_DIRS = (
+#    os.path.join(BASE_DIR, "PttNotifier/static/"),
+#)
 # logging.debug("STATICFILES_DIRS: {0}".format(STATICFILES_DIRS))
 
 
 
 # auth related
 AUTHENTICATION_BACKENDS = (
-    'social.backends.twitter.TwitterOAuth',
+#    'social.backends.twitter.TwitterOAuth',
     'social.backends.facebook.FacebookOAuth2',
-    'social.backends.google.GoogleOAuth2',
+#    'social.backends.google.GoogleOAuth2',
     'django.contrib.auth.backends.ModelBackend',
 )
 TEMPLATE_CONTEXT_PROCESSORS = (
@@ -96,7 +95,8 @@ TEMPLATE_CONTEXT_PROCESSORS = (
 SOCIAL_AUTH_FACEBOOK_KEY = os.environ['SOCIAL_AUTH_FACEBOOK_KEY']
 SOCIAL_AUTH_FACEBOOK_SECRET = os.environ['SOCIAL_AUTH_FACEBOOK_SECRET']
 SOCIAL_AUTH_FACEBOOK_SCOPE = ['email']
-# SOCIAL_AUTH_URL_NAMESPACE = 'social'
+
+#SOCIAL_AUTH_URL_NAMESPACE = 'social'
 LOGIN_REDIRECT_URL = '/'
 
 from django.core.exceptions import ImproperlyConfigured
@@ -107,4 +107,4 @@ def get_env_var(key):
     except KeyError:
         raise ImproperlyConfigured(
             'Environment variable {key} required.'.format(key=key)
-)
+	)

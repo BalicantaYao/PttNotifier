@@ -15,12 +15,12 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Subscrption',
             fields=[
-                ('id', models.AutoField(serialize=False, auto_created=True, primary_key=True, verbose_name='ID')),
+                ('id', models.AutoField(primary_key=True, serialize=False, verbose_name='ID', auto_created=True)),
                 ('keywords', models.CharField(max_length=255)),
                 ('user', models.ForeignKey(to=settings.AUTH_USER_MODEL)),
             ],
-            options=None,
-            bases=None,
-            managers=None,
+            options={
+            },
+            bases=(models.Model,),
         ),
     ]
