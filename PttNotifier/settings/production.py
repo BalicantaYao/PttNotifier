@@ -3,15 +3,14 @@
 # @Author: bustta
 # @Date:   2014-12-09 23:18:19
 # @Last Modified by:   bustta
-# @Last Modified time: 2014-12-30 16:35:13
+# @Last Modified time: 2014-12-31 16:26:44
 from .base import *
 import os
 
 DEBUG = False
 TEMPALTE_DEBUG = False
 
-#SECRET_KEY = get_env_var('PTTNOTIFIER_SECRET')
-SECRET_KEY = 'upv&_lu&5zk)3q-*(wu0*583!10q6tf2m3$91&m#t0t3j!g==q'
+SECRET_KEY = get_env_var('PTTNOTIFIER_SECRET')
 
 DATABASES = {
     'default': {

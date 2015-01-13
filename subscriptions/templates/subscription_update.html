@@ -9,7 +9,7 @@
       {% csrf_token %}
 
       <input type="hidden" id="user" value="{{ user.id }}" name="user" />
-      <input class="form-control" type="text" id="keywords" name="keywords" placeholder="Keywords"/>
+      <input class="form-control" type="text" id="keywords" name="keywords" value="{{ subscription.keywords }}"/>
 
       <button type="submit" class="btn btn-primary">修改</button>
 
