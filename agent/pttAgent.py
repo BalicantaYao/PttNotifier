@@ -2,8 +2,8 @@
 # -*- coding: utf-8 -*-
 # @Author: kenny.tsai
 # @Date:   2014-12-05 09:52:34
-# @Last Modified by:   kenny.tsai
-# @Last Modified time: 2014-12-08 10:35:17
+# @Last Modified by:   bustta
+# @Last Modified time: 2015-01-20 23:44:04
 
 # https://www.ptt.cc/bbs/BuyTogether/index.html
 from bs4 import BeautifulSoup
@@ -11,6 +11,7 @@ import requests
 import datetime
 import logging
 import os
+from pgtest import *
 
 
 logging.basicConfig(
