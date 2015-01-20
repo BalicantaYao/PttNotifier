@@ -3,7 +3,7 @@
 # @Author: bustta
 # @Date:   2015-01-20 23:46:46
 # @Last Modified by:   bustta
-# @Last Modified time: 2015-01-21 00:38:40
+# @Last Modified time: 2015-01-21 00:42:21
 
 import os
 import psycopg2
@@ -14,7 +14,7 @@ def open_pg_connection():
         database=os.environ['PTTNOTIFIER_DB'],
         user=os.environ['PTTNOTIFIER_DB_DEFAULT_USER'],
         password=os.environ['PTTNOTIFIER_DB_DEFAULT_PASSWORD'],
-        host=os.environ['PG_HOST_IP'], port="5432")
+        host=os.environ['PG_HOST_IP'], port=os.environ['PG_PORT'])
     return conn
 
 
