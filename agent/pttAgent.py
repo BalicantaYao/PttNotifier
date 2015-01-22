@@ -3,7 +3,7 @@
 # @Author: kenny.tsai
 # @Date:   2014-12-05 09:52:34
 # @Last Modified by:   bustta
-# @Last Modified time: 2015-01-20 23:44:04
+# @Last Modified time: 2015-01-23 00:29:11
 
 # https://www.ptt.cc/bbs/BuyTogether/index.html
 from bs4 import BeautifulSoup
@@ -11,7 +11,7 @@ import requests
 import datetime
 import logging
 import os
-from pgtest import *
+from PGSubscriptionsPool import get_all_user_subscription
 
 
 logging.basicConfig(
@@ -57,7 +57,7 @@ def get_match_items(entry_list, keywords):
 
         title = item.select('.title > a')[0].text
         # print title
-        for keyword in input_keywords:
+        for keyword in keywords:
             is_all_match &= (keyword in title)
 
         if is_all_match:
@@ -65,7 +65,7 @@ def get_match_items(entry_list, keywords):
             author = item.select('.meta > .author')[0].text
             date = item.select('.meta > .date')[0].text
             match_objs.append({'topic': title, 'url': link, 'author': author, 'date': date})
-            # print u"MATCH => {0}, {1}, {2}, {3}".format(title, link, author, date)
+            print(u"MATCH => {0}, {1}, {2}, {3}".format(title, link, author, date))
     return match_objs
 
 
@@ -104,11 +104,13 @@ def reset_today_send_list():
 
 
 url = 'https://www.ptt.cc/bbs/{0}/index.html'.format(board)
-mail_address = 'bustta <bustta80980@gmail.com>'
-# input_keywords = [u'威秀']
-input_keywords = [u'3M', u'手套']
+# mail_address = 'bustta <bustta80980@gmail.com>'
+# input_keywords = [u'cocoa']
 subscribers = []
-subscribers.append({'mail': mail_address, 'keywords': input_keywords})
+subscribers = get_all_user_subscription()
+# my_obj = {'user_mail': mail_address, 'kw_list': input_keywords}
+# subscribers.append(my_obj)
+print(subscribers)
 
 is_this_minute_exe = False
 while True:
@@ -120,7 +122,7 @@ while True:
 
         latest_soup = get_ptt_soup_obj(url).select('.r-ent')
         for each_client in subscribers:
-            construct_mail_content_and_send(each_client['mail'], get_match_items(latest_soup, each_client['keywords']))
+            construct_mail_content_and_send(each_client['user_mail'], get_match_items(latest_soup, each_client['kw_list']))
 
         reset_today_send_list()
 
