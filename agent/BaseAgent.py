@@ -3,8 +3,7 @@
 # @Author: bustta
 # @Date:   2015-01-25 22:01:35
 # @Last Modified by:   bustta
-# @Last Modified time: 2015-01-26 22:32:29
-import logging
+# @Last Modified time: 2015-01-26 23:09:28
 from bs4 import BeautifulSoup
 import requests
 import re
@@ -18,11 +17,6 @@ class BaseAgent():
         self.ptt_site = 'https://www.ptt.cc'
         self.last_scan_page = 0
         self.is_first_exe = True
-
-        logging.basicConfig(
-            filename="PttNotifierLog.txt",
-            level=logging.INFO,
-            format="%(asctime)s - %(levelname)s: %(message)s")
 
     def _get_soup_object(self, target_url):
         user_agent = "Mozilla/4.0 (compatible; MSIE 5.5; Windows NT)"
@@ -66,6 +60,3 @@ class BaseAgent():
         self.last_scan_page = this_page
 
         return entry_list
-
-    def my_logger(msg):
-        logging.INFO(msg)
