@@ -3,7 +3,7 @@
 # @Author: bustta
 # @Date:   2015-01-22 23:22:07
 # @Last Modified by:   bustta
-# @Last Modified time: 2015-01-22 23:29:38
+# @Last Modified time: 2015-01-24 17:18:41
 from PGDataDriver import *
 
 def get_all_user_subscription():
@@ -23,4 +23,6 @@ def get_all_user_subscription():
         subs_obj = {'user_mail': row[0], 'kw_list': row[1].split(',')}
         subscription_list.append(subs_obj)
 
-    print(subscription_list)
+    return subscription_list
+
+    # print(subscription_list)
