@@ -3,14 +3,14 @@
 # @Author: bustta
 # @Date:   2015-01-22 23:22:07
 # @Last Modified by:   bustta
-# @Last Modified time: 2015-01-26 23:37:30
+# @Last Modified time: 2015-01-29 22:29:10
 from PGDataDriver import PGDataDriver
 
 
-class SubscriptionBridge(PGDataDriver):
+class SubscriptionRepo(PGDataDriver):
 
     def __init__(self):
-        super(SubscriptionBridge, self).__init__()
+        super(SubscriptionRepo, self).__init__()
 
     def get_all_user_subscription(self):
         self.open_pg_connection()
@@ -30,4 +30,3 @@ class SubscriptionBridge(PGDataDriver):
             subscription_list.append(subs_obj)
 
         return subscription_list
-
