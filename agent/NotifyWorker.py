@@ -3,9 +3,10 @@
 # @Author: bustta
 # @Date:   2015-01-26 23:00:17
 # @Last Modified by:   bustta
-# @Last Modified time: 2015-01-30 00:01:19
+# @Last Modified time: 2015-02-01 03:02:25
 from SubscriptionRepo import SubscriptionRepo
 from BaseAgent import BaseAgent
+from Notification import Notification
 
 dao = SubscriptionRepo()
 subs = dao.get_all_user_subscription()
@@ -32,3 +33,16 @@ for target in subs:
         match_list.append(match_set)
 
 print("\nmatch: {0}\n".format(match_list))
+for send_target in match_list:
+    for key in send_target.keys():
+        values = send_target[key]
+        if len(values) > 0:
+            mail_content = ''
+            subject = "關鍵字配對成功：{0}".format(', '.join(values[0]['kw_list']))
+            for each_match_subscription in values:
+                mail_content += "作者： {0}\n文章：{1}\n\n".format(
+                    each_match_subscription['author'],
+                    each_match_subscription['url'])
+            user_mail = key
+            notification = Notification('email', user_mail, subject, mail_content)
+            notification.notify_user()

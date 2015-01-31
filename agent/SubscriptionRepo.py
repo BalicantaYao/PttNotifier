@@ -3,7 +3,7 @@
 # @Author: bustta
 # @Date:   2015-01-22 23:22:07
 # @Last Modified by:   bustta
-# @Last Modified time: 2015-01-29 22:29:10
+# @Last Modified time: 2015-02-01 02:03:39
 from PGDataDriver import PGDataDriver
 
 
@@ -30,3 +30,6 @@ class SubscriptionRepo(PGDataDriver):
             subscription_list.append(subs_obj)
 
         return subscription_list
+
+    def update_notify_date(self, subscription_id):
+        pass

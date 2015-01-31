@@ -9,6 +9,7 @@ class Subscrption(models.Model):
     """model of subscription"""
     user = models.ForeignKey(User)
     keywords = models.CharField(max_length=255)
+    notifiedDate = models.DateField()
 
     def __str__(self):
         return self.user.username
