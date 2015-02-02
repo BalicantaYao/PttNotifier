@@ -3,7 +3,7 @@
 # @Author: kenny.tsai
 # @Date:   2014-12-05 09:52:34
 # @Last Modified by:   bustta
-# @Last Modified time: 2015-01-24 17:17:05
+# @Last Modified time: 2015-01-24 17:25:15
 
 # https://www.ptt.cc/bbs/BuyTogether/index.html
 from bs4 import BeautifulSoup
@@ -106,8 +106,7 @@ is_this_minute_exe = False
 while True:
     now_min = datetime.datetime.now().minute
     if now_min % 5 == 0 and not is_this_minute_exe:
-        # logging.info("Fetch at {0}".format(datetime.datetime.now()))
-        # print "Fetch at {0}".format(datetime.datetime.now())
+
         subscribers = get_all_user_subscription()
         print("NowMin: {0}, Subs: {1}", now_min, subscribers)
 
@@ -115,7 +114,9 @@ while True:
 
         latest_soup = get_ptt_soup_obj(url).select('.r-ent')
         for each_client in subscribers:
-            construct_mail_content_and_send(each_client['user_mail'], get_match_items(latest_soup, each_client['kw_list']))
+            target_user = each_client['user_mail']
+            match_items = get_match_items(latest_soup, each_client['kw_list'])
+            construct_mail_content_and_send(target_user, match_items)
 
         reset_today_send_list()
 

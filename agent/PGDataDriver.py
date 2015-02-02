@@ -3,7 +3,7 @@
 # @Author: bustta
 # @Date:   2015-01-20 23:46:46
 # @Last Modified by:   bustta
-# @Last Modified time: 2015-02-02 00:50:27
+# @Last Modified time: 2015-02-02 22:15:07
 
 import os
 import psycopg2
@@ -45,6 +45,7 @@ class PGDataDriver():
     def execute(self, sql, cur):
         try:
             cur.execute(sql)
+            self.util.logger("InsertExe: {0}".format(sql))
         except Exception:
             self.util.log_exception()
             raise

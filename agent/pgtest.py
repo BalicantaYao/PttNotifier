@@ -1,16 +1,23 @@
-from PGDataDriver import *
+# from BaseAgent import BaseAgent
+# agent = BaseAgent("BuyTogether")
+# entries = agent.get_entries_after_last_fetch()
 
-conn = open_pg_connection()
-cur = get_pg_cursor(conn)
+# print(entries)
+# print("total: {0}".format(len(entries)))
+from NotificationRepo import NotificationRepo
 
-sql = """
-  SELECT u.email, s.keywords
-  FROM subscriptions_subscrption s, auth_user u
-  WHERE s.user_id = u.id"""
+nobj = {
+    'subs_id': 3,
+    'date': '2015-01-02',
+    'time': '11:12:13',
+    'type': 'email',
+    'url': 'google.com'
+    }
+dao = NotificationRepo()
+dao.create_notification(nobj)
 
-rows = execute_and_fetchall(sql, cur)
+# from SubscriptionRepo import SubscriptionRepo
 
-for row in rows:
-    print("User: {0}, keywords: {1}".format(row[0], row[1]))
+# dao = SubscriptionRepo().get_all_user_subscription()
+# print(dao)
 
-close_pg_connection(conn)
