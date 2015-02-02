@@ -3,7 +3,7 @@
 # @Author: bustta
 # @Date:   2015-02-01 23:35:06
 # @Last Modified by:   bustta
-# @Last Modified time: 2015-02-02 22:35:25
+# @Last Modified time: 2015-02-02 22:53:31
 from PGDataDriver import PGDataDriver
 
 
@@ -26,7 +26,7 @@ class NotificationRepo(PGDataDriver):
             notification_obj['subs_id']
             )
 
-        self.execute(sql, self._cur)
+        self.execute_and_commit(sql, self._cur)
         self.close_pg_connection()
 
 
