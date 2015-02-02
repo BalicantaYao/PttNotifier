@@ -3,7 +3,7 @@
 # @Author: bustta
 # @Date:   2015-01-26 23:00:17
 # @Last Modified by:   bustta
-# @Last Modified time: 2015-02-01 03:02:25
+# @Last Modified time: 2015-02-03 00:51:49
 from SubscriptionRepo import SubscriptionRepo
 from BaseAgent import BaseAgent
 from Notification import Notification
@@ -33,16 +33,37 @@ for target in subs:
         match_list.append(match_set)
 
 print("\nmatch: {0}\n".format(match_list))
+# List<Dictionary<string, List<MatchInfo>>>
+# [
+#     {'bustta80980@gmail.com':
+#         [
+#             {'url': 'https://www.ptt.cc/bbs/BuyTogether/M.1422893377.A.354.html',
+#                 'topic': '[綜合] 科皙佳身體乳洗髮沐浴組188-全家店到店',
+#                 'kw_list': ['科皙佳'], 'author': 'Date2329', 'date': ' 2/03'},
+#             {'url': 'https://www.ptt.cc/bbs/BuyTogether/M.1422893518.A.323.html',
+#                 'topic': '[綜合] 科皙佳身體乳+洗沐組-頂溪/永和/EZ',
+#                 'kw_list': ['科皙佳'], 'author': 'shenwhei', 'date': ' 2/03'}
+#         ]
+#     }
+# ]
+
+
 for send_target in match_list:
     for key in send_target.keys():
-        values = send_target[key]
-        if len(values) > 0:
+        user_mail = key
+        match_info_list = send_target[user_mail]
+
+        if len(match_info_list) > 0:
             mail_content = ''
-            subject = "關鍵字配對成功：{0}".format(', '.join(values[0]['kw_list']))
-            for each_match_subscription in values:
+            subject = "關鍵字配對成功：{0}".format(', '.join(match_info_list[0]['kw_list']))
+
+            for each_match_subscription in match_info_list:
                 mail_content += "作者： {0}\n文章：{1}\n\n".format(
                     each_match_subscription['author'],
                     each_match_subscription['url'])
-            user_mail = key
+
+
             notification = Notification('email', user_mail, subject, mail_content)
             notification.notify_user()
+
+
