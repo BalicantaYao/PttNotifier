@@ -3,10 +3,12 @@
 # @Author: bustta
 # @Date:   2015-01-26 23:00:17
 # @Last Modified by:   bustta
-# @Last Modified time: 2015-02-03 00:51:49
+# @Last Modified time: 2015-02-10 23:03:27
 from SubscriptionRepo import SubscriptionRepo
 from BaseAgent import BaseAgent
 from Notification import Notification
+from NotificationRepo import NotificationRepo
+import datetime
 
 dao = SubscriptionRepo()
 subs = dao.get_all_user_subscription()
@@ -25,6 +27,7 @@ for target in subs:
         if is_all_kw_match:
             match_obj = item
             match_obj['kw_list'] = target['kw_list']
+            match_obj['subscription_id'] = target['subscription_id']
             match_list_for_each_person.append(match_obj)
 
     if len(match_list_for_each_person) > 0:
@@ -32,20 +35,8 @@ for target in subs:
         match_set[target['user_mail']] = match_list_for_each_person
         match_list.append(match_set)
 
-print("\nmatch: {0}\n".format(match_list))
-# List<Dictionary<string, List<MatchInfo>>>
-# [
-#     {'bustta80980@gmail.com':
-#         [
-#             {'url': 'https://www.ptt.cc/bbs/BuyTogether/M.1422893377.A.354.html',
-#                 'topic': '[綜合] 科皙佳身體乳洗髮沐浴組188-全家店到店',
-#                 'kw_list': ['科皙佳'], 'author': 'Date2329', 'date': ' 2/03'},
-#             {'url': 'https://www.ptt.cc/bbs/BuyTogether/M.1422893518.A.323.html',
-#                 'topic': '[綜合] 科皙佳身體乳+洗沐組-頂溪/永和/EZ',
-#                 'kw_list': ['科皙佳'], 'author': 'shenwhei', 'date': ' 2/03'}
-#         ]
-#     }
-# ]
+# print("\nmatch: {0}\n".format(match_list))
+
 
 
 for send_target in match_list:
@@ -54,10 +45,22 @@ for send_target in match_list:
         match_info_list = send_target[user_mail]
 
         if len(match_info_list) > 0:
+            notification_list = []
             mail_content = ''
             subject = "關鍵字配對成功：{0}".format(', '.join(match_info_list[0]['kw_list']))
-
+            notification_obj = {}
+            dao = NotificationRepo()
             for each_match_subscription in match_info_list:
+                now = datetime.datetime.now()
+                notification_obj = {
+                    'subscription_id': each_match_subscription['subscription_id'],
+                    'date': now.strftime("%Y-%m-%d"),
+                    'time': now.strftime("%H:%M:%S"),
+                    'type': 'email',
+                    'url': each_match_subscription['url']
+                }
+                dao.create_notification(notification_obj)
+
                 mail_content += "作者： {0}\n文章：{1}\n\n".format(
                     each_match_subscription['author'],
                     each_match_subscription['url'])
@@ -65,5 +68,7 @@ for send_target in match_list:
 
             notification = Notification('email', user_mail, subject, mail_content)
             notification.notify_user()
+
+
 
 

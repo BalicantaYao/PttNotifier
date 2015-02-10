@@ -3,7 +3,7 @@
 # @Author: bustta
 # @Date:   2015-02-01 23:35:06
 # @Last Modified by:   bustta
-# @Last Modified time: 2015-02-02 23:20:54
+# @Last Modified time: 2015-02-10 22:51:00
 from PGDataDriver import PGDataDriver
 
 
@@ -23,7 +23,7 @@ class NotificationRepo(PGDataDriver):
         """.format(
             notification_obj['date'], notification_obj['time'],
             notification_obj['type'], notification_obj['url'],
-            notification_obj['subs_id']
+            notification_obj['subscription_id']
             )
 
         self.execute_and_commit(sql, self._cur)

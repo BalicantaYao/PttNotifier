@@ -3,7 +3,7 @@
 # @Author: bustta
 # @Date:   2015-01-22 23:22:07
 # @Last Modified by:   bustta
-# @Last Modified time: 2015-02-01 02:03:39
+# @Last Modified time: 2015-02-10 22:45:43
 from PGDataDriver import PGDataDriver
 
 
@@ -17,7 +17,7 @@ class SubscriptionRepo(PGDataDriver):
         cur = self.get_pg_cursor()
 
         sql = """
-          SELECT u.email, s.keywords
+          SELECT u.email, s.keywords, s.id
           FROM subscriptions_subscrption s, auth_user u
           WHERE s.user_id = u.id"""
 
@@ -26,7 +26,7 @@ class SubscriptionRepo(PGDataDriver):
 
         subscription_list = []
         for row in rows:
-            subs_obj = {'user_mail': row[0], 'kw_list': row[1].split(',')}
+            subs_obj = {'user_mail': row[0], 'kw_list': row[1].split(','), 'subscription_id': row[2]}
             subscription_list.append(subs_obj)
 
         return subscription_list
