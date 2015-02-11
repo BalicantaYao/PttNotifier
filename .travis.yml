@@ -3,6 +3,9 @@ python:
   - '2.7'
 
 intall:
-  - pip install - requirementes.txt
+  - pip install -r requirementes.txt
 
 script: nosetests
+
+notifications:
+  slack: lab3l7:bLDvV4HNWo3X7054CBsBUG36
