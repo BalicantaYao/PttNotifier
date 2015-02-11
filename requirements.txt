@@ -1,4 +1,5 @@
 Django==1.7.4
+fabric
 python-social-auth
 BeautifulSoup4
 psycopg2
