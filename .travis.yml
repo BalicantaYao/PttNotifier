@@ -4,3 +4,5 @@ python:
 
 intall:
   - pip install - requirementes.txt
+
+script: nosetests
