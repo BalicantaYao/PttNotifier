@@ -17,6 +17,9 @@ class PGDataDriver():
         self.conn = None
         self.util = Util()
 
+    def __exit__(self, exc_type, exc_val, exc_tb):
+        self.close_pg_connection()
+
     def open_pg_connection(self):
         try:
             self.conn = psycopg2.connect(

@@ -27,4 +27,39 @@ class NotificationRepo(PGDataDriver):
             )
 
         self.execute_and_commit(sql, self._cur)
-        self.close_pg_connection()
+        # self.close_pg_connection()
+
+    # id | notified_date | notified_time | notified_type | match_url | subscription_user_id
+    def get_all(self):
+        sql = """
+            SELECT * FROM subscriptions_notification;
+        """
+
+        rows = self.execute_and_fetchall(sql, self._cur)
+        # self.close_pg_connection()
+        notification_list = []
+        for row in rows:
+            each_subs = {
+                'id': row[0],
+                'date': row[1],
+                'time': row[2],
+                'type': row[3],
+                'url': row[4],
+                'user_id': row[5]
+            }
+            notification_list.append(each_subs)
+        return notification_list
+
+    def get_notification_by_sid_and_url(self, sid, url):
+        sql = """
+            SELECT id
+            FROM subscriptions_notification
+            WHERE subscription_user_id = '{0}'
+            AND match_url = '{1}'
+        """.format(sid, url)
+        rows = self.execute_and_fetchall(sql, self._cur)
+        notification_list = []
+        for row in rows:
+            notification_list.append(row[0])
+
+        return notification_list
