@@ -1,0 +1,15 @@
+language: python
+python:
+- '2.7'
+intall:
+- pip install -r requirementes.txt
+script: nosetests
+after_script:
+- fab pull
+- fab restartNginx
+notifications:
+  slack: lab3l7:bLDvV4HNWo3X7054CBsBUG36
+env:
+  global:
+  - secure: W1E9o9p6kBkiy0gj11kDQtcEeBFOUV5va7RSMeKZspngZc5O+EG6W/kRag9plq36e3pqsIELY+dlt1p2nFiaG4DKGqTssPzZRA8pqS58cgKYOcKtiqF79JwD9YE1F+gbMupzMQD5WdnQBSwIhZE95j0DE2opfvfALU/EE+NZWBA=
+  - secure: nsANmNUwh1l1xkk+A+vtVwHuekWYYxvyy3UAIc8twY+jSF4HMfJsbpuColExEUvLnkebeD17M9mMMy7+pmXE3AqOPqTzrYz2zn3LwfHucmEdC21cmE1yyWWEjfvhEIdh8cCHHhlAWE2s/X2GRUda+78GKuAKVOHWvSReb42kFDs=
