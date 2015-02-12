@@ -14,6 +14,9 @@ class NotificationRepo(PGDataDriver):
         self.open_pg_connection()
         self._cur = self.get_pg_cursor()
 
+    def __exit__(self, exc_type, exc_val, exc_tb):
+        self.close_pg_connection()
+
     def create_notification(self, notification_obj):
         # date, time, type, url, subs_id
         sql = """

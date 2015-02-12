@@ -9,13 +9,15 @@ from BaseAgent import BaseAgent
 from Notification import Notification
 from NotificationRepo import NotificationRepo
 import datetime
+from Util import Util
 
 is_this_minute_exe = False
+util = Util()
 while True:
     now_min = datetime.datetime.now().minute
     if now_min % 5 == 0 and not is_this_minute_exe:
         is_this_minute_exe = True
-        print("Execute: {0}".format(now_min))
+        util.logger("ExecuteAt: {0}".format(datetime.datetime.now()))
 
         dao = SubscriptionRepo()
         subs = dao.get_all_user_subscription()
@@ -63,7 +65,7 @@ while True:
                             each_match_subscription['url']
                         )
                         if len(nlist) > 0:
-                            print(nlist)
+                            # print(nlist)
                             continue
 
                         now = datetime.datetime.now()
@@ -76,6 +78,7 @@ while True:
                         }
                         dao.create_notification(notification_obj)
                         notification_list.append(notification_obj)
+                        util.logger(notification_obj)
 
                         mail_content += "作者： {0}\n文章：{1}\n\n".format(
                             each_match_subscription['author'],
@@ -84,6 +87,7 @@ while True:
 
                     notification = Notification('email', user_mail, subject, mail_content)
                     notification.notify_user()
+
 
     elif now_min % 5 != 0:
             is_this_minute_exe = False
