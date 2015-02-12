@@ -1,12 +1,16 @@
 # -*- coding:utf-8 -*-  
 
-from fabric.api import run, local, roles, env, cd  
+import os
+from fabric.api import run, local, roles, env, cd , sudo
 env.hosts=['128.199.232.167']
 
-env.user="balicanta"
-env.password="0975000354"
+env.user = os.environ['PRODUCTION_USER_NAME']
+env.password = os.environ['PRODUCTION_PASSWORD']
 env.port=22
 
 def pull():
-    with cd('/home/balicanta/PttNotifier'):
+    with cd('/home/bustta/myWebApps/PttNotifier'):
         run('git pull')
+
+def restartNginx():
+    sudo('service nginx restart')
