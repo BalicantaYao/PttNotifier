@@ -6,6 +6,7 @@ intall:
 script: nosetests
 after_script:
 - fab pull
+- fab collectStatic
 - fab restartNginx
 notifications:
   slack: lab3l7:bLDvV4HNWo3X7054CBsBUG36
