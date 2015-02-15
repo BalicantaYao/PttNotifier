@@ -7,14 +7,17 @@
 from NotificationRepo import NotificationRepo
 
 nobj = {
-    'subs_id': 3,
+    'subscription_id': 3,
     'date': '2015-01-02',
     'time': '11:12:13',
     'type': 'email',
     'url': 'google.com'
     }
 dao = NotificationRepo()
+list = dao.get_notification_by_sid_and_url(7, "https://www.ptt.cc/bbs/BuyTogether/M.1423578500.A.636.html")
+print(list)
 dao.create_notification(nobj)
+# list = dao.get_all()
 
 # from SubscriptionRepo import SubscriptionRepo
 

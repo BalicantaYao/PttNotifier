@@ -21,6 +21,10 @@ def home(request):
 def contact(request):
     return render(request, 'contact.html', {})
 
+
+def privacy(request):
+    return render(request, 'privacy.html', {})
+
 @login_required
 def subscription_list(request):
     subscriptions = Subscrption.objects.filter(user_id=request.user.id)
