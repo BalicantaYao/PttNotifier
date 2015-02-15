@@ -7,7 +7,7 @@ intall:
 - pip install pyflake
 script: nosetests
 before_script:
-- pep8 . 
+- "pep8 ."
 - pyflake
 after_script:
 - fab pull
