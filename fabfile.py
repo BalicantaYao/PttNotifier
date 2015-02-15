@@ -14,3 +14,9 @@ def pull():
 
 def restartNginx():
     sudo('service nginx restart')
+
+def collectStatic():
+    path = "/home/bustta/myWebApps"
+ 
+    with cd('/home/bustta/myWebApps/PttNotifier'):
+        run('. %s/venv/pttnotifier/bin/activate && python manage.py collectstatic --noinput ' % path)
