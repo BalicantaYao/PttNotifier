@@ -3,7 +3,7 @@ python:
 - '2.7'
 intall:
 - pip install -r requirementes.txt
-- pip install pep8 --use-mirrors
+- pip install pep8
 - pip install pyflake
 script: nosetests
 before_script:
