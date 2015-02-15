@@ -3,3 +3,5 @@ fabric
 python-social-auth
 BeautifulSoup4
 psycopg2
+pyflake
+pep8
