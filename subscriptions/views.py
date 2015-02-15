@@ -25,6 +25,9 @@ def contact(request):
 def privacy(request):
     return render(request, 'privacy.html', {})
 
+def terms_and_condictions(request):
+    return render(request, 'terms_and_condictions.html', {})
+
 @login_required
 def subscription_list(request):
     subscriptions = Subscrption.objects.filter(user_id=request.user.id)
