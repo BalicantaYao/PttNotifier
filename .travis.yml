@@ -5,9 +5,9 @@ intall:
 - pip install -r requirementes.txt
 - pip install pep8
 - pip install pyflake
-script: nosetests
+cript: nosetests
 before_script:
-- "pep8 ."
+- "pep8 . --max-line-length=120"
 - pyflake
 after_script:
 - fab pull
