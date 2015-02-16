@@ -7,8 +7,7 @@ intall:
 - pip install pyflake
 cript: nosetests
 before_script:
-- "pep8 . --max-line-length=120"
-- pyflake
+- "flake8 --max-line-length=120"
 after_script:
 - fab pull
 - fab collectStatic
