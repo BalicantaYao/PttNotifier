@@ -7,7 +7,7 @@ intall:
 - pip install pyflake
 script: nosetests
 before_script:
-- "flake8 . --max-line-length=120 --exclude=./PttNotifier/settings/*.py,migrations"
+- flake8 . --max-line-length=120 --exclude=./PttNotifier/settings/*.py,migrations
 after_script:
 - fab pull
 - fab collectStatic
@@ -16,5 +16,5 @@ notifications:
   slack: lab3l7:bLDvV4HNWo3X7054CBsBUG36
 env:
   global:
-  - secure: W1E9o9p6kBkiy0gj11kDQtcEeBFOUV5va7RSMeKZspngZc5O+EG6W/kRag9plq36e3pqsIELY+dlt1p2nFiaG4DKGqTssPzZRA8pqS58cgKYOcKtiqF79JwD9YE1F+gbMupzMQD5WdnQBSwIhZE95j0DE2opfvfALU/EE+NZWBA=
-  - secure: nsANmNUwh1l1xkk+A+vtVwHuekWYYxvyy3UAIc8twY+jSF4HMfJsbpuColExEUvLnkebeD17M9mMMy7+pmXE3AqOPqTzrYz2zn3LwfHucmEdC21cmE1yyWWEjfvhEIdh8cCHHhlAWE2s/X2GRUda+78GKuAKVOHWvSReb42kFDs=
+  - secure: T91XnSzKBWl8evRhayut2KFMjwzpIlR+48afDWBPn7O118ER2pnkkAz5abEOUo/VgGFmaG/ZRv0QnRTq+kdUlJK5/fZvE/eWio80u2lDuKaCp7Dx1YUX4AJHzPanOuwBKxyjqymvCYyn/vf5JXvmx9vcMygg5VsD3dwK2UJIq5E=
+  - secure: lpgG7wZSEd4t7UdQQytXwsEn49i23YYNpVwD2WZJyuSCcDH273tptLCGZ3BdQzKKaNjwvDT+QO5mZsS+0IOVMxGhct1gbB6JOafnqqgVFVYCZkVX9euBVexsDJ5PJbgRjTHWOueSGtdvf5DJpjgAvnd4luOs82Y6HCT25mafY1I=
