@@ -7,7 +7,7 @@ intall:
 - pip install pyflake
 cript: nosetests
 before_script:
-- "flake8 . --max-line-length=120"
+- "flake8 . --max-line-length=120 --exclude=./PttNotifier/settings/*"
 after_script:
 - fab pull
 - fab collectStatic
