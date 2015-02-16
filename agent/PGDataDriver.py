@@ -52,5 +52,3 @@ class PGDataDriver():
         except Exception:
             self.util.log_exception()
             raise
-
-

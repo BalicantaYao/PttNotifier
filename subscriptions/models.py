@@ -25,6 +25,3 @@ class Notification(models.Model):
     notified_time = models.TimeField()
     notified_type = models.CharField(max_length=12)
     match_url = models.CharField(max_length=255)
-
-
-

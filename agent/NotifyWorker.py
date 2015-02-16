@@ -45,8 +45,6 @@ while True:
 
         # print("\nmatch: {0}\n".format(match_list))
 
-
-
         for send_target in match_list:
             for key in send_target.keys():
                 user_mail = key
@@ -83,13 +81,8 @@ while True:
                             each_match_subscription['author'],
                             each_match_subscription['url'])
 
-
                     notification = Notification('email', user_mail, subject, mail_content)
                     notification.notify_user()
 
-
     elif now_min % 5 != 0:
             is_this_minute_exe = False
-
-
-
