@@ -9,9 +9,8 @@ import sys
 import traceback
 
 
-class Util():
+class LogUtil():
     def __init__(self):
-        super(Util, self).__init__()
         logging.basicConfig(
             filename="workerLog.txt",
             level=logging.INFO,

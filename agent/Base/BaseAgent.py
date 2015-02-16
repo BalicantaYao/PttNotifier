@@ -7,8 +7,8 @@
 from bs4 import BeautifulSoup
 import requests
 import re
-from .Util import Util
-from .Repo.BoardScanningRepo import BoardScanningRepo
+from LogUtil.LogUtil import LogUtil
+from Repo.BoardScanningRepo import BoardScanningRepo
 
 
 class BaseAgent():
@@ -20,7 +20,7 @@ class BaseAgent():
         self.last_scan_page_number = 0
         self.is_first_exe = True
         self.pre_page = 0
-        self.util = Util()
+        self.util = LogUtil()
 
     def _get_soup_object(self, target_url):
         user_agent = "Mozilla/4.0 (compatible; MSIE 5.5; Windows NT)"
@@ -39,8 +39,10 @@ class BaseAgent():
         this_page_number = -1
         entry_list = []
         self.util.logger("GetEntryStart:")
+        scan_count = 0
         while this_page_number != self.last_scan_page_number:
             soup = self._get_soup_object(self.url)
+            scan_count += 1
             if len(soup.select('.wide')) <= 0:   # html structure change or HTTPError
                 return entry_list
 
@@ -69,6 +71,12 @@ class BaseAgent():
                 entry_list.append({'topic': title, 'url': link, 'author': author, 'date': date})
 
         self.last_scan_page_number = this_page_number
-        board_scan_obj = BoardScanning()
+        board_scan_obj = BoardScanningRepo()
+        scanning_obj = {
+            'board_name': self.target,
+            'page_number_of_last_scan': self.last_scan_page_number,
+            'last_scan_pages_count': scan_count
+        }
+        board_scan_obj.insert(scanning_obj)
 
         return entry_list

@@ -6,17 +6,18 @@
 # @Last Modified time: 2015-02-10 23:03:27
 import datetime
 
-from agent.Repo.SubscriptionRepo import SubscriptionRepo
-from agent.BaseAgent import BaseAgent
-from agent.NotifyUtil.Notification import Notification
-from agent.Repo.NotificationRepo import NotificationRepo
-from agent.Util import Util
+from Repo.SubscriptionRepo import SubscriptionRepo
+from Base.BaseAgent import BaseAgent
+from NotifyUtil.Notification import Notification
+from Repo.NotificationRepo import NotificationRepo
+from LogUtil.LogUtil import LogUtil
 
 
 def scan_and_notify():
     is_this_minute_exe = False
-    util = Util()
-    agent = BaseAgent('BuyTogether')
+    util = LogUtil()
+    # agent = BaseAgent('BuyTogether')
+    agent = BaseAgent('Beauty')
     while True:
         now_min = datetime.datetime.now().minute
         if now_min % 2 == 0 and not is_this_minute_exe:
@@ -59,10 +60,10 @@ def scan_and_notify():
                         notification_list = []
                         mail_content = ''
                         subject = "關鍵字配對成功：{0}".format(', '.join(match_info_list[0]['kw_list']))
-                        dao = NotificationRepo()
+                        notification_repo = NotificationRepo()
                         for each_match_subscription in match_info_list:
                             # check mail in pg; if existed, continue
-                            nlist = dao.get_notification_by_sid_and_url(
+                            nlist = notification_repo.get_notification_by_sid_and_url(
                                 each_match_subscription['subscription_id'],
                                 each_match_subscription['url']
                             )
@@ -78,7 +79,7 @@ def scan_and_notify():
                                 'type': 'email',
                                 'url': each_match_subscription['url']
                             }
-                            dao.create_notification(notification_obj)
+                            notification_repo.insert(notification_obj)
                             notification_list.append(notification_obj)
                             util.logger(notification_obj)
 
@@ -86,8 +87,10 @@ def scan_and_notify():
                                 each_match_subscription['author'],
                                 each_match_subscription['url'])
 
-                        notification = Notification('email', user_mail, subject, mail_content)
-                        notification.notify_user()
+                        # aggregate match articles in one mail to the same person
+                        if len(mail_content) > 0:
+                            notification = Notification('email', user_mail, subject, mail_content)
+                            notification.notify_user()
 
         elif now_min % 2 != 0:
                 is_this_minute_exe = False

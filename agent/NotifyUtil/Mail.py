@@ -6,7 +6,7 @@
 # @Last Modified time: 2015-02-01 02:47:13
 import os
 import requests
-from ..Util import Util
+from LogUtil.LogUtil import LogUtil
 
 
 class Mail():
@@ -22,9 +22,10 @@ class Mail():
             'subject': subject,
             'text': content
         }
+        self.logging = LogUtil()
 
     def send_mail(self):
-        Util().logger("Send to Mailgun: {0} - {1}".format(
+        self.logging.logger("Send to Mailgun: {0} - {1}".format(
             str(self.mail_data['to']), str(self.mail_data['subject'])))
         return requests.post(
             self._mail_gun_sandbox,

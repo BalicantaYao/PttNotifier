@@ -7,7 +7,7 @@
 
 import os
 import psycopg2
-from agent.Util import Util
+from LogUtil.LogUtil import LogUtil
 
 
 class PGDataDriver():
@@ -15,7 +15,7 @@ class PGDataDriver():
     def __init__(self):
         super(PGDataDriver, self).__init__()
         self.conn = None
-        self.util = Util()
+        self.util = LogUtil()
 
     def __exit__(self, exc_type, exc_val, exc_tb):
         self.close_pg_connection()
