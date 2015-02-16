@@ -1,6 +1,6 @@
 language: python
 python:
-- '2.7'
+- '3.4'
 intall:
 - pip install -r requirementes.txt
 - pip install pep8
