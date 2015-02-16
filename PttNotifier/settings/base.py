@@ -11,6 +11,8 @@ https://docs.djangoproject.com/en/1.7/ref/settings/
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
 import logging
+from django.core.exceptions import ImproperlyConfigured
+
 logging.basicConfig(
     filename=os.path.join(os.getcwd(), "log.txt"),
     level=logging.DEBUG,
@@ -41,7 +43,6 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
-#    'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 )
@@ -72,13 +73,9 @@ STATICFILES_DIRS = (
 )
 logging.debug("STATICFILES_DIRS: {0}".format(STATICFILES_DIRS))
 
-
-
 # auth related
 AUTHENTICATION_BACKENDS = (
-#    'social.backends.twitter.TwitterOAuth',
     'social.backends.facebook.FacebookOAuth2',
-#    'social.backends.google.GoogleOAuth2',
     'django.contrib.auth.backends.ModelBackend',
 )
 TEMPLATE_CONTEXT_PROCESSORS = (
@@ -98,13 +95,9 @@ SOCIAL_AUTH_FACEBOOK_SCOPE = ['email']
 SOCIAL_AUTH_URL_NAMESPACE = 'social'
 LOGIN_REDIRECT_URL = '/'
 
-from django.core.exceptions import ImproperlyConfigured
-
 
 def get_env_var(key):
     try:
         return os.environ[key]
     except KeyError:
-        raise ImproperlyConfigured(
-            'Environment variable {key} required.'.format(key=key)
-	)
+        raise ImproperlyConfigured('Environment variable {key} required.'.format(key=key))
