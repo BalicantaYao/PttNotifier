@@ -1,7 +1,7 @@
 # -*- coding:utf-8 -*-
 
 import os
-from fabric.api import run, local, roles, env, cd, sudo
+from fabric.api import run, env, cd, sudo
 env.hosts = ['128.199.232.167']
 
 env.user = os.environ['PRODUCTION_USER_NAME']

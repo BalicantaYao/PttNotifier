@@ -5,9 +5,9 @@
 # @Last Modified by:   bustta
 # @Last Modified time: 2014-12-30 00:05:43
 from django.conf.urls import patterns, url
-from subscriptions.views import privacy, terms_and_condictions,
-subscription_list, subscription_create,
-subscription_detail, subscription_update, subscription_delete, subscription_delete_confirm
+from subscriptions.views import terms_and_condictions, subscription_list, subscription_create
+from subscriptions.views import subscription_detail, subscription_update
+from subscriptions.views import subscription_delete, subscription_delete_confirm
 
 urlpatterns = patterns(
     '',

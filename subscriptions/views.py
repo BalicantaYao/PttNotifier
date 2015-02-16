@@ -58,7 +58,8 @@ def subscription_create(request):
     if request.method == 'POST':
         form = SubscriptionForm(request.POST)
         if form.is_valid():
-            new_subscription = form.save()
+            form.save()
+            # new_subscription = form.save()
             # return redirect(new_subscription.get_absolute_url())
             return redirect('subscription_list')
     form = SubscriptionForm()
@@ -71,7 +72,8 @@ def subscription_update(request, pk):
     if request.method == 'POST':
         form = SubscriptionForm(request.POST, instance=subscription)
         if form.is_valid():
-            new_subscription = form.save()
+            form.save()
+            # new_subscription = form.save()
             # return redirect(new_subscription.get_absolute_url())
             return redirect('subscription_list')
     return render(request, 'subscription_update.html', {'subscription': subscription})
