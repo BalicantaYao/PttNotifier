@@ -13,6 +13,7 @@ from Util import Util
 
 is_this_minute_exe = False
 util = Util()
+agent = BaseAgent('BuyTogether')
 while True:
     now_min = datetime.datetime.now().minute
     if now_min % 5 == 0 and not is_this_minute_exe:
@@ -21,8 +22,6 @@ while True:
 
         dao = SubscriptionRepo()
         subs = dao.get_all_user_subscription()
-
-        agent = BaseAgent('BuyTogether')
         all_entries = agent.get_entries_after_last_fetch()
 
         match_list = []
