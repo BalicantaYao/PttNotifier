@@ -4,25 +4,26 @@
 # @Date:   2015-01-22 23:22:07
 # @Last Modified by:   bustta
 # @Last Modified time: 2015-02-10 22:45:43
-from PGDataDriver import PGDataDriver
+from agent.DataDriver.PGDataDriver import PGDataDriver
 
 
-class SubscriptionRepo(PGDataDriver):
+class SubscriptionRepo():
 
     def __init__(self):
         super(SubscriptionRepo, self).__init__()
+        self.pg_driver = PGDataDriver()
 
     def get_all_user_subscription(self):
-        self.open_pg_connection()
-        cur = self.get_pg_cursor()
+        self.pg_driver.open_pg_connection()
+        cur = self.pg_driver.get_pg_cursor()
 
         sql = """
           SELECT u.email, s.keywords, s.id
           FROM subscriptions_subscrption s, auth_user u
           WHERE s.user_id = u.id"""
 
-        rows = self.execute_and_fetchall(sql, cur)
-        self.close_pg_connection()
+        rows = self.pg_driver.execute_and_fetchall(sql, cur)
+        self.pg_driver.close_pg_connection()
 
         subscription_list = []
         for row in rows:
@@ -30,6 +31,3 @@ class SubscriptionRepo(PGDataDriver):
             subscription_list.append(subs_obj)
 
         return subscription_list
-
-    def update_notify_date(self, subscription_id):
-        pass

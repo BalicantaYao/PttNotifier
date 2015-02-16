@@ -7,6 +7,8 @@
 from bs4 import BeautifulSoup
 import requests
 import re
+from .Util import Util
+from .Repo.BoardScanningRepo import BoardScanningRepo
 
 
 class BaseAgent():
@@ -15,8 +17,10 @@ class BaseAgent():
         self.target = target
         self.url = 'https://www.ptt.cc/bbs/{0}/index.html'.format(target)
         self.ptt_site = 'https://www.ptt.cc'
-        self.last_scan_page = 0
+        self.last_scan_page_number = 0
         self.is_first_exe = True
+        self.pre_page = 0
+        self.util = Util()
 
     def _get_soup_object(self, target_url):
         user_agent = "Mozilla/4.0 (compatible; MSIE 5.5; Windows NT)"
@@ -32,17 +36,24 @@ class BaseAgent():
         return 0
 
     def get_entries_after_last_fetch(self):
-        this_page = -1
+        this_page_number = -1
         entry_list = []
-
-        while this_page != self.last_scan_page:
+        self.util.logger("GetEntryStart:")
+        while this_page_number != self.last_scan_page_number:
             soup = self._get_soup_object(self.url)
+            if len(soup.select('.wide')) <= 0:   # html structure change or HTTPError
+                return entry_list
+
             pre_page_url = self.ptt_site + soup.select('.wide')[1]['href']
-            self.url = pre_page_url
+            # self.url = pre_page_url
             self.pre_page = self._get_page_code(pre_page_url)
-            this_page = self.pre_page + 1
+            this_page_number = self.pre_page + 1
+            self.util.logger("LastScan: {0}; This page: {1}".format(
+                self.last_scan_page_number, this_page_number)
+            )
+
             if self.is_first_exe:
-                self.last_scan_page = this_page
+                self.last_scan_page_number = this_page_number
                 self.is_first_exe = False
 
             entries = soup.select('.r-ent')
@@ -57,6 +68,7 @@ class BaseAgent():
                 date = item.select('.meta > .date')[0].text
                 entry_list.append({'topic': title, 'url': link, 'author': author, 'date': date})
 
-        self.last_scan_page = this_page
+        self.last_scan_page_number = this_page_number
+        board_scan_obj = BoardScanning()
 
         return entry_list

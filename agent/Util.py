@@ -13,7 +13,7 @@ class Util():
     def __init__(self):
         super(Util, self).__init__()
         logging.basicConfig(
-            filename="PttNotifierLog.txt",
+            filename="workerLog.txt",
             level=logging.INFO,
             format="%(asctime)s - %(levelname)s: %(message)s")
 

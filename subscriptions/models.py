@@ -25,3 +25,9 @@ class Notification(models.Model):
     notified_time = models.TimeField()
     notified_type = models.CharField(max_length=12)
     match_url = models.CharField(max_length=255)
+
+
+class BoardScanning(models.Model):
+    board_name = models.CharField(max_length=255)
+    page_number_of_last_scan = models.IntegerField()
+    last_scan_pages_count = models.IntegerField()
