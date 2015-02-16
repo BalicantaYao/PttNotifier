@@ -5,7 +5,7 @@ intall:
 - pip install -r requirementes.txt
 - pip install pep8
 - pip install pyflake
-cript: nosetests
+script: nosetests
 before_script:
 - "flake8 . --max-line-length=120 --exclude=./PttNotifier/settings/*.py,migrations"
 after_script:
