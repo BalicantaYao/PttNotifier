@@ -3,6 +3,7 @@ from __future__ import absolute_import
 import os
 
 from celery import Celery
+from datetime import timedelta
 
 from django.conf import settings
 
@@ -19,7 +20,6 @@ app.autodiscover_tasks(lambda: settings.INSTALLED_APPS)
 app.conf.update(
     CELERY_RESULT_BACKEND='djcelery.backends.database:DatabaseBackend',
 )
-
 
 @app.task(bind=True)
 def debug_task(self):
