@@ -7,6 +7,7 @@
 from bs4 import BeautifulSoup
 import requests
 import re
+import logging
 
 class BaseAgent():
 
@@ -17,7 +18,6 @@ class BaseAgent():
         self.last_scan_page_number = 0
         self.is_first_exe = True
         self.pre_page = 0
-        self.util = LogUtil()
 
     def _get_soup_object(self, target_url):
         user_agent = "Mozilla/4.0 (compatible; MSIE 5.5; Windows NT)"
@@ -73,14 +73,14 @@ class BaseAgent():
                 author = item.select('.meta > .author')[0].text
                 date = item.select('.meta > .date')[0].text
                 entry_list.append({'topic': title, 'url': link, 'author': author, 'date': date})
-
-        #self.last_scan_page_number = this_page_number
-        #board_scan_obj = BoardScanningRepo()
-        #scanning_obj = {
-        #    'board_name': self.target,
-        #    'page_number_of_last_scan': self.last_scan_page_number,
-        #    'last_scan_pages_count': scan_count
-        #}
-        #board_scan_obj.insert(scanning_obj)
-
+        """
+        self.last_scan_page_number = this_page_number
+        board_scan_obj = BoardScanningRepo()
+        scanning_obj = {
+            'board_name': self.target,
+            'page_number_of_last_scan': self.last_scan_page_number,
+            'last_scan_pages_count': scan_count
+        }
+        board_scan_obj.insert(scanning_obj)
+        """
         return entry_list

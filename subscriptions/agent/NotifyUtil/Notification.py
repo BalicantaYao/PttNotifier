@@ -4,8 +4,7 @@
 # @Date:   2015-02-01 02:00:32
 # @Last Modified by:   bustta
 # @Last Modified time: 2015-02-01 03:03:17
-from NotifyUtil.Mail import Mail
-
+from .Mail import Mail
 
 class Notification():
     def __init__(self, action, target, subject, content):
