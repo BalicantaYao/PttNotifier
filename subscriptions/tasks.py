@@ -1,7 +1,10 @@
 from __future__ import absolute_import
 
-from .models import Subscrption, Board, BoardCategory
+from .models import Subscrption
 from celery import shared_task
+
+from .agent.Base import BaseAgent
+
 
 @shared_task
 def scanBoard():

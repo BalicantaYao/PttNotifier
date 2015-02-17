@@ -3,7 +3,6 @@ from __future__ import absolute_import
 import os
 
 from celery import Celery
-from datetime import timedelta
 
 from django.conf import settings
 
