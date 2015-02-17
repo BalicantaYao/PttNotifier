@@ -17,6 +17,7 @@ class BaseAgent():
         self.ptt_site = 'https://www.ptt.cc'
         self.last_scan_page = 0
         self.is_first_exe = True
+        self.pre_page = 0
 
     def _get_soup_object(self, target_url):
         user_agent = "Mozilla/4.0 (compatible; MSIE 5.5; Windows NT)"
@@ -38,9 +39,12 @@ class BaseAgent():
         while this_page != self.last_scan_page:
             soup = self._get_soup_object(self.url)
             pre_page_url = self.ptt_site + soup.select('.wide')[1]['href']
-            self.url = pre_page_url
+            # self.url = pre_page_url
             self.pre_page = self._get_page_code(pre_page_url)
             this_page = self.pre_page + 1
+            # if this_page == self.last_scan_page:
+            #     break
+
             if self.is_first_exe:
                 self.last_scan_page = this_page
                 self.is_first_exe = False

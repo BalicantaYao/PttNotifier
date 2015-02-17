@@ -16,7 +16,7 @@ util = Util()
 agent = BaseAgent('BuyTogether')
 while True:
     now_min = datetime.datetime.now().minute
-    if now_min % 5 == 0 and not is_this_minute_exe:
+    if now_min % 2 == 0 and not is_this_minute_exe:
         is_this_minute_exe = True
         util.logger("ExecuteAt: {0}".format(datetime.datetime.now()))
 
@@ -84,5 +84,5 @@ while True:
                     notification = Notification('email', user_mail, subject, mail_content)
                     notification.notify_user()
 
-    elif now_min % 5 != 0:
+    elif now_min % 2 != 0:
             is_this_minute_exe = False

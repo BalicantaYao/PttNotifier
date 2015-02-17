@@ -57,4 +57,5 @@ target/
 
 log.txt
 PttNotifierLog.txt
+workerLog.txt
 .idea/

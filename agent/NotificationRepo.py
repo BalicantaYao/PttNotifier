@@ -11,11 +11,11 @@ class NotificationRepo(PGDataDriver):
 
     def __init__(self):
         super(NotificationRepo, self).__init__()
-        self.open_pg_connection()
-        self._cur = self.get_pg_cursor()
+        # self.open_pg_connection()
+        # self._cur = self.get_pg_cursor()
 
-    def __exit__(self, exc_type, exc_val, exc_tb):
-        self.close_pg_connection()
+    # def __exit__(self, exc_type, exc_val, exc_tb):
+        # self.close_pg_connection()
 
     def create_notification(self, notification_obj):
         # date, time, type, url, subs_id
@@ -28,7 +28,8 @@ class NotificationRepo(PGDataDriver):
             notification_obj['type'], notification_obj['url'],
             notification_obj['subscription_id']
             )
-
+        self.open_pg_connection()
+        self._cur = self.get_pg_cursor()
         self.execute_and_commit(sql, self._cur)
         self.close_pg_connection()
 
@@ -38,6 +39,8 @@ class NotificationRepo(PGDataDriver):
             SELECT * FROM subscriptions_notification;
         """
 
+        self.open_pg_connection()
+        self._cur = self.get_pg_cursor()
         rows = self.execute_and_fetchall(sql, self._cur)
         self.close_pg_connection()
         notification_list = []
@@ -60,6 +63,9 @@ class NotificationRepo(PGDataDriver):
             WHERE subscription_user_id = '{0}'
             AND match_url = '{1}'
         """.format(sid, url)
+
+        self.open_pg_connection()
+        self._cur = self.get_pg_cursor()
         rows = self.execute_and_fetchall(sql, self._cur)
         self.close_pg_connection()
         notification_list = []
