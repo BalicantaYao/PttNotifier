@@ -6,6 +6,7 @@
 # @Last Modified time: 2015-02-01 03:03:17
 from .Mail import Mail
 
+
 class Notification():
     def __init__(self, action, target, subject, content):
         super(Notification, self).__init__()

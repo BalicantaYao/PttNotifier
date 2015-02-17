@@ -9,6 +9,7 @@ import requests
 import re
 import logging
 
+
 class BaseAgent():
 
     def __init__(self, target):
