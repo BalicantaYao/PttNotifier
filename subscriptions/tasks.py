@@ -37,14 +37,14 @@ def scanBoard():
                 matched_article = article
                 matched_article['keyword'] = subscription.keywords
                 matched_articles.append(matched_article)
-         
+
         if len(matched_articles) > 0:
             user_mathced_list = user_mail_with_matched_articles.get(user_email, list())
             user_mathced_list += matched_articles
             user_mail_with_matched_articles[user_email] = user_mathced_list
 
     for user_email in user_mail_with_matched_articles.keys():
-        match_info_list = user_mail_with_matched_articles[user_email]                          
+        match_info_list = user_mail_with_matched_articles[user_email]
         mail_content = ""
         subject = "Buzz3.co 送上您關注的 Ptt 消息"
 
@@ -54,5 +54,5 @@ def scanBoard():
         if len(mail_content) > 0:
             notification = Notification('email', user_email, subject, mail_content)
             notification.notify_user()
-                
+
     return subscriptions.count()
