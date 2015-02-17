@@ -7,9 +7,6 @@
 from bs4 import BeautifulSoup
 import requests
 import re
-from LogUtil.LogUtil import LogUtil
-from Repo.BoardScanningRepo import BoardScanningRepo
-
 
 class BaseAgent():
 
@@ -42,7 +39,7 @@ class BaseAgent():
     def get_entries_after_last_fetch(self):
         this_page_number = -1
         entry_list = []
-        self.util.logger("GetEntryStart:")
+        logging.debug("GetEntryStart:")
         scan_count = 0
         while this_page_number != self.last_scan_page_number:
             soup = self._get_soup_object(self.url)
@@ -57,7 +54,7 @@ class BaseAgent():
             # self.url = pre_page_url
             self.pre_page = self._get_page_code(pre_page_url)
             this_page_number = self.pre_page + 1
-            self.util.logger("LastScan: {0}; This page: {1}".format(
+            logging.debug("LastScan: {0}; This page: {1}".format(
                 self.last_scan_page_number, this_page_number)
             )
 
@@ -77,13 +74,13 @@ class BaseAgent():
                 date = item.select('.meta > .date')[0].text
                 entry_list.append({'topic': title, 'url': link, 'author': author, 'date': date})
 
-        self.last_scan_page_number = this_page_number
-        board_scan_obj = BoardScanningRepo()
-        scanning_obj = {
-            'board_name': self.target,
-            'page_number_of_last_scan': self.last_scan_page_number,
-            'last_scan_pages_count': scan_count
-        }
-        board_scan_obj.insert(scanning_obj)
+        #self.last_scan_page_number = this_page_number
+        #board_scan_obj = BoardScanningRepo()
+        #scanning_obj = {
+        #    'board_name': self.target,
+        #    'page_number_of_last_scan': self.last_scan_page_number,
+        #    'last_scan_pages_count': scan_count
+        #}
+        #board_scan_obj.insert(scanning_obj)
 
         return entry_list
