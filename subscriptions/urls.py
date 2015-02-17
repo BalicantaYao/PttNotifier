@@ -13,6 +13,7 @@ urlpatterns = patterns(
     '',
     url(r'^$', 'subscriptions.views.home', name='home'),
     url(r'^contact/$', 'subscriptions.views.contact', name='contact'),
+    url(r'^comment/$', 'subscriptions.views.comment', name='comment'),
     url(r'^privacy/$', 'subscriptions.views.privacy', name='privacy'),
     url(r'^terms_and_condictions/$', terms_and_condictions, name='terms_and_condictions'),
     url(r'^subscription/$', subscription_list, name='subscription_list'),

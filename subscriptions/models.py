@@ -3,10 +3,23 @@ from django.contrib.auth.models import User
 from django.core.urlresolvers import reverse
 
 
+class BoardCategory(models.Model):
+    category_cht_name = models.CharField(max_length=255)
+
+
+class Board(models.Model):
+    board_eng_name = models.CharField(max_length=255)
+    board_cht_name = models.CharField(max_length=255)
+    category = models.ForeignKey(BoardCategory)
+    is_18_forbidden = models.BooleanField(default=False)
+    status = models.IntegerField()
+
+
 class Subscrption(models.Model):
     """model of subscription"""
     user = models.ForeignKey(User)
     keywords = models.CharField(max_length=255)
+    board = models.ForeignKey(Board)
     # notifiedDate = models.DateField()
 
     def __str__(self):

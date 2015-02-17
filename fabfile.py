@@ -11,6 +11,7 @@ env.port = 22
 PROJECT_PATH = '/var/www/webApps/PttNotifier'
 path = '/var/www/webApps'
 
+
 def pull():
     with cd(PROJECT_PATH):
         run('git pull')
