@@ -8,6 +8,7 @@ import os
 import requests
 import logging
 
+
 class Mail():
     _mail_gun_sandbox = "https://api.mailgun.net/v2/sandbox3973be0c4dc3412f853adf1f3d669499.mailgun.org/messages"
     _mail_from = "PTTNotifier <postmaster@sandbox3973be0c4dc3412f853adf1f3d669499.mailgun.org>"
