@@ -7,7 +7,7 @@
 from bs4 import BeautifulSoup
 import requests
 import re
-from Util import Util
+from .Util import Util
 
 
 class BaseAgent():

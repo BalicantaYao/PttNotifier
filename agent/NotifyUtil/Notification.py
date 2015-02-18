@@ -4,7 +4,7 @@
 # @Date:   2015-02-01 02:00:32
 # @Last Modified by:   bustta
 # @Last Modified time: 2015-02-01 03:03:17
-from Mail import Mail
+from agent.NotifyUtil.Mail import Mail
 
 
 class Notification():
