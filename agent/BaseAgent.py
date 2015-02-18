@@ -69,6 +69,8 @@ class BaseAgent():
                 entry_list.append({'topic': title, 'url': link, 'author': author, 'date': date})
 
         self.last_scan_page_number = this_page_number
-        board_scan_obj = BoardScanning()
+        board_scan_obj = BoardScanningRepo()
+        scanning_obj = {}
+        board_scan_obj.insert(scanning_obj)
 
         return entry_list
