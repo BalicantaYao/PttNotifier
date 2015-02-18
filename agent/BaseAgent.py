@@ -8,6 +8,7 @@ from bs4 import BeautifulSoup
 import requests
 import re
 from .Util import Util
+from .Repo.BoardScanningRepo import BoardScanningRepo
 
 
 class BaseAgent():
@@ -68,5 +69,6 @@ class BaseAgent():
                 entry_list.append({'topic': title, 'url': link, 'author': author, 'date': date})
 
         self.last_scan_page_number = this_page_number
+        board_scan_obj = BoardScanning()
 
         return entry_list

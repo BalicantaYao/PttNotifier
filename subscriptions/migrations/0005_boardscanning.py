@@ -21,6 +21,6 @@ class Migration(migrations.Migration):
             ],
             options=None,
             bases=None,
-            managers=None,
+            # managers=None,
         ),
     ]
