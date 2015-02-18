@@ -23,6 +23,8 @@ while True:
         dao = SubscriptionRepo()
         subs = dao.get_all_user_subscription()
         all_entries = agent.get_entries_after_last_fetch()
+        if len(all_entries) <= 0:
+            continue
 
         match_list = []
         for target in subs:
