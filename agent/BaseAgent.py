@@ -39,8 +39,10 @@ class BaseAgent():
         this_page_number = -1
         entry_list = []
         self.util.logger("GetEntryStart:")
+        scan_count = 0
         while this_page_number != self.last_scan_page_number:
             soup = self._get_soup_object(self.url)
+            scan_count += 1
             if len(soup.select('.wide')) <= 0:   # html structure change or HTTPError
                 return entry_list
 
@@ -70,7 +72,11 @@ class BaseAgent():
 
         self.last_scan_page_number = this_page_number
         board_scan_obj = BoardScanningRepo()
-        scanning_obj = {}
+        scanning_obj = {
+            'board_name': self.target,
+            'page_number_of_last_scan': self.last_scan_page_number,
+            'last_scan_pages_count': scan_count
+        }
         board_scan_obj.insert(scanning_obj)
 
         return entry_list
