@@ -31,4 +31,3 @@ class SubscriptionRepo():
             subscription_list.append(subs_obj)
 
         return subscription_list
-
