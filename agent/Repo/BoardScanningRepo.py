@@ -23,7 +23,23 @@ class BoardScanningRepo():
         pass
 
     def get(self):
-        pass
+        sql = """
+            SELECT * FROM subscriptions_boardScanning;
+        """
+
+        self.pg_driver.open_pg_connection()
+        cursor = self.pg_driver.get_pg_cursor()
+        rows = self.pg_driver.execute_and_fetchall(sql, cursor)
+        self.pg_driver.close_pg_connection()
+        scanning_info_list = []
+        for row in rows:
+            item = {
+                'board_name': row[0],
+                'page_number_of_last_scan': row[1],
+                'tilast_scan_pages_countme': row[2]
+            }
+            scanning_info_list.append(item)
+        return scanning_info_list
 
     def update(self, id):
         pass
