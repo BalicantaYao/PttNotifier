@@ -13,7 +13,7 @@ class NotificationRepo():
         super(NotificationRepo, self).__init__()
         self.pg_driver = PGDataDriver()
 
-    def create_notification(self, notification_obj):
+    def insert(self, notification_obj):
         # date, time, type, url, subs_id
         sql = """
             INSERT INTO subscriptions_notification
