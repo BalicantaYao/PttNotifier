@@ -4,3 +4,4 @@ python-social-auth
 BeautifulSoup4
 psycopg2
 flake8
+supervisor
