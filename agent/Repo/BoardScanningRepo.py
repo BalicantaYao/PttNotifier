@@ -8,9 +8,9 @@ class BoardScanningRepo():
 
     def insert(self, scanning_info):
         sql = """
-            INSERT INTO subscriptions_boardScanning
+            INSERT INTO subscriptions_boardscanning
             (board_name, page_number_of_last_scan, last_scan_pages_count)
-            VALUES ('{0}', '{1}', '{2}', '{3}', '{4}');
+            VALUES ('{0}', '{1}', '{2}');
         """.format(
             scanning_info['board_name'],
             scanning_info['page_number_of_last_scan'],
@@ -24,7 +24,7 @@ class BoardScanningRepo():
 
     def get(self):
         sql = """
-            SELECT * FROM subscriptions_boardScanning;
+            SELECT * FROM subscriptions_boardscanning;
         """
 
         self.pg_driver.open_pg_connection()
@@ -36,7 +36,7 @@ class BoardScanningRepo():
             item = {
                 'board_name': row[0],
                 'page_number_of_last_scan': row[1],
-                'tilast_scan_pages_countme': row[2]
+                'last_scan_pages_count': row[2]
             }
             scanning_info_list.append(item)
         return scanning_info_list
