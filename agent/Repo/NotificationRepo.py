@@ -4,7 +4,7 @@
 # @Date:   2015-02-01 23:35:06
 # @Last Modified by:   bustta
 # @Last Modified time: 2015-02-10 22:51:00
-from agent.DataDriver.PGDataDriver import PGDataDriver
+from DataDriver.PGDataDriver import PGDataDriver
 
 
 class NotificationRepo():

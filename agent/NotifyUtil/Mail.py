@@ -6,7 +6,7 @@
 # @Last Modified time: 2015-02-01 02:47:13
 import os
 import requests
-from ..Util import Util
+from LogUtil.LogUtil import LogUtil
 
 
 class Mail():

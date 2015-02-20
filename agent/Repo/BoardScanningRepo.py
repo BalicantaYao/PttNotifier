@@ -1,4 +1,4 @@
-from ..DataDriver.PGDataDriver import PGDataDriver
+from DataDriver.PGDataDriver import PGDataDriver
 
 
 class BoardScanningRepo():

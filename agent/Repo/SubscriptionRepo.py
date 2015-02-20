@@ -4,7 +4,7 @@
 # @Date:   2015-01-22 23:22:07
 # @Last Modified by:   bustta
 # @Last Modified time: 2015-02-10 22:45:43
-from agent.DataDriver.PGDataDriver import PGDataDriver
+from DataDriver.PGDataDriver import PGDataDriver
 
 
 class SubscriptionRepo():

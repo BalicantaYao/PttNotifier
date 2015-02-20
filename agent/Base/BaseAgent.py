@@ -7,8 +7,8 @@
 from bs4 import BeautifulSoup
 import requests
 import re
-from .Util import Util
-from .Repo.BoardScanningRepo import BoardScanningRepo
+from LogUtil.LogUtil import LogUtil
+from Repo.BoardScanningRepo import BoardScanningRepo
 
 
 class BaseAgent():
@@ -20,7 +20,7 @@ class BaseAgent():
         self.last_scan_page_number = 0
         self.is_first_exe = True
         self.pre_page = 0
-        self.util = Util()
+        self.util = LogUtil()
 
     def _get_soup_object(self, target_url):
         user_agent = "Mozilla/4.0 (compatible; MSIE 5.5; Windows NT)"

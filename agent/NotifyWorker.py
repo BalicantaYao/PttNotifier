@@ -6,16 +6,16 @@
 # @Last Modified time: 2015-02-10 23:03:27
 import datetime
 
-from agent.Repo.SubscriptionRepo import SubscriptionRepo
-from agent.BaseAgent import BaseAgent
-from agent.NotifyUtil.Notification import Notification
-from agent.Repo.NotificationRepo import NotificationRepo
-from agent.Util import Util
+from Repo.SubscriptionRepo import SubscriptionRepo
+from Base.BaseAgent import BaseAgent
+from NotifyUtil.Notification import Notification
+from Repo.NotificationRepo import NotificationRepo
+from LogUtil.LogUtil import LogUtil
 
 
 def scan_and_notify():
     is_this_minute_exe = False
-    util = Util()
+    util = LogUtil()
     agent = BaseAgent('BuyTogether')
     while True:
         now_min = datetime.datetime.now().minute
