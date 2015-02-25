@@ -26,7 +26,11 @@ class BaseAgent():
         user_agent = "Mozilla/4.0 (compatible; MSIE 5.5; Windows NT)"
         headers = {"User-Agent": user_agent}
         requests.packages.urllib3.disable_warnings()
-        return BeautifulSoup(requests.get(target_url, headers=headers, verify=False).text)
+        context = requests.get(target_url, headers=headers, verify=False).text
+        if context:
+            return BeautifulSoup(context)
+        else:
+            return None
 
     def _get_page_code(self, url):
         p = re.compile('\d+')
@@ -42,6 +46,9 @@ class BaseAgent():
         scan_count = 0
         while this_page_number != self.last_scan_page_number:
             soup = self._get_soup_object(self.url)
+            if not soup:
+                return
+
             scan_count += 1
             if len(soup.select('.wide')) <= 0:   # html structure change or HTTPError
                 return entry_list

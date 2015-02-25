@@ -16,8 +16,8 @@ from LogUtil.LogUtil import LogUtil
 def scan_and_notify():
     is_this_minute_exe = False
     util = LogUtil()
-    # agent = BaseAgent('BuyTogether')
-    agent = BaseAgent('Beauty')
+    agent = BaseAgent('BuyTogether')
+    # agent = BaseAgent('Beauty')
     while True:
         now_min = datetime.datetime.now().minute
         if now_min % 10 == 0 and not is_this_minute_exe:
