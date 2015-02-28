@@ -11,6 +11,7 @@ env.port = 22
 PROJECT_PATH = '/var/www/webApps/PttNotifier'
 path = '/var/www/webApps'
 
+
 def pull():
     with cd(PROJECT_PATH):
         run('git pull')
@@ -23,4 +24,3 @@ def restartNginx():
 def collectStatic():
     with cd(PROJECT_PATH):
         run('. %s/venv/pttnotifier/bin/activate && python manage.py collectstatic --noinput ' % path)
-
