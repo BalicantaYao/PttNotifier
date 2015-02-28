@@ -29,3 +29,16 @@ class BoardScanning(models.Model):
     board_name = models.CharField(max_length=255)
     page_number_of_last_scan = models.IntegerField()
     last_scan_pages_count = models.IntegerField()
+
+
+class BoardCategory(models.Model):
+    category_eng_name = models.CharField(max_length=255)
+    category_cht_name = models.CharField(max_length=255)
+
+
+class Board(models.Model):
+    board_eng_name = models.CharField(max_length=255)
+    board_cht_name = models.CharField(max_length=255)
+    category = models.ForeignKey(BoardCategory)
+    is_18_forbidden = models.BooleanField(default=False)
+    status = models.IntegerField()
