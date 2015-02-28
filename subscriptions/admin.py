@@ -36,7 +36,7 @@ class BoardAdmin(admin.ModelAdmin):
     )
 
 
-class BoardCategoryAdmin(admin.modelAdmin):
+class BoardCategoryAdmin(admin.ModelAdmin):
     list_display = (
         'id',
         'category_eng_name',
