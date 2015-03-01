@@ -4,7 +4,6 @@ from django.core.urlresolvers import reverse
 
 
 class BoardCategory(models.Model):
-    category_eng_name = models.CharField(max_length=255)
     category_cht_name = models.CharField(max_length=255)
 
 

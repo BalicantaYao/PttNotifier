@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.shortcuts import render_to_response
 from django.template.context import RequestContext
-from .models import Subscrption
+from .models import Subscrption, Board, BoardCategory
 from django import forms
 from django.http import Http404
 from django.http import HttpResponseForbidden
@@ -63,7 +63,13 @@ def subscription_create(request):
             # return redirect(new_subscription.get_absolute_url())
             return redirect('subscription_list')
     form = SubscriptionForm()
-    return render(request, 'subscription_create.html', {'form': form})
+    board = Board.objects.all()
+    board_category = BoardCategory.objects.all()
+
+    return render(
+        request,
+        'subscription_create.html',
+        {'form': form, 'board': board, 'board_category': board_category})
 
 
 @login_required

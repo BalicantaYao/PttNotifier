@@ -8,8 +8,16 @@
             {% csrf_token %}
 
             <input type="hidden" id="user" value="{{ user.id }}" name="user" />
-            <input class="form-control" type="text" id="category" name="category" placeholder="分類" />
-            <input class="form-control" type="text" id="board" name="board" placeholder="看板" />
+            <select class="form-control" id="category" name="category" >
+                {% for category in board_category %}
+                <option value="{{ category.category_cht_name }}">{{ category.category_cht_name }}</option>
+                {% endfor %}
+            </select>
+            <select class="form-control" id="board" name="board" >
+                {% for item in board %}
+                <option value="{{ item.board_cht_name }}">{{ item.board_cht_name }}</option>
+                {% endfor %}
+            </select>
             <input class="form-control" type="text" id="keywords" name="keywords" placeholder="關鍵字" />
 
             <button type="submit" class="btn btn-default">新增</button>
