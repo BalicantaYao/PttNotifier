@@ -3,17 +3,19 @@
 {% block title%}新增訂閱 | {{ block.super }}{% endblock title%}
 {% block content %}
 <div class="content-section">
-  <div class="row">
-    <form action="." method="post" role="form" class="form-inline">
-      {% csrf_token %}
+    <div class="row">
+        <form action="." method="post" role="form" class="form-inline">
+            {% csrf_token %}
 
-      <input type="hidden" id="user" value="{{ user.id }}" name="user" />
-      <input class="form-control" type="text" id="keywords" name="keywords" placeholder="關鍵字"/>
+            <input type="hidden" id="user" value="{{ user.id }}" name="user" />
+            <input class="form-control" type="text" id="category" name="category" placeholder="分類" />
+            <input class="form-control" type="text" id="board" name="board" placeholder="看板" />
+            <input class="form-control" type="text" id="keywords" name="keywords" placeholder="關鍵字" />
 
-      <button type="submit" class="btn btn-default">新增</button>
+            <button type="submit" class="btn btn-default">新增</button>
 
-    </form>
-  </div>
+        </form>
+    </div>
 </div>
 
 {% endblock content %}
