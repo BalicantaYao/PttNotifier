@@ -77,6 +77,9 @@ def subscription_create(request):
 @login_required
 def subscription_update(request, pk):
     subscription = get_object_or_404(Subscrption, pk=pk)
+    board = Board.objects.all()
+    board_category = BoardCategory.objects.all()
+
     if request.method == 'POST':
         form = SubscriptionForm(request.POST, instance=subscription)
         if form.is_valid():
@@ -84,7 +87,10 @@ def subscription_update(request, pk):
             # new_subscription = form.save()
             # return redirect(new_subscription.get_absolute_url())
             return redirect('subscription_list')
-    return render(request, 'subscription_update.html', {'subscription': subscription})
+    return render(
+        request,
+        'subscription_update.html',
+        {'subscription': subscription, 'board': board, 'board_category': board_category})
 
 
 @login_required

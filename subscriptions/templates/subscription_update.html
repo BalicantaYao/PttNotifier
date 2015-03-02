@@ -4,16 +4,26 @@
 {% block title%}更新訂閱 | {{ block.super }}{% endblock title%}
 {% block content %}
 <div class="content-section">
-  <div class="row">
-    <form action="." method="post" role="form" class="form-inline">
-      {% csrf_token %}
+    <div class="row">
+        <form action="." method="post" role="form" class="form-inline">
+        {% csrf_token %}
 
-      <input type="hidden" id="user" value="{{ user.id }}" name="user" />
-      <input class="form-control" type="text" id="keywords" name="keywords" value="{{ subscription.keywords }}"/>
+        <input type="hidden" id="user" value="{{ user.id }}" name="user" />
+        <select class="form-control" id="category" name="category" >
+            {% for category in board_category %}
+                <option value="{{ category.category_cht_name }}">{{ category.category_cht_name }}</option>
+            {% endfor %}
+        </select>
+            <select class="form-control" id="board" name="board" >
+                {% for item in board %}
+                    <option value="{{ item.id }}">{{ item.board_eng_name }}</option>
+                {% endfor %}
+            </select>
+        <input class="form-control" type="text" id="keywords" name="keywords" value="{{ subscription.keywords }}"/>
 
-      <button type="submit" class="btn btn-primary">修改</button>
+        <button type="submit" class="btn btn-primary">修改</button>
 
-    </form>
-  </div>
+        </form>
+    </div>
 </div>
 {% endblock %}
