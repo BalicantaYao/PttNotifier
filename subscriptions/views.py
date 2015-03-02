@@ -33,6 +33,10 @@ def terms_and_condictions(request):
 @login_required
 def subscription_list(request):
     subscriptions = Subscrption.objects.filter(user_id=request.user.id)
+    for item in subscriptions:
+        item.board = Board.objects.get(id=item.board_id)
+        item.category = BoardCategory.objects.get(id=item.board.category_id)
+        # print(board.board_cht_name)
     return render(
         request, 'subscription_list.html', {'subscriptions': subscriptions})
 
