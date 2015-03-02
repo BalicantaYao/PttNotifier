@@ -48,20 +48,22 @@ def subscription_detail(request, pk):
 
 
 class SubscriptionForm(forms.ModelForm):
-        class Meta:
-            model = Subscrption
-            fields = ['user', 'keywords', ]
+    class Meta:
+        model = Subscrption
+        fields = ['user', 'keywords', 'board', ]
 
 
 @login_required
 def subscription_create(request):
     if request.method == 'POST':
         form = SubscriptionForm(request.POST)
+
         if form.is_valid():
             form.save()
             # new_subscription = form.save()
             # return redirect(new_subscription.get_absolute_url())
             return redirect('subscription_list')
+
     form = SubscriptionForm()
     board = Board.objects.all()
     board_category = BoardCategory.objects.all()
@@ -88,7 +90,7 @@ def subscription_update(request, pk):
 @login_required
 def subscription_delete(request, pk):
     subscription = get_object_or_404(Subscrption, pk=pk)
-    if (subscription.user_id == request.user.id):
+    if subscription.user_id == request.user.id:
         subscription.delete()
         return redirect('subscription_list')
     return HttpResponseForbidden()
@@ -97,7 +99,7 @@ def subscription_delete(request, pk):
 @login_required
 def subscription_delete_confirm(request, pk):
     subscription = get_object_or_404(Subscrption, pk=pk)
-    if (subscription.user_id == request.user.id):
+    if subscription.user_id == request.user.id:
         if request.method == 'POST':
             return subscription_delete(request, subscription.id)
         return render(
