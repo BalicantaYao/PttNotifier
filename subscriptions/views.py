@@ -82,6 +82,7 @@ def subscription_create(request):
 def subscription_update(request, pk):
     subscription = get_object_or_404(Subscrption, pk=pk)
     board = Board.objects.all()
+    subscription.category_id = Board.objects.get(pk=subscription.board_id).category_id
     board_category = BoardCategory.objects.all()
 
     if request.method == 'POST':

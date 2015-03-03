@@ -10,7 +10,7 @@
         {% for item in subscriptions %}
             <tr class="subscription_item">
                 <td class="item_board_category">{{ item.category.category_cht_name }}</td>
-                <td class="item_board_cht_name">{{ item.board.board_cht_name }}</td>
+                <td class="item_board_eng_name">{{ item.board.board_eng_name }}</td>
                 <td class="item_keywords">{{ item.keywords }}</td>
                 <td class="item_edit">
                 <a href="{% url 'subscription_update' item.id %}">修改</a>

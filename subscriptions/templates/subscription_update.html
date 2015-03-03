@@ -11,7 +11,7 @@
         <input type="hidden" id="user" value="{{ user.id }}" name="user" />
         <select class="form-control" id="category" name="category" >
             {% for category in board_category %}
-                <option value="{{ category.category_cht_name }}">{{ category.category_cht_name }}</option>
+                <option value="{{ category.id }}">{{ category.category_cht_name }}</option>
             {% endfor %}
         </select>
             <select class="form-control" id="board" name="board" >
@@ -26,4 +26,31 @@
         </form>
     </div>
 </div>
-{% endblock %}
+{% endblock content %}
+
+{% block script %}
+<script>
+    function appendBoardToOptionsBySelectedCategory(category){
+        var $board = $('#board');
+        $board.empty();
+        {% for item in board %}
+            if ( '{{ item.category_id}}'*1 === category){
+                var board_name = '{{ item.board_eng_name }}';
+                var board_id = '{{ item.id }}';
+                $board.append($('<option></option>').attr('value', board_id).text(board_name));
+            }
+        {% endfor %}
+    };
+
+    $(document).ready(function(){
+        appendBoardToOptionsBySelectedCategory({{ subscription.category_id }});
+        $('#category').val({{ subscription.category_id }});
+
+        $('#category').change(function(){
+            appendBoardToOptionsBySelectedCategory($(this).val()*1);
+        });
+    });
+
+</script>
+
+{% endblock script %}
