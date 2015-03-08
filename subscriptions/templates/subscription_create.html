@@ -43,7 +43,6 @@
 
     $(document).ready(function(){
         appendBoardToOptionsBySelectedCategory(1);
-        $('#category').val(1);
 
         $('#category').change(function(){
             appendBoardToOptionsBySelectedCategory($(this).val()*1);
