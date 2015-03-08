@@ -44,3 +44,7 @@
   border-bottom-right-radius: 3px;
   opacity: 1!important;
 }
+article.content-section {
+    text-align: left;
+    height: auto;
+}
