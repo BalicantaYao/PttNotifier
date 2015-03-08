@@ -45,6 +45,7 @@
   opacity: 1!important;
 }
 
-nav{
-    position: relative;
+article.content-section {
+    text-align: left;
+    height: auto;
 }
