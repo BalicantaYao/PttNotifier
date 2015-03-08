@@ -8,9 +8,12 @@ env.user = os.environ['PRODUCTION_USER_NAME']
 env.password = os.environ['PRODUCTION_PASSWORD']
 env.port = 22
 
+PROJECT_PATH = '/var/www/webApps/PttNotifier'
+path = '/var/www/webApps'
+
 
 def pull():
-    with cd('/home/bustta/myWebApps/PttNotifier'):
+    with cd(PROJECT_PATH):
         run('git pull')
 
 
@@ -19,6 +22,5 @@ def restartNginx():
 
 
 def collectStatic():
-    path = "/home/bustta/myWebApps"
-    with cd('/home/bustta/myWebApps/PttNotifier'):
+    with cd(PROJECT_PATH):
         run('. %s/venv/pttnotifier/bin/activate && python manage.py collectstatic --noinput ' % path)
