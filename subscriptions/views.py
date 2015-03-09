@@ -56,6 +56,13 @@ class SubscriptionForm(forms.ModelForm):
         model = Subscrption
         fields = ['user', 'keywords', 'board', ]
 
+    def clean_keywords(self):
+        data = self.cleaned_data['keywords']
+        return data.replace(' ', '')
+
+
+
+
 
 @login_required
 def subscription_create(request):
@@ -64,8 +71,6 @@ def subscription_create(request):
 
         if form.is_valid():
             form.save()
-            # new_subscription = form.save()
-            # return redirect(new_subscription.get_absolute_url())
             return redirect('subscription_list')
 
     form = SubscriptionForm()

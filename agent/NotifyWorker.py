@@ -36,7 +36,9 @@ def scan_and_notify():
                 for item in all_entries:
                     is_all_kw_match = True
                     for kw in target['kw_list']:
-                        is_all_kw_match &= (kw in item['topic'])
+                        is_all_kw_match &= (kw.strip() in item['topic'])
+                        if not is_all_kw_match:
+                            break
 
                     if is_all_kw_match:
                         match_obj = item
