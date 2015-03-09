@@ -31,6 +31,7 @@
 {% block script %}
 <script>
     function appendBoardToOptionsBySelectedCategory(category){
+        $('#category').val(category);
         var $board = $('#board');
         $board.empty();
         {% for item in board %}
@@ -44,7 +45,6 @@
 
     $(document).ready(function(){
         appendBoardToOptionsBySelectedCategory({{ subscription.category_id }});
-        $('#category').val({{ subscription.category_id }});
 
         $('#category').change(function(){
             appendBoardToOptionsBySelectedCategory($(this).val()*1);

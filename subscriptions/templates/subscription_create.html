@@ -30,6 +30,7 @@
 {% block script %}
 <script>
     function appendBoardToOptionsBySelectedCategory(category){
+        $('#category').val(category);
         var $board = $('#board');
         $board.empty();
         {% for item in board %}
