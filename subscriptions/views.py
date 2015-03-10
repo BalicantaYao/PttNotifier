@@ -61,9 +61,6 @@ class SubscriptionForm(forms.ModelForm):
         return data.replace(' ', '')
 
 
-
-
-
 @login_required
 def subscription_create(request):
     if request.method == 'POST':
