@@ -26,6 +26,10 @@ def privacy(request):
     return render(request, 'privacy.html', {})
 
 
+def comment(request):
+    return render(request, 'comment.html', {})
+
+
 def terms_and_condictions(request):
     return render(request, 'terms_and_condictions.html', {})
 
