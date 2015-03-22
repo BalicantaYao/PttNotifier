@@ -7,7 +7,7 @@
 from .base import *
 import os
 
-DEBUG = False
+DEBUG = True 
 TEMPALTE_DEBUG = False
 
 SECRET_KEY = get_env_var('PTTNOTIFIER_SECRET')
@@ -15,15 +15,16 @@ SECRET_KEY = get_env_var('PTTNOTIFIER_SECRET')
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'pttnotifier',
+        'NAME': 'pttnotification',
         'USER': get_env_var('PTTNOTIFIER_DB_DEFAULT_USER'),
         'PASSWORD': get_env_var('PTTNOTIFIER_DB_DEFAULT_PASSWORD'),
-        'HOST': 'localhost',
+        'HOST': '127.0.0.1',
         'PORT': '',
     }
 }
 
-ALLOWED_HOSTS = ['*']
-STATIC_ROOT = os.path.join(os.path.dirname(BASE_DIR), 'static')
-logging.debug("STATIC_ROOT: {0}".format(STATIC_ROOT))
-MEDIA_ROOT = os.path.join(os.path.dirname(BASE_DIR), 'media')
+#ALLOWED_HOSTS = ['*']
+#STATIC_ROOT = os.path.join('/root/Project/PttNotifier/PttNotifier', 'static')
+#STATIC_ROOT = os.path.join(os.path.dirname(BASE_DIR), 'static')
+#logging.debug("---STATIC_ROOT: {0}".format(STATIC_ROOT))
+#MEDIA_ROOT = os.path.join(os.path.dirname(BASE_DIR), 'media')

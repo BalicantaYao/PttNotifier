@@ -3,11 +3,14 @@
 
 from __future__ import absolute_import
 
-from .models import Subscrption
+import datetime
+import logging
+
+from .models import Subscrption, Notification
 from celery import shared_task
 
 from .agent.Base.BaseAgent import BaseAgent
-from .agent.NotifyUtil.Notification import Notification
+from .agent.NotifyUtil.Notification import NotificationItem
 
 
 @shared_task
@@ -30,13 +33,29 @@ def scanBoard():
 
         # TODO: Muliti keyword
         matched_articles = []
+        logging.info(all_entries)
         for article in all_entries:
             article_topic = article['topic']
 
             if subscription.keywords in article_topic:
+
                 matched_article = article
+
+                # Check is ever sent
+                isSent = Notification.objects.filter(subscription_user = subscription,\
+                                                     match_url = matched_article['url']).exists()
+                if(isSent):
+                    continue 
+
                 matched_article['keyword'] = subscription.keywords
                 matched_articles.append(matched_article)
+
+                now = datetime.datetime.now()
+                notifi = Notification.objects.create(subscription_user = subscription, \
+                                            notified_date = now.strftime("%Y-%m-%d"), \
+                                            notified_time = now.strftime("%H:%M:%S"), \
+                                            notified_type = 'email', match_url = matched_article['url'])
+
 
         if len(matched_articles) > 0:
             user_mathced_list = user_mail_with_matched_articles.get(user_email, list())
@@ -52,7 +71,7 @@ def scanBoard():
             mail_content += "作者： {0}\n文章：{1}\n\n".format(info['author'], info['url'])
 
         if len(mail_content) > 0:
-            notification = Notification('email', user_email, subject, mail_content)
+            notification = NotificationItem('email', user_email, subject, mail_content)
             notification.notify_user()
 
     return subscriptions.count()
