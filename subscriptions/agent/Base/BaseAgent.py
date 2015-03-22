@@ -5,6 +5,7 @@
 # @Last Modified by:   bustta
 # @Last Modified time: 2015-01-26 23:09:28
 from bs4 import BeautifulSoup
+from ...models import BoardScanning
 import requests
 import re
 import logging
@@ -12,12 +13,16 @@ import logging
 
 class BaseAgent():
 
-    def __init__(self, target):
-        self.target = target
-        self.url = 'https://www.ptt.cc/bbs/{0}/index.html'.format(target)
+    def __init__(self, board_name):
+        self.target = board_name
+        self.url = 'https://www.ptt.cc/bbs/{0}/index.html'.format(board_name)
         self.ptt_site = 'https://www.ptt.cc'
-        self.last_scan_page_number = 0
-        self.is_first_exe = True
+        try:
+            self.last_scan_page_number = \
+	    BoardScanning.objects.filter(board_name=board_name).order_by('-page_number_of_last_scan').first()\
+	    .page_number_of_last_scan
+        except BoardScanning.DoesNotExist:
+            self.last_scan_page_number = 0
         self.pre_page = 0
 
     def _get_soup_object(self, target_url):
@@ -43,25 +48,24 @@ class BaseAgent():
         logging.debug("GetEntryStart:")
         scan_count = 0
         while this_page_number != self.last_scan_page_number:
+
             soup = self._get_soup_object(self.url)
             if not soup:
                 return
+
+            pre_page_url = self.ptt_site + soup.select('.wide')[1]['href']
+            self.pre_page = self._get_page_code(pre_page_url)
+            this_page_number = self.pre_page + 1
+
+            # Never Scan the board
+            if(self.last_scan_page_number == 0):
+               break
 
             scan_count += 1
             if len(soup.select('.wide')) <= 0:   # html structure change or HTTPError
                 return entry_list
 
-            pre_page_url = self.ptt_site + soup.select('.wide')[1]['href']
-            # self.url = pre_page_url
-            self.pre_page = self._get_page_code(pre_page_url)
-            this_page_number = self.pre_page + 1
-            logging.debug("LastScan: {0}; This page: {1}".format(
-                self.last_scan_page_number, this_page_number)
-            )
-
-            if self.is_first_exe:
-                self.last_scan_page_number = this_page_number
-                self.is_first_exe = False
+            logging.info("LastScan: {0}; This page: {1}".format(self.last_scan_page_number, this_page_number))
 
             entries = soup.select('.r-ent')
 
@@ -74,14 +78,7 @@ class BaseAgent():
                 author = item.select('.meta > .author')[0].text
                 date = item.select('.meta > .date')[0].text
                 entry_list.append({'topic': title, 'url': link, 'author': author, 'date': date})
-        """
-        self.last_scan_page_number = this_page_number
-        board_scan_obj = BoardScanningRepo()
-        scanning_obj = {
-            'board_name': self.target,
-            'page_number_of_last_scan': self.last_scan_page_number,
-            'last_scan_pages_count': scan_count
-        }
-        board_scan_obj.insert(scanning_obj)
-        """
+
+        record = BoardScanning.objects.create(\
+	board_name = self.target, page_number_of_last_scan = this_page_number, last_scan_pages_count=scan_count)
         return entry_list
