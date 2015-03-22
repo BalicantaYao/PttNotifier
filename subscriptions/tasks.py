@@ -42,20 +42,19 @@ def scanBoard():
                 matched_article = article
 
                 # Check is ever sent
-                isSent = Notification.objects.filter(subscription_user = subscription,\
-                                                     match_url = matched_article['url']).exists()
+                isSent = Notification.objects.filter(subscription_user=subscription,
+                                                     match_url=matched_article['url']).exists()
                 if(isSent):
-                    continue 
+                    continue
 
                 matched_article['keyword'] = subscription.keywords
                 matched_articles.append(matched_article)
 
                 now = datetime.datetime.now()
-                notifi = Notification.objects.create(subscription_user = subscription, \
-                                            notified_date = now.strftime("%Y-%m-%d"), \
-                                            notified_time = now.strftime("%H:%M:%S"), \
-                                            notified_type = 'email', match_url = matched_article['url'])
-
+                Notification.objects.create(subscription_user=subscription,
+                                            notified_date=now.strftime("%Y-%m-%d"),
+                                            notified_time=now.strftime("%H:%M:%S"),
+                                            notified_type='email', match_url=matched_article['url'])
 
         if len(matched_articles) > 0:
             user_mathced_list = user_mail_with_matched_articles.get(user_email, list())

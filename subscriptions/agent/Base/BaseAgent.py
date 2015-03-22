@@ -18,9 +18,8 @@ class BaseAgent():
         self.url = 'https://www.ptt.cc/bbs/{0}/index.html'.format(board_name)
         self.ptt_site = 'https://www.ptt.cc'
         try:
-            self.last_scan_page_number = \
-	    BoardScanning.objects.filter(board_name=board_name).order_by('-page_number_of_last_scan').first()\
-	    .page_number_of_last_scan
+            self.last_scan_page_number = BoardScanning.objects.filter(
+                board_name=board_name).order_by('-page_number_of_last_scan').first().page_number_of_last_scan
         except BoardScanning.DoesNotExist:
             self.last_scan_page_number = 0
         self.pre_page = 0
@@ -59,7 +58,7 @@ class BaseAgent():
 
             # Never Scan the board
             if(self.last_scan_page_number == 0):
-               break
+                break
 
             scan_count += 1
             if len(soup.select('.wide')) <= 0:   # html structure change or HTTPError
@@ -79,6 +78,7 @@ class BaseAgent():
                 date = item.select('.meta > .date')[0].text
                 entry_list.append({'topic': title, 'url': link, 'author': author, 'date': date})
 
-        record = BoardScanning.objects.create(\
-	board_name = self.target, page_number_of_last_scan = this_page_number, last_scan_pages_count=scan_count)
+        BoardScanning.objects.create(board_name=self.target,
+                                     page_number_of_last_scan=this_page_number,
+                                     last_scan_pages_count=scan_count)
         return entry_list
