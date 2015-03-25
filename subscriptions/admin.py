@@ -3,7 +3,12 @@ from .models import Subscrption, Notification, BoardScanning, Board, BoardCatego
 
 
 class SubscriptionAdmin(admin.ModelAdmin):
-    list_display = ('id', 'user', 'keywords')
+    list_display = (
+        'id',
+        'user',
+        'keywords',
+        'board'
+        )
 
 
 class NotificationAdmin(admin.ModelAdmin):
@@ -31,6 +36,7 @@ class BoardAdmin(admin.ModelAdmin):
         'id',
         'board_eng_name',
         'board_cht_name',
+        'category',
         'is_18_forbidden',
         'status'
     )
