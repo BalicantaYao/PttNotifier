@@ -87,7 +87,7 @@ class BaseAgent():
                 date = item.select('.meta > .date')[0].text
                 entry_list.append({'topic': title, 'url': link, 'author': author, 'date': date})
 
-        self.entry_list = entry_list;
+        self.entry_list = entry_list
         BoardScanning.objects.create(board_name=self.target,
                                      page_number_of_last_scan=max(scanned_page_numbers)-1,
                                      last_scan_pages_count=scan_count)
