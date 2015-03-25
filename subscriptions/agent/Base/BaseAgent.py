@@ -17,6 +17,7 @@ class BaseAgent():
         self.target = board_name
         self.url = 'https://www.ptt.cc/bbs/{0}/index.html'.format(board_name)
         self.ptt_site = 'https://www.ptt.cc'
+        self.is_first_exe = True
         try:
             self.last_scan_page_number = BoardScanning.objects.filter(
                 board_name=board_name).order_by('-page_number_of_last_scan').first().page_number_of_last_scan
@@ -46,25 +47,28 @@ class BaseAgent():
         entry_list = []
         logging.debug("GetEntryStart:")
         scan_count = 0
+        scanned_page_numbers = []
         while this_page_number != self.last_scan_page_number:
 
             soup = self._get_soup_object(self.url)
             if not soup:
                 return
 
-            pre_page_url = self.ptt_site + soup.select('.wide')[1]['href']
-            self.pre_page = self._get_page_code(pre_page_url)
-            this_page_number = self.pre_page + 1
-
             # Never Scan the board
             if(self.last_scan_page_number == 0):
                 break
+
+            pre_page_url = self.ptt_site + soup.select('.wide')[1]['href']
+            self.url = pre_page_url
+            self.pre_page = self._get_page_code(pre_page_url)
+            this_page_number = self.pre_page + 1
 
             scan_count += 1
             if len(soup.select('.wide')) <= 0:   # html structure change or HTTPError
                 return entry_list
 
             logging.info("LastScan: {0}; This page: {1}".format(self.last_scan_page_number, this_page_number))
+            scanned_page_numbers.append(this_page_number)
 
             entries = soup.select('.r-ent')
 
@@ -79,6 +83,6 @@ class BaseAgent():
                 entry_list.append({'topic': title, 'url': link, 'author': author, 'date': date})
 
         BoardScanning.objects.create(board_name=self.target,
-                                     page_number_of_last_scan=this_page_number,
+                                     page_number_of_last_scan=max(scanned_page_numbers),
                                      last_scan_pages_count=scan_count)
         return entry_list
