@@ -24,6 +24,7 @@ class BaseAgent():
         except BoardScanning.DoesNotExist:
             self.last_scan_page_number = 0
         self.pre_page = 0
+        self.entry_list = []
 
     def _get_soup_object(self, target_url):
         user_agent = "Mozilla/4.0 (compatible; MSIE 5.5; Windows NT)"
@@ -43,6 +44,10 @@ class BaseAgent():
         return 0
 
     def get_entries_after_last_fetch(self):
+
+        if self.entry_list:
+            return self.entry_list
+
         this_page_number = -1
         entry_list = []
         logging.debug("GetEntryStart:")
@@ -82,7 +87,8 @@ class BaseAgent():
                 date = item.select('.meta > .date')[0].text
                 entry_list.append({'topic': title, 'url': link, 'author': author, 'date': date})
 
+        self.entry_list = entry_list;
         BoardScanning.objects.create(board_name=self.target,
-                                     page_number_of_last_scan=max(scanned_page_numbers),
+                                     page_number_of_last_scan=max(scanned_page_numbers)-1,
                                      last_scan_pages_count=scan_count)
         return entry_list

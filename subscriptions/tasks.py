@@ -33,7 +33,6 @@ def scanBoard():
 
         # TODO: Muliti keyword
         matched_articles = []
-        logging.info(all_entries)
         for article in all_entries:
             article_topic = article['topic']
 
