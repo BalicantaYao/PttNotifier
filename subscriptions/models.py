@@ -5,7 +5,7 @@ from django.core.urlresolvers import reverse
 
 class BoardCategory(models.Model):
     category_cht_name = models.CharField(max_length=255)
-    
+
     def __str__(self):
         return self.category_cht_name
 
@@ -19,6 +19,7 @@ class Board(models.Model):
 
     def __str__(self):
         return self.board_eng_name
+
 
 class Subscrption(models.Model):
     """model of subscription"""
