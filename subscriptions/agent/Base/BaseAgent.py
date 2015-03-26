@@ -59,14 +59,14 @@ class BaseAgent():
             if not soup:
                 return
 
-            # Never Scan the board
-            if(self.last_scan_page_number == 0):
-                break
-
             pre_page_url = self.ptt_site + soup.select('.wide')[1]['href']
             self.url = pre_page_url
             self.pre_page = self._get_page_code(pre_page_url)
             this_page_number = self.pre_page + 1
+
+            # Never Scan the board
+            if(self.last_scan_page_number == 0):
+                break
 
             scan_count += 1
             if len(soup.select('.wide')) <= 0:   # html structure change or HTTPError
