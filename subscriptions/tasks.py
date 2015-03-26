@@ -65,7 +65,7 @@ def scanBoard():
         subject = "Buzz3.co 送上您關注的 Ptt 消息"
 
         for info in match_info_list:
-            mail_content += "作者： {0}\n文章：{1}\n\n".format(info['author'], info['url'])
+            mail_content += "作者： {0}\n標題:{1}\n文章：{2}\n\n".format(info['author'], info['topic'], info['url'])
 
         if len(mail_content) > 0:
             notification = NotificationItem('email', user_email, subject, mail_content)
