@@ -1,12 +1,15 @@
+import redis
+import json
 from django.shortcuts import render, redirect, get_object_or_404
 from django.shortcuts import render_to_response
 from django.template.context import RequestContext
-from .models import Subscrption, Board, BoardCategory
+from .models import Subscrption, Board, BoardCategory, Notification
 from django import forms
+from django.db.models.signals import post_save
+from django.dispatch import receiver
 from django.http import Http404
 from django.http import HttpResponseForbidden
 from django.contrib.auth.decorators import login_required
-# Create your views here.
 
 
 def home(request):
@@ -123,3 +126,22 @@ def subscription_delete_confirm(request, pk):
             request, 'delete_confirm.html',
             {'subscription': subscription})
     return HttpResponseForbidden()
+
+
+@receiver(post_save, sender=Notification)
+def on_notification_post_save(sender, **kwargs):
+
+    notification = kwargs['instance']
+
+    redis_client = redis.StrictRedis(host='localhost', port=6379, db=0)
+
+    # Notication Channel Name, e.g. notifications.balicanta.yao@gmail.com
+    redis_client.publish(
+        'notifications.%s' % notification.subscription_user.user.email,
+        json.dumps(
+            dict(
+                url=notification.match_url,
+                topic=notification.article_topic
+            )
+        )
+    )
