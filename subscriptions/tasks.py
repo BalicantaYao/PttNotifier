@@ -4,6 +4,8 @@
 from __future__ import absolute_import
 
 import datetime
+import redis
+import json
 
 from .models import Subscrption, Notification
 from celery import shared_task
@@ -49,10 +51,11 @@ def scanBoard():
                 matched_articles.append(matched_article)
 
                 now = datetime.datetime.now()
-                Notification.objects.create(subscription_user=subscription,
-                                            notified_date=now.strftime("%Y-%m-%d"),
-                                            notified_time=now.strftime("%H:%M:%S"),
-                                            notified_type='email', match_url=matched_article['url'])
+                new_notification = Notification.objects.create(
+                        subscription_user=subscription, notified_date=now.strftime("%Y-%m-%d"),
+                        notified_time=now.strftime("%H:%M:%S"),
+                        notified_type='email', match_url=matched_article['url'])
+                publish_to_redis(new_notification)
 
         if len(matched_articles) > 0:
             user_mathced_list = user_mail_with_matched_articles.get(user_email, list())
@@ -78,3 +81,23 @@ def scanBoard():
             notification.notify_user()
 
     return subscriptions.count()
+
+
+def publish_to_redis(notification):
+
+    redis_client = redis.StrictRedis(host='localhost', port=6379, db=0)
+
+    # Notication Channel Name, e.g. notifications.1
+    redis_client.publish(
+        'notifications.%s' % notification.subscription_user.user.id,
+        json.dumps(
+            dict(
+                url=notification.match_url,
+                topic=notification.article_topic
+            )
+        )
+    )
+
+    # Add Notification to Redis
+    redis_client.hset(notification.subscription_user.user.id,
+                      notification.match_url, notification.article_topic)
