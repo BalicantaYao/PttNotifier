@@ -52,8 +52,8 @@ def scanBoard():
 
                 now = datetime.datetime.now()
                 new_notification = Notification.objects.create(
-                        subscription_user=subscription, notified_date=now.strftime("%Y-%m-%d"),
-                        notified_time=now.strftime("%H:%M:%S"),
+                        subscription_user=subscription,
+                        notified_date=now.strftime("%Y-%m-%d"), notified_time=now.strftime("%H:%M:%S"),
                         notified_type='email', match_url=matched_article['url'])
                 publish_to_redis(new_notification)
 
