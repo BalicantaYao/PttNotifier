@@ -73,7 +73,6 @@ def scanBoard():
                 'author': info['author'],
                 'url': info['url']
             }
-            # mail_content.append("作者： {0}\n標題:{1}\n文章：{2}\n\n".format(info['author'], info['topic'], info['url']))
             mail_content.append(item)
 
         if len(mail_content) > 0:
