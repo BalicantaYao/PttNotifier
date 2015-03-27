@@ -135,9 +135,9 @@ def on_notification_post_save(sender, **kwargs):
 
     redis_client = redis.StrictRedis(host='localhost', port=6379, db=0)
 
-    # Notication Channel Name, e.g. notifications.balicanta.yao@gmail.com
+    # Notication Channel Name, e.g. notifications.1
     redis_client.publish(
-        'notifications.%s' % notification.subscription_user.user.email,
+        'notifications.%s' % notification.subscription_user.user.id,
         json.dumps(
             dict(
                 url=notification.match_url,
