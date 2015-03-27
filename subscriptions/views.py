@@ -145,3 +145,7 @@ def on_notification_post_save(sender, **kwargs):
             )
         )
     )
+
+    # Add Notification to Redis
+    redis_client.hset(notification.subscription_user.user.id,
+                      notification.match_url, notification.article_topic)
