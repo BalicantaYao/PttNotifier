@@ -13,6 +13,8 @@ after_script:
 - fab collectStatic
 - fab restartNginx
 - fab restartGunicorn
+- fab restartCeleryd
+- fab restartCeleryBeat
 notifications:
   slack: lab3l7:bLDvV4HNWo3X7054CBsBUG36
 env:

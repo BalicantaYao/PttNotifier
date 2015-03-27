@@ -29,3 +29,11 @@ def collectStatic():
 def restartGunicorn():
     with cd(PROJECT_PATH):
         run('supervisorctl reload')
+
+
+def restartCeleryd():
+    sudo('service celeryd restart')
+
+
+def restartCeleryBeat():
+    sudo('service celerybeat restart')
