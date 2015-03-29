@@ -12,6 +12,7 @@ after_script:
 - fab pull
 - fab collectStatic
 - fab restartNginx
+- fab restartGunicorn
 notifications:
   slack: lab3l7:bLDvV4HNWo3X7054CBsBUG36
 env:

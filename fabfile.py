@@ -24,3 +24,8 @@ def restartNginx():
 def collectStatic():
     with cd(PROJECT_PATH):
         run('. %s/venv/pttnotifier/bin/activate && python manage.py collectstatic --noinput ' % path)
+
+
+def restartGunicorn():
+    with cd(PROJECT_PATH):
+        run('supervisorctl reload')
