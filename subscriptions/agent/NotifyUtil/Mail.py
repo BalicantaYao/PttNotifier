@@ -3,15 +3,15 @@
 # @Author: bustta
 # @Date:   2015-01-22 23:32:19
 # @Last Modified by:   bustta
-# @Last Modified time: 2015-02-01 02:47:13
+# @Last Modified time: 2015-03-30 21:40:23
 import os
 import requests
 import logging
 
 
 class Mail():
-    _mail_gun_sandbox = "https://api.mailgun.net/v2/sandbox3973be0c4dc3412f853adf1f3d669499.mailgun.org/messages"
-    _mail_from = "PTTNotifier <postmaster@sandbox3973be0c4dc3412f853adf1f3d669499.mailgun.org>"
+    _mail_gun_sandbox = "https://api.mailgun.net/v3/buzz3.co/messages"
+    _mail_from = "Buzz3 <postmaster@buzz3.co>"
 
     def __init__(self, mail_to, subject, content):
         super(Mail, self).__init__()
