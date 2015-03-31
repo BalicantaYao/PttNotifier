@@ -61,11 +61,17 @@ def scanBoard():
 
     for user_email in user_mail_with_matched_articles.keys():
         match_info_list = user_mail_with_matched_articles[user_email]
-        mail_content = ""
+        mail_content = []
         subject = "Buzz3.co 送上您關注的 Ptt 消息"
 
         for info in match_info_list:
-            mail_content += "作者： {0}\n標題:{1}\n文章：{2}\n\n".format(info['author'], info['topic'], info['url'])
+            item = {
+                'topic': info['topic'],
+                'author': info['author'],
+                'url': info['url']
+            }
+            # mail_content.append("作者： {0}\n標題:{1}\n文章：{2}\n\n".format(info['author'], info['topic'], info['url']))
+            mail_content.append(item)
 
         if len(mail_content) > 0:
             notification = NotificationItem('email', user_email, subject, mail_content)
