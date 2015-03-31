@@ -35,7 +35,6 @@ class Mail():
                 full_content += self._get_content_block_html(item['topic'], item['author'], item['url'])
         context = self._template_html.replace('{notification_count}', str(len(content)))
         context = context.replace('{content_block}', full_content)
-        print(context)
         self.mail_data['html'] = context
 
     def send_mail(self):
