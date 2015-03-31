@@ -48,8 +48,12 @@ class Mail():
 
     def _get_content_block_html(self, title, author, link):
         html = '''
-        <tr style="font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; box-sizing: border-box; font-size: 14px; margin: 0;">
-            <td class="content-block notifications" style="font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; box-sizing: border-box; font-size: 14px; vertical-align: top; margin: 0; padding: 0 0 20px; border-bottom: 1px solid #e5e5e5" valign="top">
+        <tr style="font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+        box-sizing: border-box; font-size: 14px; margin: 0;">
+            <td class="content-block notifications" style="font-family: 'Helvetica Neue',
+             Helvetica, Arial, sans-serif; box-sizing: border-box; font-size: 14px;
+             vertical-align: top; margin: 0; padding: 0 0 20px;
+             border-bottom: 1px solid #e5e5e5" valign="top">
                 <span class="title" style="display: block; font-size: 32px;">{t}</span>
                 <span class="author" style="display: block;">{a}</span>
                 <span class="link" style="display: block;">{l}</span>
