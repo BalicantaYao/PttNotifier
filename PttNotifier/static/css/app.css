@@ -48,3 +48,9 @@ article.content-section {
     text-align: left;
     height: auto;
 }
+
+footer span {
+  font-size: 14px;
+  color: #fff;
+  text-decoration: none;
+}
