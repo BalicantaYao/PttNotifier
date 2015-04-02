@@ -61,3 +61,5 @@ workerLog.txt
 .idea/
 test_script/
 subscriptions/migrations/
+
+websocket/node_modules
