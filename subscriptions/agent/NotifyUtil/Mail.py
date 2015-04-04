@@ -44,7 +44,7 @@ class Mail():
         import datetime
         try:
             day_count = MailSending.objects.filter(
-                mail_to=self.mail_data['to'].day_count, date=datetime.date.today())
+                mail_to=self.mail_data['to'], date=datetime.date.today()).day_count
         except MailSending.DoesNotExist:
             day_count = 0
 
