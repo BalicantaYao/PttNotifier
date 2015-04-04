@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Subscrption, Notification, BoardScanning, Board, BoardCategory
+from .models import Subscrption, Notification, BoardScanning, Board, BoardCategory, MailSending
 
 
 class SubscriptionAdmin(admin.ModelAdmin):
@@ -49,8 +49,17 @@ class BoardCategoryAdmin(admin.ModelAdmin):
     )
 
 
+class MailSendingAdmin(admin.ModelAdmin):
+    list_display = (
+        'mail_to',
+        'day_count',
+        'date'
+    )
+
+
 admin.site.register(Subscrption, SubscriptionAdmin)
 admin.site.register(Notification, NotificationAdmin)
 admin.site.register(BoardScanning, BoardScanningAdmin)
 admin.site.register(Board, BoardAdmin)
 admin.site.register(BoardCategory, BoardCategoryAdmin)
+admin.site.register(MailSending, MailSendingAdmin)
