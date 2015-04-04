@@ -54,4 +54,3 @@ class MailSending(models.Model):
     mail_to = models.CharField(max_length=255)
     day_count = models.IntegerField()
     date = models.DateField()
-    
