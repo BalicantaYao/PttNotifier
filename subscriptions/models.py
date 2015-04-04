@@ -48,3 +48,9 @@ class BoardScanning(models.Model):
     board_name = models.CharField(max_length=255)
     page_number_of_last_scan = models.IntegerField()
     last_scan_pages_count = models.IntegerField()
+
+
+class MailSending(models.Model):
+    mail_to = models.CharField(max_length=255)
+    day_count = models.IntegerField()
+    date = models.DateField()

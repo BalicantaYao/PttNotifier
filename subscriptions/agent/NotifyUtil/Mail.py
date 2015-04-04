@@ -7,6 +7,7 @@
 import os
 import requests
 import logging
+from .models import MailSending
 
 
 class Mail():
@@ -40,6 +41,20 @@ class Mail():
     def send_mail(self):
         logging.info("Send to Mailgun: {0} - {1}".format(
             str(self.mail_data['to']), str(self.mail_data['subject'])))
+        import datetime
+        try:
+            day_count = MailSending.objects.filter(
+                mail_to=self.mail_data['to'].day_count, date=datetime.date.today())
+        except MailSending.DoesNotExist:
+            day_count = 0
+
+        if day_count >= 5:
+            logging.info('User \'{0}\' reach daylimit that the mail did not send.'.format(self.mail_data['to']))
+            return
+
+        MailSending.objects.create(
+            self.mail_data['to'], ++day_count, datetime.date.today())
+
         return requests.post(
             self._mail_gun_sandbox,
             auth=self.mailgun_auth,
