@@ -7,7 +7,7 @@
 import os
 import requests
 import logging
-from .models import MailSending
+from ...models import MailSending
 
 
 class Mail():
