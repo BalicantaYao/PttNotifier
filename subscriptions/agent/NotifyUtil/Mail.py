@@ -17,6 +17,12 @@ class Mail():
 
     def __init__(self, mail_to, subject, content):
         super(Mail, self).__init__()
+
+        logging.basicConfig(
+            filename="/var/log/PttNotifier/mail.log",
+            level=logging.INFO,
+            format="%(asctime)s - %(levelname)s: %(message)s")
+
         self.mailgun_auth = ("api", os.environ['MAILGUN_KEY'])
         self.mail_data = {
             'from': self._mail_from,
