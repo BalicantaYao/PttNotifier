@@ -18,7 +18,12 @@ class NotificationAdmin(admin.ModelAdmin):
         'notified_date',
         'notified_time',
         'notified_type',
-        'match_url'
+        'match_url',
+        'is_sent',
+        'article_topic',
+        'article_author',
+        'article_push_count',
+        'subscription_type',
         )
 
 
@@ -27,7 +32,9 @@ class BoardScanningAdmin(admin.ModelAdmin):
         'id',
         'board_name',
         'page_number_of_last_scan',
-        'last_scan_pages_count'
+        'last_scan_pages_count',
+        'created_at',
+        'updated_at',
     )
 
 
