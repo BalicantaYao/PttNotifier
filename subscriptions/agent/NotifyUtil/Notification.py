@@ -18,6 +18,7 @@ class NotificationItem():
     def notify_user(self):
         if self._action == 'email':
             Mail(self._target, self._subject, self._content).send_mail()
+
         elif self._action == 'line':
             # Think too much
             pass

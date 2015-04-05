@@ -100,6 +100,8 @@ LOGIN_REDIRECT_URL = '/'
 
 CELERYBEAT_SCHEDULER = 'djcelery.schedulers.DatabaseScheduler'
 
+BROKER_URL = 'django://'
+
 
 def get_env_var(key):
     try:

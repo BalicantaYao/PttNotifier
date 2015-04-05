@@ -42,6 +42,11 @@ class Notification(models.Model):
     notified_time = models.TimeField()
     notified_type = models.CharField(max_length=12)
     match_url = models.CharField(max_length=255)
+    is_sent = models.BooleanField(default=False)
+    article_topic = models.CharField(max_length=255, default='')
+    article_author = models.CharField(max_length=50, default='')
+    article_push_count = models.IntegerField(default=0)
+    subscription_type = models.IntegerField(default=0)
 
 
 class BoardScanning(models.Model):

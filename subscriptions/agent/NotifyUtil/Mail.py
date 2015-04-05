@@ -18,11 +18,6 @@ class Mail():
     def __init__(self, mail_to, subject, content):
         super(Mail, self).__init__()
 
-        logging.basicConfig(
-            filename="/var/log/PttNotifier/mail.log",
-            level=logging.INFO,
-            format="%(asctime)s - %(levelname)s: %(message)s")
-
         self.mailgun_auth = ("api", os.environ['MAILGUN_KEY'])
         self.mail_data = {
             'from': self._mail_from,
@@ -49,17 +44,34 @@ class Mail():
             str(self.mail_data['to']), str(self.mail_data['subject'])))
         import datetime
         try:
-            day_count = MailSending.objects.filter(
-                mail_to=self.mail_data['to'], date=datetime.date.today()).day_count
-        except MailSending.DoesNotExist:
-            day_count = 0
+            mail_send_obj = MailSending.objects.filter(
+                mail_to=self.mail_data['to'], date=datetime.date.today()).first()
+            count = mail_send_obj.day_count
 
-        if day_count >= 5:
+        except (MailSending.DoesNotExist, AttributeError):
+            count = 0
+
+        print('count: {0}'.format(count))
+        if mail_send_obj:
+            print('mobject: {0} - {1}'.format(mail_send_obj.id, mail_send_obj.mail_to))
+
+        if count >= 5:
             logging.info('User \'{0}\' reach daylimit that the mail did not send.'.format(self.mail_data['to']))
             return
 
-        MailSending.objects.create(
-            self.mail_data['to'], ++day_count, datetime.date.today())
+        if not mail_send_obj:
+            MailSending.objects.create(
+                mail_to=self.mail_data['to'],
+                day_count=(count+1),
+                date=datetime.date.today()
+            )
+        else:
+            MailSending(
+                id=mail_send_obj.id,
+                mail_to=self.mail_data['to'],
+                day_count=(count+1),
+                date=datetime.date.today()
+            ).save()
 
         return requests.post(
             self._mail_gun_sandbox,
