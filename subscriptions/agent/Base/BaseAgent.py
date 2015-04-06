@@ -23,7 +23,7 @@ class BaseAgent():
         self.entry_list = []
         try:
             self.last_scan_page_number = BoardScanning.objects.filter(
-                board_name=board_name).order_by('-page_number_of_last_scan').first().page_number_of_last_scan
+                board_name=board_name).first().page_number_of_last_scan
         except (BoardScanning.DoesNotExist, AttributeError):
             self.last_scan_page_number = self._get_newest_page_code()
 
@@ -97,7 +97,9 @@ class BaseAgent():
 
         # Assign to self entry list for cache and recrod scan status
         self.entry_list = all_entries
-        BoardScanning.objects.create(board_name=self.target,
-                                     page_number_of_last_scan=newest_page_code,
-                                     last_scan_pages_count=len(prepare_scanned_page_numbers))
+        update_val = {'page_number_of_last_scan': newest_page_code,
+                      'last_scan_pages_count': len(prepare_scanned_page_numbers)}
+        boardScanning, created = \
+            BoardScanning.objects.update_or_create(board_name=self.target, defaults=update_val)
+
         return all_entries
