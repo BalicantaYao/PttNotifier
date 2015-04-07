@@ -28,6 +28,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = (
+    'users',
     'subscriptions',
     'djcelery',
     'django.contrib.admin',

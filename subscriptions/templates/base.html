@@ -54,7 +54,7 @@
                     </li>
                     {% if user.is_authenticated %}
                     <li>
-                      <a class="page-scroll">{{ user.get_full_name|default:user.username }}</a>
+                      <a class="page-scroll" href={% url 'user_profile' %}>{{ user.get_full_name|default:user.username }}</a>
                     </li>
                     <li>
                         <a class="page-scroll" href={% url 'subscription_create' %}>新增訂閱</a>
