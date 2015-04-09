@@ -22,6 +22,8 @@ DATABASES = {
         'PORT': '',
     }
 }
+SESSION_ENGINE = 'redis_sessions.session'
+SESSION_REDIS_UNIX_DOMAIN_SOCKET_PATH = '/tmp/redis.sock'
 
 ALLOWED_HOSTS = ['*']
 STATIC_ROOT = os.path.join(os.path.dirname(BASE_DIR), 'static')
