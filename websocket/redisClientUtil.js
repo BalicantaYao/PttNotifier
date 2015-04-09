@@ -4,23 +4,23 @@ var redis = require('redis');
 var util = require('util');
 var EventEmitter = require('events').EventEmitter;
 
-// var RedisClient = function(){
-function RedisClient(){
+// var RedisClientUtil = function(){
+function RedisClientUtil(){
 	EventEmitter.call(this);
 	this.client = null;
 }
-util.inherits(RedisClient, EventEmitter);
+util.inherits(RedisClientUtil, EventEmitter);
 
-RedisClient.prototype.connect = function(port, redisServer){
+RedisClientUtil.prototype.connect = function(port, redisServer){
 	var self = this;
 	self.client = redis.createClient(port, redisServer);
 	self.client.on('error', function(err){
-		logging.error('[RedisClientError]' + err);
+		logging.error('[RedisClientUtilError]' + err);
 		try{
 			self.client.end();
 		}
 		catch (e){
-			logging.error('[RedisClientInitEx]' + e);
+			logging.error('[RedisClientUtilInitEx]' + e);
 			return new Error(e);
 		}
 		// return new Error(err);
@@ -28,7 +28,7 @@ RedisClient.prototype.connect = function(port, redisServer){
 	});
 };
 
-RedisClient.prototype.hgetall = function(callback){
+RedisClientUtil.prototype.hgetall = function(callback){
 	var self = this;
 	var allNotificationsByUser = {};
 	var checkFinishAry = [];
@@ -67,12 +67,12 @@ RedisClient.prototype.hgetall = function(callback){
 	});
 };
 
-RedisClient.prototype.hdel = function(mainKey, hashKey){
+RedisClientUtil.prototype.hdel = function(mainKey, hashKey){
 	var self = this;
 	self.client.hdel(mainKey, hashKey);
 };
 
-RedisClient.prototype.getall = function(callback){
+RedisClientUtil.prototype.getall = function(callback){
 	var self = this;
 	var allNotificationsByUser = {};
 	var checkFinishAry = [];
@@ -106,29 +106,29 @@ RedisClient.prototype.getall = function(callback){
 		// self.client.quit();
 	});
 };
-RedisClient.prototype.get = function(key, callback){
+RedisClientUtil.prototype.get = function(key, callback){
 	var self = this;
 	self.client.get(key, callback);
 };
 
-RedisClient.prototype.select = function(db, callback){
+RedisClientUtil.prototype.select = function(db, callback){
 	var self = this;
 	self.client.select(db, callback);
 };
 
-RedisClient.prototype.close = function(){
+RedisClientUtil.prototype.close = function(){
 	var self = this;
 	if (self.client) {
 		try{
 			self.client.end();
 		}
 		catch (e){
-			logging.error('[RedisClientCloseEx]' + e);
+			logging.error('[RedisClientUtilCloseEx]' + e);
 			emit('error', e);
 			// throw (err);
 		}
 	}
 };
 
-module.exports = RedisClient;
+module.exports = RedisClientUtil;
 
