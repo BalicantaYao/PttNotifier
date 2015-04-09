@@ -61,14 +61,14 @@ serv_io.set('authorization', function(data, accept){
 
 serv_io.sockets.on('connection', function(socket) {
     console.log('socket.id: ' + socket.id);
+    var redis = require('redis');
+    var client = redis.createClient(port, host);
     if (user_id) {
-        var redis = require('redis');
-        var client = redis.createClient(port, host);
         client.subscribe(SUBSCRIBE_PREFIX + user_id.toString());
-        client.on('message', function(channel, message){
+    }
+    client.on('message', function(channel, message){
             logging.info('MESSAGE: ' + message);
         });
-    }
 
     setInterval(function() {
         socket.emit('date', {
