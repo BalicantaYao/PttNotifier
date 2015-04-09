@@ -14,7 +14,6 @@ var server = http.createServer(function(request, response) {
                 'Content-Type': 'text/html'
             });
             response.write('Hello, World.');
-            // console.log(request);
             response.end();
             break;
         default:
@@ -33,15 +32,29 @@ var cookie_reader = require('cookie');
 serv_io.set('authorization', function(data, accept){
     if(data.headers.cookie){
         data.cookie = cookie_reader.parse(data.headers.cookie);
-        console.log(data.cookie);
-        logging.info(data.cookie.sessionid);
+        logging.info('user cookie: ' + data.cookie);
+        // logging.info(data.cookie.sessionid);
+        var redisClient = require('./redisClient.js');
+        var redis = new redisClient();
+        redis.connect(6379, '127.0.0.1');
+        redis.select(1, function(){
+            if (!err) {
+                redis.get(data.cookie.sessionid, function(err, res){
+                    if (!err) {
+                        logging.info(res);
+                    }
+                    redis.close();
+                });
+            }
+        });
+
         return accept(null, true);
     }
     return accept('error', false);
 });
 
 serv_io.sockets.on('connection', function(socket) {
-    console.log(socket);
+    console.log('socket.id: ' + socket.id);
 
     setInterval(function() {
         socket.emit('date', {
@@ -50,6 +63,6 @@ serv_io.sockets.on('connection', function(socket) {
     }, 1000);
 
     socket.on('disconnect', function() {
-        // console.log('Got disconnect! id: ' + socket.id);
+        console.log('Got disconnect! id: ' + socket.id);
     });
 });
