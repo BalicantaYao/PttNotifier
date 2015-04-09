@@ -23,10 +23,13 @@ def restartNginx():
 
 def collectStatic():
     with cd(PROJECT_PATH):
-        run('. %s/venv/pttnotifier/bin/activate && python manage.py collectstatic --noinput ' % path)
-        run('pip install -r requirements.txt')
-        run('python manage.py makemigrations')
-        run('python manage.py migrate')
+        run('''
+            . {0}/venv/pttnotifier/bin/activate &&
+            python manage.py collectstatic --noinput &&
+            pip install -r requirements.txt &&
+            python manage.py makemigrations &&
+            python manage.py migrate
+            '''.format(path))
 
 
 def restartGunicorn():
