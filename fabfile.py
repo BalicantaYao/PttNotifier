@@ -34,7 +34,7 @@ def collectStatic():
 
 def restartGunicorn():
     with cd(PROJECT_PATH):
-        run('supervisorctl reload')
+        run('supervisorctl restart gunicorn')
 
 
 def restartCeleryd():
@@ -43,3 +43,13 @@ def restartCeleryd():
 
 def restartCeleryBeat():
     sudo('service celerybeat restart')
+
+
+def build_nodejs_env():
+    with cd(PROJECT_PATH + '/websocket'):
+        run('npm install')
+
+
+def restart_ws_server():
+    with cd(PROJECT_PATH):
+        run('supervisorctl restart ws_server')
