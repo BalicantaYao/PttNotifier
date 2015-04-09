@@ -38,14 +38,12 @@ serv_io.set('authorization', function(data, accept){
         var redis = new redisClient();
         redis.connect(6379, '127.0.0.1');
         redis.select(1, function(){
-            if (!err) {
-                redis.get(data.cookie.sessionid, function(err, res){
-                    if (!err) {
-                        logging.info(res);
-                    }
-                    redis.close();
-                });
-            }
+            redis.get(data.cookie.sessionid, function(err, res){
+                if (!err) {
+                    logging.info(res);
+                }
+                redis.close();
+            });
         });
 
         return accept(null, true);
