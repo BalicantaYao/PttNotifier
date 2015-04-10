@@ -22,7 +22,7 @@ domain.run(function(){
 	// 		console.log('err');
 	// 	}
 	// });
-	var redisClient = require('./redisClientUtil.js');
+	var redisClient = require('./redisClientService.js');
         var redis = new redisClient();
         redis.connect(6379, '172.18.3.93');
         redis.select(1, function(){
