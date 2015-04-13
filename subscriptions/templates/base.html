@@ -53,9 +53,13 @@
                         <a href="#page-top"></a>
                     </li>
                     {% if user.is_authenticated %}
-                    <li>
-                      <a class="page-scroll" href={% url 'user_profile' %}>{{ user.get_full_name|default:user.username }}</a>
+
+                    <li id="user-li">
+                        <a id="user-profile" class="page-scroll" href={% url 'user_profile' %}>
+                            {{ user.get_full_name|default:user.username }}
+                        </a>
                     </li>
+                    <div id="notifications-num">5</div>
                     <li>
                         <a class="page-scroll" href={% url 'subscription_create' %}>新增訂閱</a>
                     </li>
