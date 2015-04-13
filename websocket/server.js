@@ -50,6 +50,9 @@ serv_io.sockets.on('connection', function(socket) {
     }
     client.on('message', function(channel, message){
         logging.info('MESSAGE: ' + message);
+        socket.emit('notify', {
+            'count': 10
+        });
     });
 
     setInterval(function() {
