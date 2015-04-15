@@ -15,6 +15,8 @@ var SUBSCRIBE_PREFIX = 'notifications.';
 var port = 6379;
 var host = '127.0.0.1';
 
+console.log('!!!!!!');
+
 serv_io.set('authorization', function(data, accept){
     if(data.headers.cookie){
         data.cookie = cookie_reader.parse(data.headers.cookie);
@@ -47,11 +49,12 @@ serv_io.sockets.on('connection', function(socket) {
     var client = redis.createClient(port, host);
     if (user_id) {
         client.subscribe(SUBSCRIBE_PREFIX + user_id.toString());
+        console.log('on connection subscribe: ' + user_id);
     }
     client.on('message', function(channel, message){
         logging.info('MESSAGE: ' + message);
         socket.emit('notify', {
-            'count': 10
+            'notifications': JSON.stringify(message)
         });
     });
 
