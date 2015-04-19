@@ -15,8 +15,6 @@ var SUBSCRIBE_PREFIX = 'notifications.';
 var port = 6379;
 var host = '127.0.0.1';
 
-console.log('!!!!!!');
-
 serv_io.set('authorization', function(data, accept){
     if(data.headers.cookie){
         data.cookie = cookie_reader.parse(data.headers.cookie);
@@ -53,9 +51,18 @@ serv_io.sockets.on('connection', function(socket) {
     }
     client.on('message', function(channel, message){
         logging.info('MESSAGE: ' + message);
-        socket.emit('notify', {
-            'notifications': JSON.stringify(message)
+        client.hgetall(user_id, function(err, res){
+            if(!err)
+            {
+                socket.emit('notify', {
+                    'notifications': JSON.stringify(res),
+                    'count': Object.keys(res).length
+                });
+                client.del(user_id);
+            }
+
         });
+
     });
 
     setInterval(function() {

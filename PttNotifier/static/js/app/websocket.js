@@ -8,16 +8,10 @@
 
     socket.on('notify', function(data) {
         console.log(data.notifications);
-        var notifications_pool = localStorage.getItem('buzz3push');
+        console.log('count: ' + data.count);
+        localStorage.setItem('buzz3push', data.notifications);
 
-        if(!notifications_pool){
-            notifications_pool = [];
-        }
-        notifications_pool.push(data.notifications);
-        localStorage.setItem('buzz3push', notifications_pool);
-        var pushCount = notifications_pool.length;
-
-        $('#notifications-num').text(pushCount);
+        $('#notifications-num').text(data.count);
         $('#notifications-num').css('display', 'block');
 
     });
