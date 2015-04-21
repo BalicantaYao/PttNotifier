@@ -68,6 +68,7 @@ var hgetallAndPush2Client = function(userid, socket){
 
 serv_io.sockets.on('connection', function(socket) {
     console.log('socket.id: ' + socket.id);
+    hgetallAndPush2Client(user_id, socket);
 
     var client = redis.createClient(port, host);
     if (user_id) {

@@ -7,18 +7,10 @@
     });
 
     socket.on('notify', function(data) {
-        // console.log(data.notifications);
         console.log('count: ' + data.count);
         localStorage.setItem('buzz3push', data.count);
-
         $('#notification-a').text(data.count);
-        // $('#notifications-num').text(data.count);
-        // $('#notifications-num').css('display', 'block');
-
     });
-    // $('#notifications-num').click(function(){
-    //     $(this).css('display', 'none');
-    // });
 
 
 })(this);

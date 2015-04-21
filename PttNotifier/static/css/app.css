@@ -67,4 +67,6 @@ footer span {
     font-family: 'Average Sans', sans-serif;
     color: #FFF;
 }
-
+#notification-a {
+    color: red;
+}
