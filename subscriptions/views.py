@@ -10,6 +10,8 @@ from django_ajax.decorators import ajax
 import redis
 import re
 import logging
+import base64
+import json
 
 
 def home(request):
@@ -131,19 +133,26 @@ def subscription_delete_confirm(request, pk):
 @ajax
 def get_notifications_by_id_from_client(request):
     session_id = request.COOKIES['sessionid']
+
     redis_client = redis.StrictRedis(host='localhost', port=6379, db=1)
-    session_content = redis_client.get(session_id)
+    session_content = redis_client.get('session:' + session_id)
+    session_content = session_content.decode('utf-8')
+
+    decoded_content = base64.standard_b64decode(session_content)
+    decoded_content = str(decoded_content)
+
     p = re.compile('"_auth_user_id":(\d+),"')
-    value = p.findall(session_content)
+    value = p.findall(decoded_content)
     user_id = -1
     try:
-        user_id = value[0]
-    except (user_id, IndexError):
+        user_id = str(value[0])
+    except IndexError:
         logging.error('Invalid user id.')
         return None
 
-    redis_client.select(0)
+    redis_client = redis.StrictRedis(host='localhost', port=6379, db=0)
     user_notifications = redis_client.hgetall(user_id)
+    logging.info(user_notifications)
 
-    data = {'notifications': user_notifications}
+    data = {'notifications': 'abc'}
     return data
