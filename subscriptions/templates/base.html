@@ -53,8 +53,14 @@
                         <a href="#page-top"></a>
                     </li>
                     {% if user.is_authenticated %}
-                    <li>
-                      <a class="page-scroll" href={% url 'user_profile' %}>{{ user.get_full_name|default:user.username }}</a>
+
+                    <li id="user-li">
+                        <a id="user-profile" class="page-scroll" href={% url 'user_profile' %}>
+                            {{ user.get_full_name|default:user.username }}
+                        </a>
+                    </li>
+                    <li id="notification-li">
+                        <a id="notification-a" class="page-scroll" href='#'>0</a>
                     </li>
                     <li>
                         <a class="page-scroll" href={% url 'subscription_create' %}>新增訂閱</a>
@@ -102,9 +108,9 @@
 
     <!-- Plugin JavaScript -->
     <script src={% static  "js/jquery.easing.min.js" %}></script>
+    <script src={% static  "js/js.cookie.js" %}></script>
 
-    <!-- Google Maps API Key - Use your own API key to enable the map feature. More information on the Google Maps API can be found at https://developers.google.com/maps/ -->
-    <!-- <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCRngKslUGJTlibkQ3FkfTxj3Xss1UlZDA&sensor=false"></script> -->
+    <script type="text/javascript" src={% static 'django_ajax/js/jquery.ajax.min.js' %}></script>
 
     <!-- Custom Theme JavaScript -->
     <script src={% static  "js/grayscale.js" %}></script>

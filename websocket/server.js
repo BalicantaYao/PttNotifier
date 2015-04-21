@@ -14,12 +14,13 @@ var user_id = null;
 var SUBSCRIBE_PREFIX = 'notifications.';
 var port = 6379;
 var host = '127.0.0.1';
+var redisClientService = require('./redisClientService.js');
+var redis = require('redis');
 
 serv_io.set('authorization', function(data, accept){
     if(data.headers.cookie){
         data.cookie = cookie_reader.parse(data.headers.cookie);
         if (data.cookie.hasOwnProperty('sessionid')) {
-            var redisClientService = require('./redisClientService.js');
             var redisService = new redisClientService();
             redisService.connect(port, host);
             redisService.select(1, function(){
@@ -41,15 +42,42 @@ serv_io.set('authorization', function(data, accept){
     return accept('error', false);
 });
 
+var delEntry = function(userid, key){
+    var client4Del = new redisClientService();
+    client4Del.connect(port, host);
+    client4Del.hdel(userid, key, function(err, res){
+        if (err) {
+            logging.info(err);
+        }
+        client4Del.close();
+    });
+};
+var hgetallAndPush2Client = function(userid, socket){
+    var myClient = redis.createClient(port, host);
+    myClient.hgetall(userid, function(err, res){
+        if(!err)
+        {
+            socket.emit('notify', {
+                // 'notifications': JSON.stringify(res),
+                'count': Object.keys(res).length
+            });
+        }
+        myClient.end();
+    });
+};
+
 serv_io.sockets.on('connection', function(socket) {
     console.log('socket.id: ' + socket.id);
-    var redis = require('redis');
+    hgetallAndPush2Client(user_id, socket);
+
     var client = redis.createClient(port, host);
     if (user_id) {
         client.subscribe(SUBSCRIBE_PREFIX + user_id.toString());
+        console.log('on connection subscribe: ' + user_id);
     }
     client.on('message', function(channel, message){
         logging.info('MESSAGE: ' + message);
+        hgetallAndPush2Client(user_id, socket);
     });
 
     setInterval(function() {

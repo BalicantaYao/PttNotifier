@@ -67,9 +67,9 @@ RedisClientService.prototype.hgetall = function(callback){
 	});
 };
 
-RedisClientService.prototype.hdel = function(mainKey, hashKey){
+RedisClientService.prototype.hdel = function(mainKey, hashKey, callback){
 	var self = this;
-	self.client.hdel(mainKey, hashKey);
+	self.client.hdel(mainKey, hashKey, callback);
 };
 
 RedisClientService.prototype.getall = function(callback){

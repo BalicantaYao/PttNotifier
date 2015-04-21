@@ -8,6 +8,7 @@ from django.conf.urls import patterns, url
 from subscriptions.views import terms_and_condictions, subscription_list, subscription_create
 from subscriptions.views import subscription_detail, subscription_update
 from subscriptions.views import subscription_delete, subscription_delete_confirm
+from subscriptions.views import get_notifications_by_id_from_client
 
 urlpatterns = patterns(
     '',
@@ -23,4 +24,6 @@ urlpatterns = patterns(
     url(r'^subscriptions/(?P<pk>\d+)/delete/$', subscription_delete, name='subscription_delete'),
     url(r'^subscriptions/(?P<pk>\d+)/confirm/$',
         subscription_delete_confirm, name='subscription_delete_confirm'),
+    url(r'^rtnotifications/(?P<pk>\w+)/$',
+        get_notifications_by_id_from_client, name='get_notifications_by_id_from_client'),
 )

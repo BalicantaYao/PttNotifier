@@ -6,6 +6,7 @@ from django import forms
 from django.http import Http404
 from django.http import HttpResponseForbidden
 from django.contrib.auth.decorators import login_required
+from django_ajax.decorators import ajax
 
 
 def home(request):
@@ -122,3 +123,9 @@ def subscription_delete_confirm(request, pk):
             request, 'delete_confirm.html',
             {'subscription': subscription})
     return HttpResponseForbidden()
+
+
+@ajax
+def get_notifications_by_id_from_client(request, pk):
+    data = {'msg': 'HelloFromBackend.'}
+    return data

@@ -9,3 +9,4 @@ celery
 django-celery
 redis
 django-redis-sessions
+djangoajax
