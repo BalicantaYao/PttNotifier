@@ -16,10 +16,12 @@ from .agent.NotifyUtil.Notification import NotificationItem
 
 @shared_task
 def scanBoard():
+
     # Find All Subscription
     subscriptions = Subscrption.objects.all()
     user_mail_with_matched_articles = {}
     agent_pool = {}
+
     for subscription in subscriptions:
         board_name = subscription.board.board_eng_name
         user_email = subscription.user.email
@@ -29,7 +31,8 @@ def scanBoard():
         agent_pool[board_name] = agent
 
         all_entries = agent.get_entries_after_last_fetch()
-        if len(all_entries) <= 0:
+        is_not_has_new_topic = len(all_entries) <= 0
+        if is_not_has_new_topic:
             continue
 
         # TODO: Muliti keyword
@@ -44,7 +47,7 @@ def scanBoard():
                 # Check is ever sent
                 isSent = Notification.objects.filter(subscription_user=subscription,
                                                      match_url=matched_article['url']).exists()
-                if(isSent):
+                if isSent:
                     continue
 
                 matched_article['keyword'] = subscription.keywords
@@ -52,6 +55,7 @@ def scanBoard():
 
                 now = datetime.datetime.now()
                 new_notification = Notification.objects.create(subscription_user=subscription,
+                                                               article_topic=article_topic,
                                                                notified_date=now.strftime("%Y-%m-%d"),
                                                                notified_time=now.strftime("%H:%M:%S"),
                                                                notified_type='email', match_url=matched_article['url'])
