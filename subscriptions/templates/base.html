@@ -59,6 +59,9 @@
                             {{ user.get_full_name|default:user.username }}
                         </a>
                     </li>
+                    <li id="notification-li">
+                        <a id="notification-a" class="page-scroll" href='#'>0</a>
+                    </li>
                     <div id="notifications-num"></div>
                     <li>
                         <a class="page-scroll" href={% url 'subscription_create' %}>新增訂閱</a>

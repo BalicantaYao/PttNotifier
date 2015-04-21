@@ -58,7 +58,7 @@ var hgetallAndPush2Client = function(userid, socket){
         if(!err)
         {
             socket.emit('notify', {
-                'notifications': JSON.stringify(res),
+                // 'notifications': JSON.stringify(res),
                 'count': Object.keys(res).length
             });
         }
