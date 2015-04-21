@@ -24,5 +24,6 @@ urlpatterns = patterns(
     url(r'^subscriptions/(?P<pk>\d+)/delete/$', subscription_delete, name='subscription_delete'),
     url(r'^subscriptions/(?P<pk>\d+)/confirm/$',
         subscription_delete_confirm, name='subscription_delete_confirm'),
-    url(r'^rtnotifications/(?P<pk>\w+)/$', get_notifications_by_id_from_client, name='get_notifications_by_id_from_client'),
+    url(r'^rtnotifications/(?P<pk>\w+)/$',
+        get_notifications_by_id_from_client, name='get_notifications_by_id_from_client'),
 )
