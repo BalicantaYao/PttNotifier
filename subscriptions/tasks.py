@@ -56,7 +56,8 @@ def scanBoard():
                                                                notified_time=now.strftime("%H:%M:%S"),
                                                                notified_type='email',
                                                                match_url=matched_article['url'],
-                                                               article_topic=article_topic)
+                                                               article_topic=article_topic,
+                                                               article_author=matched_article['author'])
                 publish_to_redis(new_notification)
 
         if len(matched_articles) > 0:
