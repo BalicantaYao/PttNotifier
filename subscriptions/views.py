@@ -7,6 +7,9 @@ from django.http import Http404
 from django.http import HttpResponseForbidden
 from django.contrib.auth.decorators import login_required
 from django_ajax.decorators import ajax
+import redis
+import re
+import logging
 
 
 def home(request):
@@ -126,6 +129,21 @@ def subscription_delete_confirm(request, pk):
 
 
 @ajax
-def get_notifications_by_id_from_client(request, pk):
-    data = {'msg': 'HelloFromBackend.'}
+def get_notifications_by_id_from_client(request):
+    session_id = request.COOKIES['sessionid']
+    redis_client = redis.StrictRedis(host='localhost', port=6379, db=1)
+    session_content = redis_client.get(session_id)
+    p = re.compile('"_auth_user_id":(\d+),"')
+    value = p.findall(session_content)
+    user_id = -1
+    try:
+        user_id = value[0]
+    except (user_id, IndexError):
+        logging.error('Invalid user id.')
+        return None
+
+    redis_client.select(0)
+    user_notifications = redis_client.hgetall(user_id)
+
+    data = {'notifications': user_notifications}
     return data
