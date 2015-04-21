@@ -13,7 +13,7 @@
     });
 
     $('#notification-li').click(function(){
-        var url = 'rtnotifications/' + $.cookie('sessionid') + '/';
+        var url = 'rtnotifications/' + Cookies.get('sessionid') + '/';
         ajaxGet(url, function(content){
             alert(content);
         });
