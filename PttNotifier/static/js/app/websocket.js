@@ -12,5 +12,11 @@
         $('#notification-a').text(data.count);
     });
 
+    $('#notification-li').click(function(){
+        var url = 'rtnotifications/' + $.cookie('sessionid') + '/';
+        ajaxGet(url, function(content){
+            alert(content);
+        });
+    });
 
 })(this);
