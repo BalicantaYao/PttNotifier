@@ -14,7 +14,7 @@
 
     $('#notification-li').click(function(){
         $('.notifications-wrapper').empty();
-        var url = 'rtnotifications/';
+        var url = '/rtnotifications/';
         ajaxGet(url, function(content){
             var data = JSON.parse(content)
             console.log(data);
