@@ -30,6 +30,9 @@ serv_io.set('authorization', function(data, accept){
                         var sessionObjString = sessionData.substring(sessionData.indexOf(":") + 1);
                         var sessionObjJSON = JSON.parse(sessionObjString);
                         user_id = sessionObjJSON._auth_user_id;
+                        if (!user_id) {
+                            return accept('error', false);
+                        }
                         logging.info('user: ' + user_id);
                         return accept(null, true);
                     }
