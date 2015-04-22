@@ -11,7 +11,7 @@ import redis
 import re
 import logging
 import base64
-# import json
+import json
 
 
 def home(request):
