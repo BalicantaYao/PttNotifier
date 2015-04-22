@@ -59,8 +59,16 @@
                             {{ user.get_full_name|default:user.username }}
                         </a>
                     </li>
-                    <li id="notification-li">
-                        <a id="notification-a" class="page-scroll" href='#'>0</a>
+                    <li id="notification-li" class="dropdown">
+                        <a id="notification-a" class="dropdown-toggle" data-toggle="dropdown" role="button" href='#'>0</a>
+                        <ul class="dropdown-menu notifications" role="menu" aria-labelledby="dLabel">
+                            <div class="notification-heading"><h4 class="menu-title">Notifications</h4><h4 class="menu-title pull-right">View all<i class="glyphicon glyphicon-circle-arrow-right"></i></h4>
+                            </div>
+                            <li class="divider"></li>
+                            <div class="notifications-wrapper"></div>
+                            <li class="divider"></li>
+                            <div class="notification-footer"><h4 class="menu-title">View all<i class="glyphicon glyphicon-circle-arrow-right"></i></h4></div>
+                        </ul>
                     </li>
                     <li>
                         <a class="page-scroll" href={% url 'subscription_create' %}>新增訂閱</a>

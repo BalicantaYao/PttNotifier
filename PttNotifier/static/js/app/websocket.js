@@ -16,8 +16,22 @@
         // var url = 'http://pttnotifier.buzz3.co:8080/rtnotifications/';
         var url = 'rtnotifications/';
         ajaxGet(url, function(content){
-            alert(content);
+            var data = JSON.parse(content)
+            console.log(data);
+            var htmlContent = '';
+            for(var key in data) {
+                htmlContent += '''
+                    <a class="content" href="#">
+                        <div class="notification-item">
+                            <h4 class="item-title">''' + data[key] + '''</h4>
+                            <p class="item-info">''' + key + '''</p>
+                        </div>
+                    </a>
+                ''';
+            }
+            $('.notifications-wrapper').append(htmlContent);
         });
     });
+
 
 })(this);

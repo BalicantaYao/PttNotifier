@@ -153,7 +153,7 @@ def get_notifications_by_id_from_client(request):
     redis_client = redis.StrictRedis(host='localhost', port=6379, db=0)
     byte_notifications = redis_client.hgetall(user_id)
     str_notifications = {k.decode('utf-8'): v.decode('utf-8') for k, v in byte_notifications.items()}
-    json_notification = json.dumps(str_notifications)
+    json_notifications = json.dumps(str_notifications)
     # logging.info(str_notifications)
 
-    return json_notification
+    return json_notifications
