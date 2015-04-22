@@ -53,7 +53,7 @@ def scanBoard():
                 matched_article['keyword'] = subscription.keywords
                 matched_articles.append(matched_article)
 
-                now = datetime.datetime.now()
+                # now = datetime.datetime.now()
                 new_notification = Notification.objects.create(subscription_user=subscription,
                                                                article_topic=article_topic,
                                                                # notified_time=now.strftime("%H:%M:%S"),
