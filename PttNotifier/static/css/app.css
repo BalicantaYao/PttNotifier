@@ -2,7 +2,7 @@
 * @Author: bustta
 * @Date:   2014-12-16 23:50:29
 * @Last Modified by:   bustta
-* @Last Modified time: 2014-12-17 00:06:31
+* @Last Modified time: 2015-04-23 00:05:02
 */
 #subscribe_kw #input_kw_row .form-group input.form-control {
     width: 100%;
@@ -69,12 +69,6 @@ footer span {
 }
 
 /* dropdown notifications below */
-
-.dropdown {
-    display:inline-block;
-    margin-left:20px;
-    padding:10px;
-  }
 
 
 .glyphicon-bell {

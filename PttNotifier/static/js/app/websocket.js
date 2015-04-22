@@ -13,7 +13,7 @@
     });
 
     $('#notification-li').click(function(){
-        // var url = 'http://pttnotifier.buzz3.co:8080/rtnotifications/';
+        $('.notifications-wrapper').empty();
         var url = 'rtnotifications/';
         ajaxGet(url, function(content){
             var data = JSON.parse(content)
