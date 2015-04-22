@@ -20,14 +20,13 @@
             console.log(data);
             var htmlContent = '';
             for(var key in data) {
-                htmlContent += '''
-                    <a class="content" href="#">
-                        <div class="notification-item">
-                            <h4 class="item-title">''' + data[key] + '''</h4>
-                            <p class="item-info">''' + key + '''</p>
-                        </div>
-                    </a>
-                ''';
+                htmlContent +=
+                    '<a class="content" href="#"> \
+                        <div class="notification-item"> \
+                            <h4 class="item-title">' + data[key] + '</h4> \
+                            <p class="item-info">' + key + '</p> \
+                        </div> \
+                    </a>';
             }
             $('.notifications-wrapper').append(htmlContent);
         });
