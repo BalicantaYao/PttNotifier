@@ -56,7 +56,7 @@ def scanBoard():
                 now = datetime.datetime.now()
                 new_notification = Notification.objects.create(subscription_user=subscription,
                                                                article_topic=article_topic,
-                                                               notified_time=now.strftime("%H:%M:%S"),
+                                                               # notified_time=now.strftime("%H:%M:%S"),
                                                                notified_type='email',
                                                                match_url=matched_article['url'],
                                                                article_author=matched_article['author'])

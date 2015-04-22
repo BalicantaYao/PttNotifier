@@ -38,8 +38,8 @@ class Subscrption(models.Model):
 class Notification(models.Model):
     """model for Notification"""
     subscription_user = models.ForeignKey(Subscrption)
-    notified_date = models.DateField()
-    notified_time = models.TimeField()
+    notified_date = models.DateField(auto_now_add=True, null=True)
+    notified_time = models.TimeField(auto_now_add=True, null=True)
     notified_type = models.CharField(max_length=12)
     match_url = models.CharField(max_length=255)
     is_sent = models.BooleanField(default=False)
