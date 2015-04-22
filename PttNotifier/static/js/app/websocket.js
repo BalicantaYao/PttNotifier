@@ -21,7 +21,7 @@
             var htmlContent = '';
             for(var key in data) {
                 htmlContent +=
-                    '<a class="content" href="#"> \
+                    '<a class="content" href="' + key + '" target="_blank"> \
                         <div class="notification-item"> \
                             <h4 class="item-title">' + data[key] + '</h4> \
                             <p class="item-info">' + key + '</p> \
