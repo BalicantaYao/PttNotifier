@@ -58,7 +58,7 @@ var delEntry = function(userid, key){
 var hgetallAndPush2Client = function(userid, socket){
     var myClient = redis.createClient(port, host);
     myClient.hgetall(userid, function(err, res){
-        if(!err)
+        if(!err && res)
         {
             socket.emit('notify', {
                 // 'notifications': JSON.stringify(res),
