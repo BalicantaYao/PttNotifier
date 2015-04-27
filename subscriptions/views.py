@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.shortcuts import render_to_response
 from django.template.context import RequestContext
-from .models import Subscrption, Board, BoardCategory
+from .models import Subscrption, Board, BoardCategory, Notification
 from django import forms
 from django.http import Http404
 from django.http import HttpResponseForbidden
@@ -130,10 +130,7 @@ def subscription_delete_confirm(request, pk):
     return HttpResponseForbidden()
 
 
-@ajax
-def get_notifications_by_id_from_client(request):
-    session_id = request.COOKIES['sessionid']
-
+def _get_use_id_by_sessionid(session_id):
     redis_client = redis.StrictRedis(host='localhost', port=6379, db=1)
     session_content = redis_client.get('session:' + session_id)
     session_content = session_content.decode('utf-8')
@@ -143,12 +140,16 @@ def get_notifications_by_id_from_client(request):
 
     p = re.compile('"_auth_user_id":(\d+),"')
     value = p.findall(decoded_content)
-    user_id = -1
     try:
-        user_id = str(value[0])
+        return str(value[0])
     except IndexError:
         logging.error('Invalid user id.')
         return None
+
+
+@ajax
+def get_notifications_by_id_from_client(request):
+    user_id = _get_use_id_by_sessionid(request.COOKIES['sessionid'])
 
     redis_client = redis.StrictRedis(host='localhost', port=6379, db=0)
     byte_notifications = redis_client.hgetall(user_id)
@@ -157,3 +158,18 @@ def get_notifications_by_id_from_client(request):
     # logging.info(str_notifications)
 
     return json_notifications
+
+
+@ajax
+def mark_as_read_and_del_in_redis_on_click(request):
+    user_id = _get_use_id_by_sessionid(request.COOKIES['sessionid'])
+
+    item = Notification.objects.filter(
+        subscription_user__id=user_id,
+        match_url=request.notification.url,
+        article_topic=request.notification.title)
+    item.is_read = True
+    item.save()
+
+
+
