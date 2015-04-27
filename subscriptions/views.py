@@ -171,5 +171,11 @@ def mark_as_read_and_del_in_redis_on_click(request):
     item.is_read = True
     item.save()
 
+    redis_client = redis.StrictRedis(host='localhost', port=6379, db=0)
+    redis_client.hdel(user_id, request.notification.url)
+    byte_notifications = redis_client.hgetall(user_id)
+    str_notifications = {k.decode('utf-8'): v.decode('utf-8') for k, v in byte_notifications.items()}
+    json_notifications = json.dumps(str_notifications)
 
+    return json_notifications
 
