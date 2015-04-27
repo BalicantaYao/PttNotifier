@@ -178,4 +178,3 @@ def mark_as_read_and_del_in_redis_on_click(request):
     json_notifications = json.dumps(str_notifications)
 
     return json_notifications
-
