@@ -34,49 +34,52 @@
         <li class="divider"></li>
         <li><a href="#!" id="dropdown_content_3" class="dropdown_content">three</a></li>
       </ul> -->
-      <nav class="white">
-        <div class="nav-wrapper container">
-          <a href={% url 'home' %} class="brand-logo">buzz3</a>
-          <a href="#" data-activates="mobile-nav" class="button-collapse"><i class="mdi-navigation-menu"></i></a>
+      <header>
+          <nav class="white">
+            <div class="nav-wrapper container">
+              <a href={% url 'home' %} class="brand-logo">buzz3</a>
+              <a href="#" data-activates="mobile-nav" class="button-collapse"><i class="mdi-navigation-menu"></i></a>
 
-          <ul class="right hide-on-med-and-down">
-            {% if user.is_authenticated %}
-            <li><a href={% url 'subscription_create' %}>New</a></li>
-            <li><a href={% url 'subscription_list' %}>List</a></li>
-            <li><a class="dropdown-button notifications-dropdown-container" href="#!" data-activates="notifications-binding">0<i class="mdi-notification-more right"></i></a></li>
-            <li id="user-li">
-              <a id="user-profile" href={% url 'user_profile' %}>{{ user.get_full_name|default:user.username }}</a>
-            </li>
-            <li><a href={% url 'auth:logout' %}?next={% url 'home' %}>Logout</a></li>
-            {% else %}
-            <li><a href={% url 'social:begin' 'facebook' %}?next={{ request.path }}>Login</a></li>
-            {% endif %}
-            <li><a href={% url 'comments' %}>Comments</a></li>
-          </ul>
+              <ul class="right hide-on-med-and-down">
+                {% if user.is_authenticated %}
+                <li><a href={% url 'subscription_create' %}>New</a></li>
+                <li><a href={% url 'subscription_list' %}>List</a></li>
+                <li><a class="dropdown-button notifications-dropdown-container" href="#!" data-activates="notifications-binding">0<i class="mdi-notification-more right"></i></a></li>
+                <li id="user-li">
+                  <a id="user-profile" href={% url 'user_profile' %}>{{ user.get_full_name|default:user.username }}</a>
+                </li>
+                <li><a href={% url 'auth:logout' %}?next={% url 'home' %}>Logout</a></li>
+                {% else %}
+                <li><a href={% url 'social:begin' 'facebook' %}?next={{ request.path }}>Login</a></li>
+                {% endif %}
+              </ul>
 
-          <ul class="side-nav" id="mobile-nav">
-            {% if user.is_authenticated %}
-            <li><a href={% url 'subscription_create' %}>New</a></li>
-            <li><a href={% url 'subscription_list' %}>List</a></li>
-            <li><a href="#!">Notifications</a></li>
-            <li id="user-li">
-              <a id="user-profile" href={% url 'user_profile' %}>{{ user.get_full_name|default:user.username }}</a>
-            </li>
-            <li><a href={% url 'auth:logout' %}?next={% url 'home' %}>Logout</a></li>
-            {% else %}
-            <li><a href={% url 'social:begin' 'facebook' %}?next={{ request.path }}>Login</a></li>
-            {% endif %}
-            <li><a href={% url 'comments' %}>Comments</a></li>
-          </ul>
+              <ul class="side-nav" id="mobile-nav">
+                {% if user.is_authenticated %}
+                <li><a href={% url 'subscription_create' %}>New</a></li>
+                <li><a href={% url 'subscription_list' %}>List</a></li>
+                <li><a href="#!">Notifications</a></li>
+                <li id="user-li">
+                  <a id="user-profile" href={% url 'user_profile' %}>{{ user.get_full_name|default:user.username }}</a>
+                </li>
+                <li><a href={% url 'auth:logout' %}?next={% url 'home' %}>Logout</a></li>
+                {% else %}
+                <li><a href={% url 'social:begin' 'facebook' %}?next={{ request.path }}>Login</a></li>
+                {% endif %}
+                <li><a href={% url 'comments' %}>Comments</a></li>
+              </ul>
 
-        </div>
-      </nav>
+            </div>
+          </nav>
+      </header>
 
-      <div class="container">
-        <!-- Page Content goes here -->
-        {% block content %}
-        {% endblock %}
-      </div>
+      <main>
+            <div class="container">
+                <!-- Page Content goes here -->
+                {% block content %}
+                {% endblock %}
+            </div>
+      </main>
 
       <footer class="page-footer abrown-footer">
           <div class="footer-copyright">
