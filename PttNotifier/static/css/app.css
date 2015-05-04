@@ -23,6 +23,10 @@ a {
   background-color: rgba(189,177,173,0.1)!important;
 }
 
+#notifications-binding {
+  width: inherit;
+}
+
 main {
   flex: 1 0 auto;
 }
