@@ -20,7 +20,7 @@
         var htmlContent = '';
         var counter = 0;
         for(var key in data) {
-            htmlContent += '<li><a class="notification-item" href"' + key + '" target="_blank">' + data[key] + '</a></li>';
+            htmlContent += '<li><a class="notification-item" href="' + key + '" target="_blank">' + data[key] + '</a></li>';
             counter++;
             if (counter >= 5) {
                 htmlContent += '<li class="divider"></li> \

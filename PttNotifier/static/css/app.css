@@ -24,7 +24,7 @@ a {
 }
 
 #notifications-binding {
-  width: inherit;
+  width: inherit !important;
 }
 
 main {
