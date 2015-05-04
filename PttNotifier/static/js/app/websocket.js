@@ -36,6 +36,8 @@
             ajaxPost('/rtnotifications/update/', postBody, function(content){
                 console.log('got feedback');
                 resetNotifications(content);
+                $('.notifications-dropdown-container').text(
+                    Object.keys(JSON.parse(content)).length);
             });
         });
     };
