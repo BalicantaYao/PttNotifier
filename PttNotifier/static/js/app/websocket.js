@@ -9,7 +9,7 @@
     socket.on('notify', function(data) {
         console.log('count: ' + data.count);
         localStorage.setItem('buzz3push', data.count);
-        $('#notification-a').text(data.count);
+        $('.notifications-dropdown-container').text(data.count);
     });
 
     var resetNotifications = function(content){
