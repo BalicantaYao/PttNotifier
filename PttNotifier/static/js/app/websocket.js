@@ -31,7 +31,7 @@
         targetDiv.append(htmlContent);
         $('.notification-item').click(function(){
             var url = $(this).attr('href');
-            var title = $(this).innerText;
+            var title = $(this)[0].innerText;
             var postBody = { 'url': url, 'title': title }
             ajaxPost('/rtnotifications/update/', postBody, function(content){
                 console.log('got feedback');
