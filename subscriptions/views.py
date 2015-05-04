@@ -163,17 +163,16 @@ def get_notifications_by_id_from_client(request):
 @ajax
 def mark_as_read_and_del_in_redis_on_click(request):
     logging.info('got ajax post')
+    post_dict = request.POST.dict()
     user_id = _get_use_id_by_sessionid(request.COOKIES['sessionid'])
 
-    item = Notification.objects.filter(
+    Notification.objects.filter(
         subscription_user__id=user_id,
-        match_url=request.notification.url,
-        article_topic=request.notification.title)
-    item.is_read = True
-    item.save()
+        match_url=post_dict['url'],
+        article_topic=post_dict['title']).update(is_read=True)
 
     redis_client = redis.StrictRedis(host='localhost', port=6379, db=0)
-    redis_client.hdel(user_id, request.notification.url)
+    redis_client.hdel(user_id, post_dict['url'])
     byte_notifications = redis_client.hgetall(user_id)
     str_notifications = {k.decode('utf-8'): v.decode('utf-8') for k, v in byte_notifications.items()}
     json_notifications = json.dumps(str_notifications)
