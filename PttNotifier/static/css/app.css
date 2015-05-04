@@ -7,6 +7,9 @@ body,html {
 
 body {
   background-color: #F6F4F1!important;
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
 }
 
 a {
@@ -18,4 +21,8 @@ a {
 }
 .abrown-footer {
   background-color: rgba(189,177,173,0.1)!important;
+}
+
+main {
+  flex: 1 0 auto;
 }
