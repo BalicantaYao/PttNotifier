@@ -13,22 +13,36 @@
     });
 
     var resetNotifications = function(content){
-        var targetDiv = $('.notifications-wrapper');
+        var targetDiv = $('#notifications-binding');
         targetDiv.empty();
         var data = JSON.parse(content)
         console.log(data);
         var htmlContent = '';
+        var counter = 0;
         for(var key in data) {
-            htmlContent +=
-                '<a class="notification-content-block" href="' + key + '" target="_blank"> \
-                    <div class="notification-item"> \
-                        <h4 class="item-title">' + data[key] + '</h4> \
-                        <p class="item-info">' + key + '</p> \
-                    </div> \
-                </a>';
+            // htmlContent +=
+            //     '<a class="notification-content-block" href="' + key + '" target="_blank"> \
+            //         <div class="notification-item"> \
+            //             <h4 class="item-title">' + data[key] + '</h4> \
+            //             <p class="item-info">' + key + '</p> \
+            //         </div> \
+            //     </a>';
+            htmlContent += '<li><a class="notification-item" href"' + key + '" target="_blank">' + data[key] + '</a></li>';
+            if (counter >= 5) {
+                htmlContent += '<li class="divider"></li> \
+                    <li><a href="#!" class="notification-item">More</a></li>';
+                    break;
+            }
         }
         targetDiv.append(htmlContent);
     };
+    //<ul id="dropdown1" class="dropdown-content">
+    //    <li><a href="#!" id="dropdown_content_1" class="dropdown_content">one</a></li>
+    //    <li><a href="#!" id="dropdown_content_2" class="dropdown_content">two</a></li>
+    //    <li class="divider"></li>
+    //    <li><a href="#!" id="dropdown_content_3" class="dropdown_content">three</a></li>
+    //  </ul>
+
 
     $('#notification-li').click(function(){
         ajaxGet('/rtnotifications/', function(content){
