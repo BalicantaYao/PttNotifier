@@ -24,11 +24,20 @@
             counter++;
             if (counter >= 5) {
                 htmlContent += '<li class="divider"></li> \
-                    <li><a href="#!" class="notification-item">More</a></li>';
+                    <li><a href="#!" class="notification-item-more">More</a></li>';
                     break;
             }
         }
         targetDiv.append(htmlContent);
+        $('.notification-item').click(function(){
+            var url = $(this).attr('href');
+            var title = $(this).innerText;
+            var postBody = { 'url': url, 'title': title }
+            ajaxPost('/rtnotifications/update/', postBody, function(content){
+                console.log('got feedback');
+                resetNotifications(content);
+            });
+        });
     };
 
 
@@ -37,14 +46,7 @@
             resetNotifications(content);
         });
     });
-    $('.notification-content-block').click(function(){
-        var url = $(this).find('.item-title').text;
-        var title = $(this).find('.item-info').text;
-        var postBody = { 'url': url, 'title': title }
-        ajaxPost('/rtnotifications/update', postBody, function(content){
-            resetNotifications(content);
-        });
-    });
+
 
 
 })(this);

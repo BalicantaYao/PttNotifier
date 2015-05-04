@@ -162,6 +162,7 @@ def get_notifications_by_id_from_client(request):
 
 @ajax
 def mark_as_read_and_del_in_redis_on_click(request):
+    logging.info('got ajax post')
     user_id = _get_use_id_by_sessionid(request.COOKIES['sessionid'])
 
     item = Notification.objects.filter(

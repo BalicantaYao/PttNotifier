@@ -3,7 +3,7 @@
 # @Author: bustta
 # @Date:   2014-12-28 14:46:24
 # @Last Modified by:   bustta
-# @Last Modified time: 2015-04-21 23:51:37
+# @Last Modified time: 2015-05-05 00:27:38
 from django.conf.urls import patterns, url
 from subscriptions.views import terms_and_condictions, subscription_list, subscription_create
 from subscriptions.views import subscription_detail, subscription_update
@@ -26,6 +26,6 @@ urlpatterns = patterns(
         subscription_delete_confirm, name='subscription_delete_confirm'),
     url(r'^rtnotifications/$',
         get_notifications_by_id_from_client, name='get_notifications_by_id_from_client'),
-    url(r'^rtnotifications/update$',
+    url(r'^rtnotifications/update/$',
         mark_as_read_and_del_in_redis_on_click, name='mark_as_read_and_del_in_redis_on_click'),
 )
