@@ -40,6 +40,12 @@ def terms_and_condictions(request):
 
 
 @login_required
+def notification_list(request):
+    notifications = Notification.objects.filter(user_id=request.user.id, is_read=False)
+    return render(request, 'notification_list.html', {'notifications': notifications})
+
+
+@login_required
 def subscription_list(request):
     subscriptions = Subscrption.objects.filter(user_id=request.user.id)
     for item in subscriptions:
