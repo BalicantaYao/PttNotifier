@@ -4,7 +4,7 @@
 {% block title%}訂閱清單 | {{ block.super }}{% endblock title%}
 {% block content %}
 <div class="row">
-    <table class="table hoverable responsive-table">
+    <table class="table responsive-table">
     {% for item in subscriptions %}
         <tr class="subscription_item">
             <td class="item_board_category">{{ item.category.category_cht_name }}</td>
