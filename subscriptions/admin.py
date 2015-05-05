@@ -20,6 +20,7 @@ class NotificationAdmin(admin.ModelAdmin):
         'notified_type',
         'match_url',
         'is_sent',
+        'is_read',
         'article_topic',
         'article_author',
         'article_push_count',
