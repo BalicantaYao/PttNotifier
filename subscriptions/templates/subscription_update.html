@@ -3,28 +3,39 @@
 
 {% block title%}更新訂閱 | {{ block.super }}{% endblock title%}
 {% block content %}
-<div class="content-section">
-    <div class="row">
-        <form action="." method="post" role="form" class="form-inline">
+<div class="row">
+    <form action="." method="post" role="form" class="form-inline">
         {% csrf_token %}
+        <div class="row">
+            <div class="input-field">
+                <input type="hidden" id="user" value="{{ user.id }}" name="user" />
+            </div>
+            <div class="row">
+                <div class="col s6">
+                    <label for="category">類型</label>
+                    <select class="browser-default" id="category" name="category" >
+                        {% for category in board_category %}
+                            <option value="{{ category.id }}">{{ category.category_cht_name }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="col s6">
+                    <label for="board">板名</label>
+                    <select id="board" class="browser-default" name="board" >
+                        {% for item in board %}
+                            <option value="{{ item.id }}">{{ item.board_eng_name }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
 
-        <input type="hidden" id="user" value="{{ user.id }}" name="user" />
-        <select class="form-control" id="category" name="category" >
-            {% for category in board_category %}
-                <option value="{{ category.id }}">{{ category.category_cht_name }}</option>
-            {% endfor %}
-        </select>
-            <select class="form-control" id="board" name="board" >
-                {% for item in board %}
-                    <option value="{{ item.id }}">{{ item.board_eng_name }}</option>
-                {% endfor %}
-            </select>
-        <input class="form-control" type="text" id="keywords" name="keywords" value="{{ subscription.keywords }}"/>
+            <div class="input-field">
+                <input type="text" id="keywords" name="keywords" placeholder="請在此輸入關鍵字" value="{{ subscription.keywords }}" />
+            </div>
 
-        <button type="submit" class="btn btn-primary">修改</button>
-
-        </form>
-    </div>
+            <button type="submit" class="btn btn-primary">修改</button>
+        </div>
+    </form>
 </div>
 {% endblock content %}
 

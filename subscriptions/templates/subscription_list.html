@@ -3,25 +3,21 @@
 
 {% block title%}訂閱清單 | {{ block.super }}{% endblock title%}
 {% block content %}
-<div class="content-section">
-    <div class="row">
-        <div class="table-responsive">
-        <table class="table">
-        {% for item in subscriptions %}
-            <tr class="subscription_item">
-                <td class="item_board_category">{{ item.category.category_cht_name }}</td>
-                <td class="item_board_eng_name">{{ item.board.board_eng_name }}</td>
-                <td class="item_keywords">{{ item.keywords }}</td>
-                <td class="item_edit">
-                <a href="{% url 'subscription_update' item.id %}">修改</a>
-            </td>
-            <td class="item_delete">
-                <a class="delete_anchor" href="{% url 'subscription_delete_confirm' item.id%}">刪除</a>
-            </td>
-            </tr>
-        {% endfor %}
-        </table>
-        </div>
-    </div>
+<div class="row">
+    <table class="table hoverable responsive-table">
+    {% for item in subscriptions %}
+        <tr class="subscription_item">
+            <td class="item_board_category">{{ item.category.category_cht_name }}</td>
+            <td class="item_board_eng_name">{{ item.board.board_eng_name }}</td>
+            <td class="item_keywords">{{ item.keywords }}</td>
+            <td class="item_edit">
+            <a href="{% url 'subscription_update' item.id %}">修改</a>
+        </td>
+        <td class="item_delete">
+            <a class="delete_anchor" href="{% url 'subscription_delete_confirm' item.id%}">刪除</a>
+        </td>
+        </tr>
+    {% endfor %}
+    </table>
 </div>
 {% endblock %}
