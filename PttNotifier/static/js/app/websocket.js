@@ -24,7 +24,7 @@
             counter++;
             if (counter >= 5) {
                 htmlContent += '<li class="divider"></li> \
-                    <li><a href="#!" class="notification-item-more">More</a></li>';
+                    <li><a href="/notifications/" class="notification-item-more">More</a></li>';
                     break;
             }
         }
