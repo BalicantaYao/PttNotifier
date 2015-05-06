@@ -41,7 +41,7 @@ def terms_and_condictions(request):
 
 @login_required
 def notification_list(request):
-    notifications = Notification.objects.filter(subscription_user__user_id=request.user.id, is_read=False)
+    notifications = Notification.objects.filter(subscription_user__user_id=request.user.id, is_read=False).reverse()
     return render(request, 'notification_list.html', {'notifications': notifications})
 
 

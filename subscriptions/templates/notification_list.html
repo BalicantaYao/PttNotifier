@@ -4,14 +4,16 @@
 {% block content %}
 <div class="row">
     <table class="table responsive-table">
-    {% for item in notifications %}
-        <tr class="notification_item">
-            <td>{{ item.article_topic }}</td>
-            <td>{{ item.article_author }}</td>
-            <td>{{ item.match_url }}</td>
-            <td>{{ item.is_sent }}</td>
+        <tr>
+            <th>文章標題</th>
+            <th>作者</th>
         </tr>
-    {% endfor %}
+        {% for item in notifications %}
+        <tr class="notification_item notification_list_row">
+            <td><a class="notification-item" href="{{ item.match_url }}" target="_blank">{{ item.article_topic }}</a></td>
+            <td>{{ item.article_author }}</td>
+        </tr>
+        {% endfor %}
     </table>
 </div>
 {% endblock %}
