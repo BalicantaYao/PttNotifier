@@ -41,7 +41,7 @@ def terms_and_condictions(request):
 
 @login_required
 def notification_list(request):
-    notifications = Notification.objects.filter(user_id=request.user.id, is_read=False)
+    notifications = Notification.objects.filter(subscription_user__user_id=request.user.id, is_read=False)
     return render(request, 'notification_list.html', {'notifications': notifications})
 
 
@@ -173,7 +173,7 @@ def mark_as_read_and_del_in_redis_on_click(request):
     user_id = _get_use_id_by_sessionid(request.COOKIES['sessionid'])
 
     Notification.objects.filter(
-        subscription_user__id=user_id,
+        subscription_user__user_id=user_id,
         match_url=post_dict['url'],
         article_topic=post_dict['title']).update(is_read=True)
 

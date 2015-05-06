@@ -3,7 +3,7 @@
 # @Author: bustta
 # @Date:   2014-12-28 14:46:24
 # @Last Modified by:   bustta
-# @Last Modified time: 2015-05-05 00:27:38
+# @Last Modified time: 2015-05-06 00:15:11
 from django.conf.urls import patterns, url
 from subscriptions.views import terms_and_condictions, subscription_list, subscription_create
 from subscriptions.views import subscription_detail, subscription_update
