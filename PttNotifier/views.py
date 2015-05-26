@@ -50,7 +50,7 @@ def login(request):
         auth.login(request, user)
         return redirect('home')
     else:
-    return render_to_response('login.html')
+        return render_to_response('login.html')
 
 
 def logout(request):
