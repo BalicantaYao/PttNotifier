@@ -14,29 +14,29 @@ import base64
 import json
 
 
-def home(request):
-    # return render(request, 'home.html')
-    context = RequestContext(request,
-                             {'request': request,
-                              'user': request.user})
-    return render_to_response('home.html',
-                              context_instance=context)
+# def home(request):
+#     # return render(request, 'home.html')
+#     context = RequestContext(request,
+#                              {'request': request,
+#                               'user': request.user})
+#     return render_to_response('home.html',
+#                               context_instance=context)
 
 
-def contact(request):
-    return render(request, 'contact.html', {})
-
-
-def privacy(request):
-    return render(request, 'privacy.html', {})
-
-
-def comments(request):
-    return render(request, 'comments.html', {})
-
-
-def terms_and_condictions(request):
-    return render(request, 'terms_and_condictions.html', {})
+# def contact(request):
+#     return render(request, 'contact.html', {})
+#
+#
+# def privacy(request):
+#     return render(request, 'privacy.html', {})
+#
+#
+# def comments(request):
+#     return render(request, 'comments.html', {})
+#
+#
+# def terms_and_condictions(request):
+#     return render(request, 'terms_and_condictions.html', {})
 
 
 @login_required
