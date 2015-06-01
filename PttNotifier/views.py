@@ -6,8 +6,10 @@
 # @Last Modified time: 2015-05-26 00:14:17
 
 from django.contrib import auth
-from django.shortcuts import render, redirect, render_to_response
+from django.shortcuts import render, redirect, render_to_response, HttpResponseRedirect
 from django.template.context import RequestContext
+from django.contrib.auth.forms import UserCreationForm
+import logging
 
 
 # def index(request):
@@ -35,6 +37,19 @@ def comments(request):
 
 def terms_and_condictions(request):
     return render(request, 'terms_and_condictions.html', {})
+
+
+def register(request):
+    if request.method == 'POST':
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            logging.info('passssss')
+            return HttpResponseRedirect('/accounts/login/')
+    else:
+        form = UserCreationForm(request.POST)
+    c = {'form': form}
+    return render_to_response('registration/register.html', c, context_instance=RequestContext(request))
 
 
 def login(request):
