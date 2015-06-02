@@ -9,18 +9,11 @@ from django.contrib import auth
 from django.shortcuts import render, redirect, render_to_response, HttpResponseRedirect
 from django.template.context import RequestContext
 from django.contrib.auth.forms import UserCreationForm
-import logging
 
 
-# def index(request):
-#     return render_to_response('home.html', locals())
 def home(request):
-    # return render(request, 'home.html')
-    context = RequestContext(request,
-                             {'request': request,
-                              'user': request.user})
-    return render_to_response('home.html',
-                              context_instance=context)
+    context = RequestContext(request, {'request': request, 'user': request.user})
+    return render_to_response('home.html', context_instance=context)
 
 
 def contact(request):
@@ -44,7 +37,6 @@ def register(request):
         form = UserCreationForm(request.POST)
         if form.is_valid():
             user = form.save()
-            logging.info('passssss')
             return HttpResponseRedirect('/accounts/login/')
     else:
         form = UserCreationForm(request.POST)
