@@ -9,7 +9,8 @@ from django.contrib import auth
 from django.shortcuts import render, redirect, render_to_response, HttpResponseRedirect
 from django.template.context import RequestContext
 from django.contrib.auth.forms import UserCreationForm
-
+from django.contrib.auth.models import User
+from django import forms
 
 def home(request):
     context = RequestContext(request, {'request': request, 'user': request.user})
@@ -32,10 +33,27 @@ def terms_and_condictions(request):
     return render(request, 'terms_and_condictions.html', {})
 
 
+class RegistrationForm(UserCreationForm):
+    # username = forms.CharField(max_length=30)
+    email = forms.EmailField(max_length=75)
+
+    class Meta:
+        model = User
+        fields = ['email', ]
+
+    def save(self, commit=True):
+        user = super(RegistrationForm, self).save(commit=False)
+        user.username = self.cleaned_data["username"]
+        user.email = self.cleaned_data["email"]
+        if commit:
+            user.save()
+        return user
+
+
 def register(request):
     if request.method == 'POST':
-        
-        form = UserCreationForm(request.POST)
+
+        form = RegistrationForm(request.POST)
         if form.is_valid():
             user = form.save()
             return HttpResponseRedirect('/accounts/login/')
