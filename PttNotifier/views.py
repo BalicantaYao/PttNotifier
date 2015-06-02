@@ -12,6 +12,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from django import forms
 
+
 def home(request):
     context = RequestContext(request, {'request': request, 'user': request.user})
     return render_to_response('home.html', context_instance=context)
@@ -52,10 +53,9 @@ class RegistrationForm(UserCreationForm):
 
 def register(request):
     if request.method == 'POST':
-
         form = RegistrationForm(request.POST)
         if form.is_valid():
-            user = form.save()
+            form.save()
             return HttpResponseRedirect('/accounts/login/')
     else:
         form = UserCreationForm(request.POST)
