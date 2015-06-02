@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+
+{% block content %}
+    {% if form.errors %}
+        <p>帳號或密碼錯了，請再試一次！</p>
+    {% endif %}
+<div class="row">
+    <form method="post" action="{% url 'login' %}">
+        {% csrf_token %}
+        <div class="col s12 m3"><p></p></div>
+        <div class="col s12 m6">
+        <div class="card-panel white darken-1">
+            <div class="row center">
+                <h5>使用 Facebook 登入</h5>
+            </div>
+            <div class="row">
+                <div class="col s12 m3 l2"><p></p></div>
+                <div class="col s12 m6 l8 center">
+                    <div class="fb-login-button" data-max-rows="1" data-size="xlarge" data-show-faces="false" data-auto-logout-link="false"></div>
+                </div>
+                <div class="col s12 m3 l2"><p></p></div>
+            </div>
+            <hr>
+            <div class="row center">
+                <h5>或使用密碼登入</h5>
+            </div>
+            <div class="row">
+                <div class="col s12 m3 l2"><p></p></div>
+                <div class="input-field col s12 m6 l8">
+                    <label for="username">使用者名稱</label>
+                    <input type="text" class="validate" id="username" name="username">
+                </div>
+                <div class="col s12 m3 l2"><p></p></div>
+            </div>
+            <div class="row">
+                <div class="col s12 m3 l2"><p></p></div>
+                <div class="input-field col s12 m6 l8">
+                    <label for="password">密碼</label>
+                    <input type="password" class="validate" id="password" name="password">
+                </div>
+                <div class="col s12 m3 l2"><p></p></div>
+            </div>
+            <div class="row">
+                <div class="col s12 m3 l2"><p></p></div>
+                <div class="col s12 m6 l8">
+                    <button type="submit" class="btn btn-default">確認</button>
+                </div>
+                <div class="col s12 m3 l2"><p></p></div>
+            </div>
+        </div>
+        </div>
+    </form>
+</div>
+{% endblock %}

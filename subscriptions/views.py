@@ -1,6 +1,4 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from django.shortcuts import render_to_response
-from django.template.context import RequestContext
 from .models import Subscrption, Board, BoardCategory, Notification
 from django import forms
 from django.http import Http404
@@ -12,31 +10,6 @@ import re
 import logging
 import base64
 import json
-
-
-def home(request):
-    # return render(request, 'home.html')
-    context = RequestContext(request,
-                             {'request': request,
-                              'user': request.user})
-    return render_to_response('home.html',
-                              context_instance=context)
-
-
-def contact(request):
-    return render(request, 'contact.html', {})
-
-
-def privacy(request):
-    return render(request, 'privacy.html', {})
-
-
-def comments(request):
-    return render(request, 'comments.html', {})
-
-
-def terms_and_condictions(request):
-    return render(request, 'terms_and_condictions.html', {})
 
 
 @login_required

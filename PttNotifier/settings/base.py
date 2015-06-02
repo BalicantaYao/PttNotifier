@@ -29,6 +29,7 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = (
     'users',
+    'PttNotifier',
     'subscriptions',
     'djcelery',
     'django.contrib.admin',
