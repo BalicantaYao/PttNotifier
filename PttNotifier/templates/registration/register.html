@@ -6,27 +6,27 @@
         {% csrf_token %}
         <div class="row">
             <div class="row">
+                <h3>註冊新帳號</h3>
                 <div class="col s12 m3 l2"><p></p></div>
-                <div class="col s12 m6 l8">
-                    <h3>註冊新帳號</h3>
+                <div class="input-field col s12 m6 l8">
                     <label for="username">使用者名稱</label>
-                    <div class="input-field" id="username">{{ form.username }}</div>
+                    <input type="text" class="validate" id="username" name="username">
                 </div>
                 <div class="col s12 m3 l2"><p></p></div>
             </div>
             <div class="row">
                 <div class="col s12 m3 l2"><p></p></div>
-                <div class="col s12 m6 l8">
+                <div class="input-field col s12 m6 l8">
                     <label for="password1">密碼</label>
-                    <div class="input-field" id="password1">{{ form.password1 }}</div>
+                    <input type="password" class="validate" id="password1" name="password1">
                 </div>
                 <div class="col s12 m3 l2"><p></p></div>
             </div>
             <div class="row">
                 <div class="col s12 m3 l2"><p></p></div>
-                <div class="col s12 m6 l8">
+                <div class="input-field col s12 m6 l8">
                     <label for="password2">密碼確認</label>
-                    <div class="input-field" id="password2">{{ form.password2 }}</div>
+                    <input type="password" class="validate" id="password2" name="password2">
                 </div>
                 <div class="col s12 m3 l2"><p></p></div>
             </div>
