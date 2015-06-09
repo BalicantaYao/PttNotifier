@@ -30,3 +30,11 @@ a {
 main {
   flex: 1 0 auto;
 }
+
+.login-button-fa {
+    background-color: #3a5795;
+    color: white !important;
+}
+.login-button-fa:hover {
+    background-color: #303f9f;
+}
