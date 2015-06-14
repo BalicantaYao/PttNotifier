@@ -8,7 +8,8 @@ from django import forms
 class UserProfileForm(forms.ModelForm):
     class Meta:
         model = UserProfile
-        fields = ['substituted_mail',]
+        fields = ['substituted_mail', ]
+
 
 @login_required
 def profile(request):
