@@ -8,6 +8,7 @@ import redis
 import json
 
 from .models import Subscrption, Notification
+from users.models import UserProfile
 from celery import shared_task
 
 from .agent.Base.BaseAgent import BaseAgent
@@ -16,7 +17,6 @@ from .agent.NotifyUtil.Notification import NotificationItem
 
 @shared_task
 def scanBoard():
-
     # Find All Subscription
     subscriptions = Subscrption.objects.all()
     user_mail_with_matched_articles = {}
@@ -24,7 +24,10 @@ def scanBoard():
 
     for subscription in subscriptions:
         board_name = subscription.board.board_eng_name
-        user_email = subscription.user.email
+        try:
+            user_email = UserProfile.objects.get(user_id=subscription.user.id).substituted_mail
+        except (UserProfile.DoesNotExist, AttributeError):
+            user_email = subscription.user.email
 
         # Flyweight pattern
         agent = agent_pool.get(board_name, BaseAgent(board_name))
