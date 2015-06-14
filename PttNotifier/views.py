@@ -56,7 +56,11 @@ def register(request):
         form = RegistrationForm(request.POST)
         if form.is_valid():
             form.save()
-            return HttpResponseRedirect('/accounts/login/')
+            auth_user = auth.authenticate(
+                username=request.POST.get('username', ''),
+                password=request.POST.get('password1', ''))
+            auth.login(request, auth_user)
+            return HttpResponseRedirect('/')
     else:
         form = UserCreationForm(request.POST)
     c = {'form': form}
