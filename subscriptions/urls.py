@@ -9,7 +9,7 @@ from subscriptions.views import subscription_list, subscription_create
 from subscriptions.views import subscription_detail, subscription_update
 from subscriptions.views import subscription_delete, subscription_delete_confirm
 from subscriptions.views import get_notifications_by_id_from_client, mark_as_read_and_del_in_redis_on_click
-from subscriptions.views import notification_list
+from subscriptions.views import notification_list, notification_delete_all
 
 urlpatterns = patterns(
     '',
@@ -25,5 +25,6 @@ urlpatterns = patterns(
     url(r'^rtnotifications/update/$',
         mark_as_read_and_del_in_redis_on_click, name='mark_as_read_and_del_in_redis_on_click'),
     url(r'^notifications/$', notification_list, name='notification_list'),
+    url(r'^notifications/delete/$', notification_delete_all, name='notification_delete_all'),
 
 )

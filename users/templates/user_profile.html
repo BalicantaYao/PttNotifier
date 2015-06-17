@@ -5,7 +5,7 @@
     <form action="." method="POST" role="form" class="form-horizontal">
         {% csrf_token %}
         <div class="form-group">
-            <label for="email" class="col-sm-offset-3 col-sm-1 control-label">Email</label>
+            <label for="email" class="col-sm-offset-3 col-sm-1 control-label">修改通知 Mail</label>
             <div class="col-sm-4">
                 <input type="email" name="substituted_mail" id="email" class="form-control" value="{{ user_profile.substituted_mail }}" required="required"/>
             </div>

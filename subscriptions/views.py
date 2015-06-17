@@ -13,6 +13,15 @@ import json
 
 
 @login_required
+def notification_delete_all(request):
+    user_id = _get_use_id_by_sessionid(request.COOKIES['sessionid'])
+    Notification.objects.filter(subscription_user__user_id=user_id).update(is_read=True)
+    redis_client = redis.StrictRedis(host='localhost', port=6379, db=0)
+    redis_client.delete(user_id)
+    return render(request, '/', {})
+
+
+@login_required
 def notification_list(request):
     notifications = Notification.objects.filter(subscription_user__user_id=request.user.id, is_read=False).reverse()
     return render(request, 'notification_list.html', {'notifications': notifications})

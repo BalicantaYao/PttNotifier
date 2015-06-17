@@ -38,3 +38,10 @@ main {
 .login-button-fa:hover {
     background-color: #303f9f;
 }
+
+.dropdown-fifty {
+    float: left;
+    width: 50% !important;
+    clear: none !important;
+    padding-left: 5%;
+}

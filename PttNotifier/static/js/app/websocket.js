@@ -38,7 +38,8 @@
             counter++;
             if (counter >= 5) {
                 htmlContent += '<li class="divider"></li> \
-                    <li><a href="/notifications/" class="notification-item-more">More</a></li>';
+                    <li class="dropdown-fifty"><a href="/notifications/" class="notification-item-more">檢視全部</a></li> \
+                    <li class="dropdown-fifty"><a href="/notifications/delete/" class="notification-item-more">清除全部</a></li>';
                     break;
             }
         }
