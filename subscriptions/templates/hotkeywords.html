@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block title%}熱門關鍵字 | {{ block.super }}{% endblock title%}
+{% block content %}
+<div class="row">
+    <table class="table responsive-table">
+        <tr>
+            <th>關鍵字</th>
+            <th>訂閱次數</th>
+            <th>看板</th>
+        </tr>
+        {% for token in tokens %}
+        <tr class="notification_item notification_list_row">
+            <td>{{ token.token }}</td>
+            <td>{{ token.hot }}</td>
+            <td>{{ token.board.board_cht_name }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</div>
+{% endblock %}

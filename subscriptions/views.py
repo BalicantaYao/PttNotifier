@@ -38,6 +38,12 @@ def subscription_list(request):
 
 
 @login_required
+def hotkeyword_list(request):
+    tokens = KeywordToken.objects.all().order_by('-hot')
+    return render(request, 'hotkeywords.html', {'tokens': tokens})
+
+
+@login_required
 def subscription_detail(request, pk):
     try:
         subscription = Subscrption.objects.get(pk=pk)
