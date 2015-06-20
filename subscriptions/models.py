@@ -62,3 +62,9 @@ class MailSending(models.Model):
     mail_to = models.CharField(max_length=255)
     day_count = models.IntegerField()
     date = models.DateField()
+
+
+class KeywordToken(models.Model):
+    token = models.CharField(max_length=255)
+    board = models.ForeignKey(Board)
+    hot = models.IntegerField(default=1)

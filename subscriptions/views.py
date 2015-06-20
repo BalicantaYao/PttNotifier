@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from .models import Subscrption, Board, BoardCategory, Notification
+from .models import Subscrption, Board, BoardCategory, Notification, KeywordToken
 from django import forms
 from django.http import Http404, HttpResponseForbidden, HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
@@ -57,6 +57,24 @@ class SubscriptionForm(forms.ModelForm):
         return data.replace(' ', '')
 
 
+def _increase_hot_level_for_token(token, board_id):
+    row, created = KeywordToken.objects.get_or_create(token=token, board_id=board_id)
+    if not created:
+        hot_level = row.hot
+        row.hot = hot_level + 1
+        row.save()
+
+
+def _decrease_hot_level_for_token(token, board_id):
+    row = KeywordToken.objects.get(token=token, board_id=board_id)
+    if row.hot > 1:
+        hot_level = row.hot
+        row.hot = hot_level - 1
+        row.save()
+    else:
+        row.delete()
+
+
 @login_required
 def subscription_create(request):
     if request.method == 'POST':
@@ -64,6 +82,11 @@ def subscription_create(request):
 
         if form.is_valid():
             form.save()
+            board = request.POST.get('board')
+            tokens = request.POST.get('keywords').split(',')
+            for token in tokens:
+                _increase_hot_level_for_token(token.strip(), board)
+
             return redirect('subscription_list')
 
     form = SubscriptionForm()
@@ -79,17 +102,43 @@ def subscription_create(request):
 @login_required
 def subscription_update(request, pk):
     subscription = get_object_or_404(Subscrption, pk=pk)
-    board = Board.objects.all()
     subscription.category_id = Board.objects.get(pk=subscription.board_id).category_id
-    board_category = BoardCategory.objects.all()
 
     if request.method == 'POST':
+        old_board = subscription.board_id
+        old_keywords = subscription.keywords
+        new_board = request.POST.get('board')
+        new_keywords = request.POST.get('keywords')
+        if old_board == new_board and old_keywords == new_keywords:
+            return redirect('subscription_list')
+
         form = SubscriptionForm(request.POST, instance=subscription)
         if form.is_valid():
             form.save()
+
+            old_tokens = old_keywords.split(',')
+            new_tokens = new_keywords.split(',')
+            if str(old_board) == new_board:
+                for new_token in new_tokens:
+                    if new_token not in old_tokens:
+                        _increase_hot_level_for_token(new_token.strip(), old_board)
+
+                for old_token in old_tokens:
+                    if old_token not in new_tokens:
+                        _decrease_hot_level_for_token(old_token.strip(), old_board)
+
+            else:
+                for new_token in new_tokens:
+                    _increase_hot_level_for_token(new_token.strip(), new_board)
+                for old_token in old_tokens:
+                    _decrease_hot_level_for_token(old_token.strip(), old_board)
+
             # new_subscription = form.save()
             # return redirect(new_subscription.get_absolute_url())
             return redirect('subscription_list')
+
+    board = Board.objects.all()
+    board_category = BoardCategory.objects.all()
     return render(
         request,
         'subscription_update.html',
@@ -101,7 +150,11 @@ def subscription_delete(request, pk):
     subscription = get_object_or_404(Subscrption, pk=pk)
     if subscription.user_id == request.user.id:
         subscription.delete()
+        tokens = subscription.keywords.split(',')
+        for token in tokens:
+            _decrease_hot_level_for_token(token, subscription.board_id)
         return redirect('subscription_list')
+
     return HttpResponseForbidden()
 
 

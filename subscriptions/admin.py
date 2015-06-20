@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Subscrption, Notification, BoardScanning, Board, BoardCategory, MailSending
+from .models import Subscrption, Notification, BoardScanning, Board, BoardCategory, MailSending, KeywordToken
 
 
 class SubscriptionAdmin(admin.ModelAdmin):
@@ -65,9 +65,18 @@ class MailSendingAdmin(admin.ModelAdmin):
     )
 
 
+class KeywordTokenAdmin(admin.ModelAdmin):
+    list_display = (
+        'token',
+        'board',
+        'hot'
+    )
+
+
 admin.site.register(Subscrption, SubscriptionAdmin)
 admin.site.register(Notification, NotificationAdmin)
 admin.site.register(BoardScanning, BoardScanningAdmin)
 admin.site.register(Board, BoardAdmin)
 admin.site.register(BoardCategory, BoardCategoryAdmin)
 admin.site.register(MailSending, MailSendingAdmin)
+admin.site.register(KeywordToken, KeywordTokenAdmin)
