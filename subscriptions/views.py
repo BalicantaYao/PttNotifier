@@ -17,7 +17,6 @@ def notification_delete_all(request):
     Notification.objects.filter(subscription_user__user_id=user_id).update(is_read=True)
     redis_client = redis.StrictRedis(host='localhost', port=6379, db=0)
     redis_client.delete(user_id)
-    logging.log('referer: ' + request.META.get('HTTP_REFERER'))
     return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
 
