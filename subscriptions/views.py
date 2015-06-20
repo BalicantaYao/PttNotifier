@@ -1,8 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import Subscrption, Board, BoardCategory, Notification
 from django import forms
-from django.http import Http404
-from django.http import HttpResponseForbidden
+from django.http import Http404, HttpResponseForbidden, HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
 from django_ajax.decorators import ajax
 import redis
@@ -18,7 +17,8 @@ def notification_delete_all(request):
     Notification.objects.filter(subscription_user__user_id=user_id).update(is_read=True)
     redis_client = redis.StrictRedis(host='localhost', port=6379, db=0)
     redis_client.delete(user_id)
-    return render(request, '/', {})
+    logging.log('referer: ' + request.META.get('HTTP_REFERER'))
+    return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
 
 @login_required

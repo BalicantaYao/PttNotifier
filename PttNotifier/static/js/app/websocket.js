@@ -36,11 +36,12 @@
         for(var key in data) {
             htmlContent += '<li><a class="notification-item" href="' + key + '" target="_blank">' + data[key] + '</a></li>';
             counter++;
-            if (counter >= 5) {
+            //if (counter >= 5) {
                 htmlContent += '<li class="divider"></li> \
                     <li class="dropdown-fifty"><a href="/notifications/" class="notification-item-more">檢視全部</a></li> \
                     <li class="dropdown-fifty"><a href="/notifications/delete/" class="notification-item-more">清除全部</a></li>';
-                    break;
+            if (counter >= 5) {
+                break;
             }
         }
         targetDiv.append(htmlContent);
