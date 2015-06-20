@@ -43,5 +43,6 @@ main {
     float: left;
     width: 50% !important;
     clear: none !important;
-    padding-left: 5%;
+    text-align: center;
+    /*padding-left: 5%;*/
 }
