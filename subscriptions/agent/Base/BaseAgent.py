@@ -5,7 +5,7 @@
 # @Last Modified by:   bustta
 # @Last Modified time: 2015-01-26 23:09:28
 from bs4 import BeautifulSoup
-from ...models import BoardScanning
+from ...models import BoardScanning, Article
 import requests
 import re
 import logging
@@ -49,7 +49,7 @@ class BaseAgent():
         soup = self._get_soup_object(self.url)
         try:
             pre_page_url = self.PTT_PREFIX + soup.select('.wide')[1]['href']
-        except (IndexError):
+        except IndexError:
             logging.info('Got ' + self.url + ' pre page URL fail')
             return -1
         pre_page_num = self._get_page_code(pre_page_url)
@@ -74,6 +74,9 @@ class BaseAgent():
             author = item.select('.meta > .author')[0].text
             date = item.select('.meta > .date')[0].text
             entry_list.append({'topic': title, 'url': link, 'author': author, 'date': date})
+
+            Article.objects.update_or_create(topic=title, author=author, url=link, board_name=self.target)
+
         return entry_list
 
     def get_entries_after_last_fetch(self):

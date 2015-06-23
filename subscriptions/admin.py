@@ -1,5 +1,6 @@
 from django.contrib import admin
-from .models import Subscrption, Notification, BoardScanning, Board, BoardCategory, MailSending, KeywordToken
+from .models import Subscrption, Notification, BoardScanning, Board
+from .models import BoardCategory, MailSending, KeywordToken, Article
 
 
 class SubscriptionAdmin(admin.ModelAdmin):
@@ -73,6 +74,16 @@ class KeywordTokenAdmin(admin.ModelAdmin):
     )
 
 
+class ArticleAdmin(admin.ModelAdmin):
+    list_display = (
+        'topic',
+        'board_name',
+        'author',
+        'url',
+        'match_count'
+    )
+
+
 admin.site.register(Subscrption, SubscriptionAdmin)
 admin.site.register(Notification, NotificationAdmin)
 admin.site.register(BoardScanning, BoardScanningAdmin)
@@ -80,3 +91,4 @@ admin.site.register(Board, BoardAdmin)
 admin.site.register(BoardCategory, BoardCategoryAdmin)
 admin.site.register(MailSending, MailSendingAdmin)
 admin.site.register(KeywordToken, KeywordTokenAdmin)
+admin.site.register(Article, ArticleAdmin)
