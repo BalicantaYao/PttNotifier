@@ -9,6 +9,7 @@ from ...models import BoardScanning, Article
 import requests
 import re
 import logging
+import time
 
 
 class BaseAgent():
@@ -61,7 +62,7 @@ class BaseAgent():
         entry_list = []
         soup = self._get_soup_object(url)
         if len(soup.select('.wide')) <= 0:   # html structure change or HTTPError
-                return entry_list
+            return entry_list
 
         entries = soup.select('.r-ent')
 
@@ -75,7 +76,15 @@ class BaseAgent():
             date = item.select('.meta > .date')[0].text
             entry_list.append({'topic': title, 'url': link, 'author': author, 'date': date})
 
-            Article.objects.update_or_create(topic=title, author=author, url=link, board_name=self.target)
+            soup = self._get_soup_object(link)
+            article_meta = soup.select('.article-metaline > .article-meta-value')
+            published_time = None
+            if len(article_meta) > 2:
+                published_time = time.strptime(article_meta[2].text, "%a %b %d %H:%M:%S %Y")
+                published_time = time.strftime("%Y-%m-%d %H:%M:%S", published_time)
+
+            Article.objects.update_or_create(topic=title, author=author, url=link,
+                                             board_name=self.target, published_date=published_time)
 
         return entry_list
 

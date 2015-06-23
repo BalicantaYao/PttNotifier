@@ -80,6 +80,7 @@ class ArticleAdmin(admin.ModelAdmin):
         'board_name',
         'author',
         'url',
+        'published_date',
         'match_count'
     )
 

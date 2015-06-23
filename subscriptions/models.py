@@ -55,6 +55,7 @@ class Article(models.Model):
     board_name = models.CharField(max_length=255, default='')
     author = models.CharField(max_length=255)
     url = models.URLField()
+    published_date = models.DateTimeField(null=True)
     match_count = models.IntegerField(default=0)
 
 
