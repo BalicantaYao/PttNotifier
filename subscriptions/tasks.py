@@ -7,7 +7,7 @@ from __future__ import absolute_import
 import redis
 import json
 
-from .models import Subscrption, Notification
+from .models import Subscrption, Notification, Article
 from users.models import UserProfile
 from celery import shared_task
 
@@ -52,6 +52,13 @@ def scanBoard():
                                                      match_url=matched_article['url']).exists()
                 if isSent:
                     continue
+
+                row, created = Article.objects.get_or_create(
+                    topic=article_topic, author=matched_article['author'], url=matched_article['url'])
+                if not created:
+                    match_count = row.match_count + 1
+                    row.match_count = match_count
+                    row.save()
 
                 matched_article['keyword'] = subscription.keywords
                 matched_articles.append(matched_article)
