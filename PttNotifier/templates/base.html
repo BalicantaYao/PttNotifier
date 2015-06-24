@@ -30,6 +30,7 @@
                         <li><a href={% url 'subscription_create' %}>新增訂閱</a></li>
                         <li><a href={% url 'subscription_list' %}>訂閱清單</a></li>
                         <li><a href={% url 'hotkeyword_list' %}>熱門關鍵字</a></li>
+                        <li><a href={% url 'hotnotification_list' %}>熱門配對</a></li>
                         <li><a class="dropdown-button notifications-dropdown-container" href="#!" data-activates="notifications-binding">0<i class="mdi-notification-more right"></i></a></li>
                         <li id="user-li">
                             <a id="user-profile" href={% url 'user_profile' %}>{{ user.get_full_name|default:user.username }}</a>

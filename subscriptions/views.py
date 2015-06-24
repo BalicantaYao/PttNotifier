@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from .models import Subscrption, Board, BoardCategory, Notification, KeywordToken
+from .models import Subscrption, Board, BoardCategory, Notification, KeywordToken, Article
 from django import forms
 from django.http import Http404, HttpResponseForbidden, HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
@@ -37,10 +37,14 @@ def subscription_list(request):
         request, 'subscription_list.html', {'subscriptions': subscriptions})
 
 
-@login_required
 def hotkeyword_list(request):
     tokens = KeywordToken.objects.all().order_by('-hot')
     return render(request, 'hotkeywords.html', {'tokens': tokens})
+
+
+def hotnotification_list(request):
+    articles = Article.objects.filter(match_count__gt=0).order_by('match_count')
+    return render(request, 'hotnotifications.html', {'articles': articles})
 
 
 @login_required

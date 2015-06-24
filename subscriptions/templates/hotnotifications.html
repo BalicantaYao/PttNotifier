@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block title%}熱門配對 | {{ block.super }}{% endblock title%}
+{% block content %}
+<div class="row">
+    <table class="table responsive-table">
+        <tr>
+            <th>標題</th>
+            <th>看板</th>
+            <th>作者</th>
+            <th>配對次數</th>
+        </tr>
+        {% for article in articles %}
+        <tr class="notification_item notification_list_row">
+            <td><a href={{ article.url  }}>{{ article.topic }}</a></td>
+            <td>{{ article.board_name }}</td>
+            <td>{{ article.author }}</td>
+            <td>{{ article.match_count }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</div>
+{% endblock %}
